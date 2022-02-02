@@ -20,6 +20,9 @@ page{
 }
 .user_info view {
   font-size: 35rpx;
+
+  margin-top: 35rpx;
+  margin-bottom: 35rpx;
 }
 
 .item {
