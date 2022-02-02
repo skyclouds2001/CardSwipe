@@ -1,0 +1,33 @@
+<!--pages/friendInfo/friendInfo.wxml-->
+
+<view class="collect">
+
+  <!-- 标题部分 -->
+  <view class="title">朋友喜欢</view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+
+  <!-- 列表表头部分 -->
+    <view class="content_title">
+      <view class="content_title_id">编号</view>
+      <view class="content_title_name">礼物名称</view>
+      <view class="content_title_tag">标签</view>
+      <view class="content_title_img">礼物图片</view>
+    </view>
+    
+    <!-- 列表内容部分 -->
+    <view class="content_list">
+      <navigator class="content_list_item" wx:for="{{friend_info.gift_info}}" wx:key="gift_id" url="/pages/info/info">
+        <view class="content_item_id">{{item.gift_id}}</view>
+        <view class="content_item_name">{{item.gift_name}}</view>
+        <view class="content_item_tag">{{item.gift_tag}}</view>
+        <view class="content_item_img">
+          <image src="{{item.gift_img_src}}" mode="heightFix"></image>
+        </view>
+      </navigator>
+    </view>
+
+  </view>
+
+</view>

@@ -1,0 +1,112 @@
+/**index.wxss**/
+
+page {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  font-size: 28rpx;
+}
+
+.index {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  width: 100%;
+  height: 100%;
+}
+
+.imageBox {
+  display: block;
+
+  width: 100%;
+  height: 40vh;
+
+  background-color: transparent;
+}
+
+.imageBox:first-child {
+  position: relative;
+
+  width: auto;
+  height: 40vh;
+}
+
+.imageBox image {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  width: 100%;
+  height: 100%;
+}
+
+.imageBox navigator {
+  position: absolute;
+  right: 3rpx;
+  top: 3rpx;
+
+  width: 100rpx;
+  height: 50rpx;
+  background-color: rgb(164, 173, 179);
+
+  color: white;
+  font-size: 25rpx;
+  line-height: 50rpx;
+  text-align: center;
+  font-weight: bold;
+
+  border-radius: 10rpx;
+}
+
+.icon_star {
+  position: absolute;
+  bottom: 10rpx;
+  right: 10rpx;
+
+  width: 50rpx;
+  height: 50rpx;
+}
+.icon_love {
+  position: absolute;
+  left: -50rpx;
+  top: 10rpx;
+
+  width: 150rpx;
+  height: 150rpx;
+
+  transform: rotate(-15deg);
+}
+
+.giftInfo {
+  display: block;
+
+  width: 100%;
+  height: 50vh;
+
+  margin: 50rpx 0rpx;
+  padding: 5% 10%;
+}
+.name, .price {
+  display: inline-block;
+  width: 50%;
+  padding-bottom: 30rpx;
+}
+.content {
+  display: block;
+  width: 100%;
+}
+.giftInfo view {
+  padding: 10rpx;
+
+  text-align: center;
+}
+.giftInfo text {
+  display: inline-block;
+  line-height: 200%;
+}
+.content text {
+  line-height: 150%;
+}

@@ -1,0 +1,42 @@
+<!--pages/info/info.wxml-->
+
+<view class="info">
+
+  <!-- 上部礼物图片部分 -->
+  <view class="imageBox">
+    <image src="{{gift_info.url}}" mode="heightFix" class="giftImage"></image>
+    <view class="icon_star" bindtap="handleStarOnClick">
+      <image src="{{iconsrc[gift_info.is_collect ? 1 : 0]}}" mode="widthFix"></image>
+    </view>
+  </view>
+
+  <!-- 下部礼物信息部分 -->
+  <view class="giftInfo">
+    <!-- 礼物名称及价格 -->
+    <view class="name_price">
+      <view>礼物名称： {{gift_info.title}}</view>
+      <view>价格区间： {{gift_info.price}}</view>
+    </view>
+    <!-- 礼物标签 -->
+    <view class="label">礼物标签： {{gift_info.tag}}</view>
+    <!-- 礼物喜爱人数 -->
+    <view class="like">
+      <view class="boy number">
+        <view><text decode>boy&nbsp;&nbsp;{{gift_info.boylike}}&nbsp;&nbsp;{{gift_info.boyper}}%</text></view>
+        <progress percent="{{gift_info.boyper}}" activeColor="rgb(147, 192, 221)" backgroundColor="rgb(141, 140, 139)" active stroke-width="25"></progress>
+      </view>
+      <view class="girl number">
+        <view><text decode>girl&nbsp;&nbsp;{{gift_info.girllike}}&nbsp;&nbsp;{{gift_info.girlper}}%</text></view>
+        <progress percent="{{gift_info.girlper}}" activeColor="rgb(255, 211, 211)" backgroundColor="rgb(141, 140, 139)" active stroke-width="25"></progress>
+      </view>
+    </view>
+    <!-- 礼物路径 -->
+    <view class="path">
+      <text>{{gift_info.buyurl}}</text>
+    </view>
+    <!-- 礼物文案 -->
+    <view class="content">
+      <text>{{gift_info.des}}</text>
+    </view>
+  </view>
+</view>

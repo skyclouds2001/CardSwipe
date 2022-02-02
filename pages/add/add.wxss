@@ -1,0 +1,119 @@
+/* pages/add/add.wxss */
+
+/* 上部标题部分 */
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 50rpx;
+  color: rgb(107, 168, 209);
+
+  height: 100rpx;
+
+  border-bottom: 1rpx solid #ccc;
+}
+
+/* 列表总体部分 */
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  width: 100vw;
+  height: var(100vh - 100rpx);
+}
+.form_box {
+  background-color: #ddd;
+}
+.gift_name, .gift_discribe, .gift_price, .gift_pos, .gift_image {
+  background-color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 20rpx;
+
+  width: 100vw;
+}
+
+/* 列表细节部分 */
+.gift_name_title, .gift_discribe_title, .gift_price_title, .gift_pos_title {
+  flex: 1;
+
+  padding-left: 25rpx;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gift_name_title, .gift_price_title, .gift_pos_title {
+  height: 2em;
+}
+.gift_discribe_title {
+  height: 10em;
+}
+.gift_name_input, .gift_discribe_input, .gift_price_input, .gift_pos_input {
+  flex: 4;
+
+  color: #999;
+
+  border-left: 1rpx solid #ddd;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gift_discribe_input {
+  height: 12em;
+}
+.gift_name_input > input, .gift_discribe_input > textarea, .gift_price_input > input, .gift_pos_input > input {
+  width: 80%;
+}
+
+/* 图片提交模块 */
+.gift_image {
+  display: block;
+}
+.gift_image_title {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  padding-left: 25rpx;
+  
+  height: 2em;
+}
+.gift_image_title > view:last-child {
+  color: #bbb;
+}
+.gift_image_input {
+  padding: 20rpx;
+}
+.gift_image_input view {
+  width: 150rpx;
+  height: 150rpx;
+
+  border: 1rpx solid #ccc;
+
+  color: #aaa;
+  font-size: 125rpx;
+
+  line-height: 125rpx;
+  text-align: center;
+}
+
+/* submit按钮部分 */
+.gift_button {
+  background-color: white;
+
+  padding-top: 50rpx;
+}
+.gift_button button {
+  background-color: rgb(107,168,209);
+  color: white;
+
+  width: 200rpx;
+}

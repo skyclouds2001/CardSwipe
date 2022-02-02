@@ -1,0 +1,67 @@
+{
+  "pages": [
+    "pages/logs/logs",
+    "pages/welcome/welcome",
+    "pages/index/index",
+    "pages/info/info",
+    "pages/list/list",
+    "pages/recommend/recommend",
+    "pages/mine/mine",
+    "pages/collect/collect",
+    "pages/friend/friend",
+    "pages/friendInfo/friendInfo",
+    "pages/add/add",
+    "pages/problem/problem",
+    "pages/login/login"
+  ],
+  "entryPagePath": "pages/index/index",
+
+  "window": {
+    "backgroundColor": "#ddd",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "从心礼选",
+    "navigationBarTextStyle": "black",
+    "initialRenderingCache": "static",
+    "visualEffectInBackground": "hidden"
+  },
+
+  "tabBar": {
+    "color": "#494949",
+    "selectedColor": "#ffb8b8",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "icons/home.png",
+        "selectedIconPath": "icons/home_click.png"
+      },
+      {
+        "pagePath": "pages/list/list",
+        "text": "排行榜",
+        "iconPath": "icons/shaogouwu.png",
+        "selectedIconPath": "icons/shaogouwu_click.png"
+      },
+      {
+        "pagePath": "pages/recommend/recommend",
+        "text": "个性推荐",
+        "iconPath": "icons/ic_twitter_line.png",
+        "selectedIconPath": "icons/ic_twitter_line_click.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "icons/wode.png",
+        "selectedIconPath": "icons/wode_click.png"
+      }
+    ]
+  },
+
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+
+  "usingComponents": {}
+}

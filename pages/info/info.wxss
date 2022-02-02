@@ -1,0 +1,106 @@
+/* pages/info/info.wxss */
+
+page {
+  display: block;
+
+  width: 100vw;
+  min-height: 100vh;
+
+  font-size: 28rpx;
+}
+
+.info {
+  width: 100%;
+  height: 100%;
+  background-color: var(--theme-color-blue);
+}
+
+/* 上部礼物图片部分 */
+.imageBox {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 50vh;
+
+  background-color: white;
+
+  border-bottom: 1rpx solid #ccc;
+  padding-top: 15rpx;
+  padding-bottom: 15rpx;
+}
+
+.imageBox .giftImage {
+  height: 75%;
+}
+
+.imageBox .icon_star {
+  position: absolute;
+  right: 20rpx;
+  bottom: 10rpx;
+
+  z-index: 9;
+}
+.imageBox .icon_star image {
+  width: 50rpx;
+}
+
+/* 下部礼物信息部分 */
+.giftInfo {
+  font-size: 28rpx;
+
+  padding: 25rpx 15rpx 0;
+}
+
+.name_price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 100rpx 25rpx 0;
+}
+
+.label {
+  padding-bottom: 25rpx;
+}
+
+.like {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  padding-bottom: 25rpx;
+  padding-right: 150rpx;
+}
+.number {
+  flex: 1;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+  padding: 5rpx;
+}
+.number view {
+  flex: 1;
+}
+.number progress {
+  flex: 1;
+}
+
+.path {
+  padding-bottom: 25rpx;
+}
+
+.content {
+  padding-bottom: 25rpx;
+
+  line-height: 42rpx;
+  text-align: center;
+}

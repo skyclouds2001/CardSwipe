@@ -1,0 +1,27 @@
+<!--pages/recommend/recommend.wxml-->
+
+<view class="recommend">
+
+  <!-- 标题部分 -->
+  <view class="title">个性推荐</view>
+
+  <!-- 提示文字部分 -->
+  <view class="text">
+    <view class="line1">请点亮送礼对象的兴趣星球</view>
+    <view class="line2">我们将根据选择结果进行个性化推荐~</view>
+  </view>
+
+  <!-- 标签部分 -->
+  <view class="contain">
+    <view class="tag" wx:for="{{tag}}" wx:key="title" style="top: {{item.t}}; left: {{item.l}};" bindtap="handleSelect" data-id="{{item.id}}">
+      <view class="name">{{item.title}}</view>
+      <image class="icon" mode="widthFix" src="{{item.is_selected ? icon_click : icon}}"></image>
+    </view>
+  </view>
+
+  <!-- 按钮部分 -->
+  <view class="button">
+    <button bindtap="handleSubmit">确定</button>
+  </view>
+
+</view>

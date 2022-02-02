@@ -1,0 +1,59 @@
+<!--pages/list/list.wxml-->
+
+<view class="list">
+
+  <!-- 顶栏标题部分 -->
+  <view class="title">礼物排行榜</view>
+
+  <!-- 选择部分 -->
+  <view class="choice">
+
+    <!-- 上部三个身份选择 -->
+    <view class="identity">
+      <view class="{{chooseSituation === 0 ? 'pink' : 'gray'}}" bindtap="handleOnChooseSituation" data-id="0">热恋期</view>
+      <view class="{{chooseSituation === 1 ? 'pink' : 'gray'}}" bindtap="handleOnChooseSituation" data-id="1">追求ing</view>
+      <view class="{{chooseSituation === 2 ? 'pink' : 'gray'}}" bindtap="handleOnChooseSituation" data-id="2">普通朋友</view>
+    </view>
+
+    <!-- 下部性别爱好选择 -->
+    <view class="sex_interest">
+
+      <!-- 性别 -->
+      <view class="sex">
+        <view class="sex_content" bindtap="handleSelect" data-id="0">
+          <text decode>性别&nbsp;&nbsp;&nbsp;</text>
+          <text class="arrow-down"></text>
+        </view>
+        <view class="choose_sex" wx:if="{{isSelectedSex}}">
+          <view data-id="1" bindtap="handleOnChooseSex">girl</view>
+          <view data-id="0" bindtap="handleOnChooseSex">boy</view>
+        </view>
+      </view>
+
+      <!-- 爱好 -->
+      <view class="habbit">
+        <view class="habit_content" bindtap="handleSelect" data-id="1">
+          <text decode>爱好&nbsp;&nbsp;&nbsp;</text>
+          <text class="arrow-down"></text>
+        </view>
+        <view class="choose_habit" wx:if="{{isSelectedHabit}}">
+          <view wx:for="{{habitChoice}}" wx:key="*this" data-id="{{index}}" bindtap="handleOnChooseHabit">{{item}}</view>
+        </view>
+      </view>
+      
+    </view>
+
+  </view>
+
+  <!-- 礼物排行榜 -->
+  <view class="main_content">
+    <view class="gift_item" wx:for="{{giftInfo}}" wx:key="giftName">
+      <view class="gift_name">{{item.giftName}}</view>
+      <view class="gift_love_num">{{item.giftLoveNum}}</view>
+      <navigator class="gift_img" url="../../pages/info/info">
+        <image mode="heightFix" src="{{item.giftImgSrc}}"></image>
+      </navigator>
+    </view>
+  </view>
+
+</view>

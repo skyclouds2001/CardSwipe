@@ -1,0 +1,40 @@
+/* pages/problem/problem.wxss */
+
+/* 上部标题部分 */
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 50rpx;
+  color: rgb(107, 168, 209);
+
+  height: 100rpx;
+
+  border-bottom: 1rpx solid #ccc;
+}
+
+/* 下部表单部分 */
+.problem_text {
+  width: 100vw;
+  height: 40vh;
+  padding: 10rpx 5rpx;
+}
+.problem_text textarea {
+  border: 1rpx solid #ccc;
+
+  padding: 25rpx;
+  border: 1rpx solid #ccc;
+  width: 100%;
+  height: 100%;
+}
+
+.problem_button {
+  width: 100vw;
+  height: 100rpx;
+  padding: 50rpx;
+}
+.problem_button button {
+  background-color: rgb(107,168,209);
+  color: white;
+}

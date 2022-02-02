@@ -1,0 +1,19 @@
+<!--pages/mine/mine.wxml-->
+
+<view class="mine">
+
+  <!-- 上部用户信息部分 -->
+  <view class="user_info">
+    <image mode="widthFix" src="{{imgurl}}"></image>
+    <view>{{nickname}}</view>
+  </view>
+
+  <!-- 下部选项部分 -->
+  <view class="menu">
+    <navigator class="item {{item.isActive ? 'active' : ''}}" wx:for="{{menu_item}}" wx:key="text" bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{index}}" url="{{item.url}}">
+      <image mode="heightFix" src="{{item.isActive ? item.iconActiveSrc : item.iconSrc}}"></image>
+      <view class="text">{{item.text}}</view>
+    </navigator>
+  </view>
+
+</view>

@@ -1,0 +1,18 @@
+/**app.wxss**/
+
+page, view, text, swiper, swiper-item, image, navigator, icon, audio, video, from, input, textarea {
+  padding: 0rpx;
+  margin: 0rpx;
+  box-sizing: border-box;
+}
+
+page {
+  font-size: 28rpx;
+
+  --theme-color-blue: rgb(169, 203, 228);
+  --theme-color-pink: rgb(221, 190, 198);
+}
+
+image {
+  width: 100%;
+}

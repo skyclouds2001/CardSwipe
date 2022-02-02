@@ -1,0 +1,18 @@
+<!--pages/problem/problem.wxml-->
+
+<view class="problem">
+
+  <!-- 标题部分 -->
+  <view class="title">问题反馈</view>
+
+  <!-- 下部提交部分 -->
+  <form class="form" bindsubmit="submitProblem">
+    <view class="problem_text">
+      <textarea name="problem_content" value="" placeholder="请输入问题描述，我们在收到问题后，会尽快解决~" maxlength="1000" auto-focus hold-keyboard confirm-hold></textarea>
+    </view>
+    <view class="problem_button">
+      <button form-type="submit">提交</button>
+    </view>
+  </form>
+
+</view>

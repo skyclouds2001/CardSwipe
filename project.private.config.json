@@ -1,0 +1,102 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "welcome",
+          "pathName": "pages/welcome/welcome",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "info",
+          "pathName": "pages/info/info",
+          "query": "id=34555",
+          "scene": null,
+          "launchMode": "default"
+        },
+        {
+          "name": "list",
+          "pathName": "pages/list/list",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "recommend",
+          "pathName": "pages/recommend/recommend",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "mine",
+          "pathName": "pages/mine/mine",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "collect",
+          "pathName": "pages/collect/collect",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "friend",
+          "pathName": "pages/friend/friend",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "friendinfo",
+          "pathName": "pages/friendInfo/friendInfo",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "add",
+          "pathName": "pages/add/add",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "problem",
+          "pathName": "pages/problem/problem",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "login",
+          "pathName": "pages/login/login",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

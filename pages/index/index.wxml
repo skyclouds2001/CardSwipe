@@ -1,0 +1,30 @@
+<!--index.wxml-->
+
+<view class="index" style="background-image: url(../../images/background.jpg);">
+
+  <!-- 图片部分 -->
+  <view class="imageBox">
+    <view>
+      <image src="{{gift_info.url}}" mode="aspectFit"></image>
+      <navigator url="../info/info?id={{gift_info.id}}"	hover-stop-propagation="true" data-giftid="{{gift_info.id}}">详情</navigator>
+      <view class="icon_star" bindtap="handleStarOnClick">
+        <image src="{{gift_info.is_collect ? iconsrc_click: iconsrc}}"></image>
+      </view>
+    </view>
+    <view class="icon_love"><image src="../../icons/aixin.png"></image></view>
+  </view>
+
+  <!-- 礼物信息部分 -->
+  <view class="giftInfo">
+    <view class="name">
+      <text>{{gift_info.title}}</text>
+    </view>
+    <view class="price">
+      <text>￥{{gift_info.price}}</text>
+    </view>
+    <view class="content">
+      <text>{{gift_info.des}}</text>
+    </view>
+  </view>
+
+</view>

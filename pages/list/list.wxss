@@ -1,0 +1,145 @@
+/* pages/list/list.wxss */
+
+@import "/styles/arrow.wxss";
+
+page {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+}
+
+/* 顶栏标题部分 */
+.title {
+  width: 100%;
+  height: 100rpx;
+  background-color: rgb(142, 139, 139);
+
+  text-align: center;
+  font-size: 50rpx;
+  color: rgb(247,176,176);
+  font-weight: bold;
+  line-height: 75rpx;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  padding-top: 25rpx;
+}
+
+/* 中间选择部分 */
+.choice {
+  border-bottom: 1rpx solid #ccc;
+}
+
+.identity, .sex_interest {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 40rpx;
+}
+.identity > view, .sex_interest > view {
+  width: 150rpx;
+  height: 75rpx;
+
+  line-height: 75rpx;
+  text-align: center;
+}
+.identity > view {
+  border-radius: 10rpx;
+}
+.gray {
+  background-color: rgb(142, 139, 139);
+}
+.pink {
+  background-color: rgb(255, 179, 179);
+}
+.identity > view {
+  color: white;
+}
+.sex_interest > view {
+  background-color: rgb(160, 199, 226);
+}
+.sex, .habbit {
+  position: relative;
+}
+.sex_content, .habit_content {
+  width: 100%;
+  height: 100%;
+}
+.sex_content > text, .habit_content > text {
+  display: inline-block;
+}
+
+/* 性别选择下拉框 爱好下拉框 */
+.choose_sex, .choose_habit {
+  position: absolute;
+  top: 75rpx;
+  left: 0rpx;
+
+  width: 150rpx;
+  height: auto;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: 1rpx solid #aaa;
+}
+.choose_sex {
+  border-bottom: 0rpx;
+}
+.choose_habit {
+  overflow: scroll;
+
+  height: 450rpx;
+}
+.choose_sex > view, .choose_habit > view {
+  border-bottom: 1rpx solid #aaa;
+
+  width: 100%;
+  height: 100%;
+}
+.picked {
+  background-color: #999;
+  color: #ddd;
+}
+
+/* 下部礼物信息部分 */
+.gift_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 200rpx;
+
+  border-bottom: 1rpx solid #ccc;
+}
+.gift_name {
+  flex: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gift_love_num {
+  flex: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gift_img {
+  flex: 3;
+
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gift_img > image {
+  height: 80%;
+}

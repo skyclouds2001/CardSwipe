@@ -1,0 +1,47 @@
+/* pages/mine/mine.wxss */
+
+page{
+  background-color: #ebebeb;
+}
+
+/* 上部用户信息部分 */
+.user_info {
+  width: 100vw;
+  height: 30vh;
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.user_info image {
+  width: 30%;
+}
+.user_info view {
+  font-size: 35rpx;
+}
+
+.item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  height: 100rpx;
+  width: 100%;
+
+  padding-left: 25rpx;
+}
+.item image {
+  height: 40%;
+}
+.item view {
+  font-size: 30rpx;
+
+  padding-left: 25rpx;
+}
+
+.active {
+  background-color: rgb(217, 216, 216);
+  color: rgb(230, 120, 120);
+}

@@ -1,0 +1,66 @@
+<!--pages/add/add.wxml-->
+
+<view class="add">
+
+  <!-- 标题部分 -->
+  <view class="title">礼物添加</view>
+
+  <!-- 下部礼物提交部分 -->
+  <form catchsubmit="submitGiftInfo" class="form">
+    <view class="form_box">
+
+      <!-- 礼物名称 -->
+      <view class="gift_name">
+        <view class="gift_name_title">礼物名称</view>
+        <view class="gift_name_input">
+          <input type="text" value="" maxlength="12" placeholder="请输入礼物标题（少于12字）" name="gift_name"/>
+        </view>
+      </view>
+
+      <!-- 礼物描述 -->
+      <view class="gift_discribe">
+        <view class="gift_discribe_title">礼物描述</view>
+        <view class="gift_discribe_input">
+          <textarea value="" maxlength="200" placeholder="请输入您的礼物描述" name="gift_discribe"></textarea>
+        </view>
+      </view>
+
+      <!-- 礼物价格 -->
+      <view class="gift_price">
+        <view class="gift_price_title">礼物价格</view>
+        <view class="gift_price_input">
+          <input type="text" value="" placeholder="请输入礼物价格" name="gift_price" />
+        </view>
+      </view>
+
+      <!-- 礼物来源 -->
+      <view class="gift_pos">
+        <view class="gift_pos_title">礼物来源</view>
+        <view class="gift_pos_input">
+          <input type="text" value="" placeholder="请输入淘口令或购买途径" name="gift_pos" />
+        </view>
+      </view>
+
+      <!-- 图片上传 -->
+      <view class="gift_image">
+        <view class="gift_image_title">
+          <view>
+            <!-- 请上传Excel文件，文件中礼物数量不超过100个 -->
+            图片上传（耐心等待成功提示后再点击提交哦）
+          </view>
+          <view>0/1</view>
+        </view>
+        <view class="gift_image_input" bindtap="handleUpdateImg">
+          <view bindtap="">+</view>
+        </view>
+      </view>
+
+      <!-- 提交模块 -->
+      <view class="gift_button">
+        <button form-type="submit">提交</button>
+      </view>
+
+    </view>
+  </form>
+
+</view>
