@@ -25,11 +25,19 @@
         </view>
       </view>
 
+      <!-- 礼物标签 -->
+      <view class="gift_tags">
+        <view class="gift_tags_title">礼物标签</view>
+        <view class="gift_tags_input">
+          <input type="text" value="" placeholder="请输入礼物标签" name="gift_tags" />
+        </view>
+      </view>
+
       <!-- 礼物价格 -->
       <view class="gift_price">
         <view class="gift_price_title">礼物价格</view>
         <view class="gift_price_input">
-          <input type="text" value="" placeholder="请输入礼物价格" name="gift_price" />
+          <input type="text" value="" placeholder="请输入礼物价格范围" name="gift_price" />
         </view>
       </view>
 
@@ -50,8 +58,11 @@
           </view>
           <view>0/1</view>
         </view>
-        <view class="gift_image_input" bindtap="handleUpdateImg">
-          <view bindtap="">+</view>
+        <view class="gift_image_input">
+          <view wx:if="{{imgurl.length !== 0}}">
+            <image src="{{imgurl}}" mode="widthFix"></image>
+          </view>
+          <view wx:else bindtap="handleUpdateImg">+</view>
         </view>
       </view>
 
