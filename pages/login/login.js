@@ -16,16 +16,24 @@ Page({
     const {userInfo} = res;
     wx.setStorageSync('userinfo', userInfo);
 
-    // 换取openid
+    // 换取openid和token
     const code = wx.getStorageSync('code');
-    const re = await request({
+    const {data} = await request({
       url: '/login/wx',
       method: 'POST',
       data: {
         code
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
       }
     });
-    console.log(re);
+    console.log(data);
+
+    const {token} = data.data;
+    const {openid} = data.data.user;
+    wx.setStorageSync('token', token);
+    wx.setStorageSync('openid', openid);
 
     wx.navigateBack({
       delta: 1
