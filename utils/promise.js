@@ -46,3 +46,23 @@ export const login = () => {
     })
   })
 }
+
+export const chooseMedia = ({
+  count,
+  mediaType,
+  sourceType
+}) => {
+  return new Promise((resolve, reject) => {
+    wx.chooseMedia({
+      count,
+      mediaType,
+      sourceType,
+      success: (res) => {
+        resolve(res);
+      },
+      fail: (err) => {
+        reject(err);
+      }
+    })
+  })
+}
