@@ -27,7 +27,7 @@
 .form_box {
   background-color: #ddd;
 }
-.gift_name, .gift_discribe, .gift_price, .gift_pos, .gift_image {
+.gift_name, .gift_discribe, .gift_price, .gift_pos, .gift_imag, .gift_tags {
   background-color: #fff;
 
   display: flex;
@@ -40,7 +40,7 @@
 }
 
 /* 列表细节部分 */
-.gift_name_title, .gift_discribe_title, .gift_price_title, .gift_pos_title {
+.gift_name_title, .gift_discribe_title, .gift_price_title, .gift_pos_title, .gift_tags_title {
   flex: 1;
 
   padding-left: 25rpx;
@@ -49,13 +49,13 @@
   justify-content: center;
   align-items: center;
 }
-.gift_name_title, .gift_price_title, .gift_pos_title {
+.gift_name_title, .gift_price_title, .gift_pos_title, .gift_tags_title {
   height: 2em;
 }
 .gift_discribe_title {
   height: 10em;
 }
-.gift_name_input, .gift_discribe_input, .gift_price_input, .gift_pos_input {
+.gift_name_input, .gift_discribe_input, .gift_price_input, .gift_pos_input, .gift_tags_input {
   flex: 4;
 
   color: #999;
@@ -69,13 +69,15 @@
 .gift_discribe_input {
   height: 12em;
 }
-.gift_name_input > input, .gift_discribe_input > textarea, .gift_price_input > input, .gift_pos_input > input {
+.gift_name_input > input, .gift_discribe_input > textarea, .gift_price_input > input, .gift_pos_input > input, .gift_tags_input > input {
   width: 80%;
 }
 
 /* 图片提交模块 */
 .gift_image {
   display: block;
+
+  background-color: #fff;
 }
 .gift_image_title {
   display: flex;
@@ -83,6 +85,7 @@
   justify-content: space-around;
 
   padding-left: 25rpx;
+  /* border-bottom: 1rpx solid #ccc; */
   
   height: 2em;
 }
@@ -91,11 +94,16 @@
 }
 .gift_image_input {
   padding: 20rpx;
+  padding-bottom: 40rpx;
+
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
 .gift_image_input view {
   width: 150rpx;
   height: 150rpx;
-
+  margin-right: 25rpx;
   border: 1rpx solid #ccc;
 
   color: #aaa;
@@ -103,6 +111,16 @@
 
   line-height: 125rpx;
   text-align: center;
+
+  overflow: hidden;
+}
+.gift_image_input image {
+  width: 150px;
+}
+.gift_image_input view:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* submit按钮部分 */
