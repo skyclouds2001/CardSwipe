@@ -91,7 +91,8 @@ Page({
         url: '/gift/user/addTag',
         data: {
           openid,
-          tags: [this.sex, ...this.selectedTag]
+          sex: this.sex,
+          tags: this.selectedTag
         }
       });
       console.log(res);
