@@ -43,7 +43,7 @@ Page({
     nickname: '昵称'
   },
 
-  onLoad: function (options) {
+  onShow: function (options) {
     try {
       const userinfo = wx.getStorageSync('userinfo') || [];
       if(userinfo.length !== 0) {
