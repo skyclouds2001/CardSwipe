@@ -61,6 +61,7 @@
         <view class="gift_image_input">
           <view wx:if="{{imgurl.length !== 0}}">
             <image src="{{imgurl}}" mode="widthFix"></image>
+            <view class="del_img" bindtap="handleRemoveImg">✖</view>
           </view>
           <view wx:else bindtap="handleUpdateImg">+</view>
         </view>
