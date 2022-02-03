@@ -27,6 +27,7 @@ Page({
           problem: problem_content,
           examine: 0,
           id: 0
+          // question: problem_content
         },
         header: {
           'content-type': 'application/json'
