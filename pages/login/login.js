@@ -28,7 +28,6 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       }
     });
-    console.log(data);
 
     const {token} = data.data;
     const {openid} = data.data.user;
