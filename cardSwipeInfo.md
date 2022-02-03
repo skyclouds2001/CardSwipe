@@ -2,18 +2,18 @@
 
 | 序号 | 页面 | pages字段页面名称 |
 | :---: | :---: | :---: |
-| 1 | 欢迎 | welcome |
+| 1 | 欢迎 | welcome | <!--  done  -->
 | 2 | 礼物评测 | index | tab页 |
-| 3 | 礼物详情 | info |
+ | 3 | 礼物详情 | info | <!--  done  -->
 | 4 | 礼物排行榜 | list | tab页 |
 | 5 | 个性化推荐 | recommend | tab页 |
-| 6 | "我的"页面 | mine | tab页 | done
+| 6 | "我的"页面 | mine | tab页 | <!--  done  -->
 | 7 | 我的收藏 | collect |
 <!-- | 8 | 我的朋友 | friend | -->
 <!-- | 9 | 朋友详情 | friend_info | -->
-| 10 | 礼物添加 | add |  done
+| 10 | 礼物添加 | add | <!--  done  -->
 | 11 | 问题反馈 | problem |
-| 12 | 登录 | login | done
+| 12 | 登录 | login | <!--  done  -->
 
 图标：空心 首页 排行榜？个性推荐 我的？
 
