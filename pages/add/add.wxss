@@ -100,7 +100,7 @@
   justify-content: left;
   align-items: center;
 }
-.gift_image_input view {
+.gift_image_input > view {
   width: 150rpx;
   height: 150rpx;
   margin-right: 25rpx;
@@ -117,10 +117,24 @@
 .gift_image_input image {
   width: 150px;
 }
-.gift_image_input view:first-child {
+.gift_image_input > view:first-child {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  position: relative;
+}
+.del_img {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  font-size: 35rpx;
+  line-height: 35rpx;
+  border-radius: 50%;
+
+  color: white;
+  background-color: #999;
 }
 
 /* submit按钮部分 */
