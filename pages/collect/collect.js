@@ -15,25 +15,37 @@ Page({
       }
     ]
   },
+  token: '',
+  openid: '',
 
   onLoad: function (options) {
     try {
       const token = wx.getStorageSync('token') || '';
-      this.getCollectInfo(token);
+      const openid = wx.getStorageSync('openid') || '';
+      this.token = token;
+      this.openid = openid;
+
+      this.getCollectInfo();
     } catch (err) {
       console.log(err);
     }
   },
 
   // 获取收藏信息
-  async getCollectInfo(token) {
+  async getCollectInfo() {
+    const token = this.token;
+
     const res = await request({
       url: '/gift/gift/selectCollectGift',
+      method: 'GET',
       data: {
         token
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
       }
     });
-    console.log(res);
+    console.log(res.data);
 
     // this.setData({
     //   gift_data: {}
