@@ -25,6 +25,7 @@ page{
   margin-bottom: 35rpx;
 }
 
+/* 下部部分 */
 .item {
   display: flex;
   justify-content: flex-start;
@@ -34,6 +35,8 @@ page{
   width: 100%;
 
   padding-left: 25rpx;
+
+  border-bottom: 1px solid #999;
 }
 .item image {
   height: 40%;
@@ -44,6 +47,7 @@ page{
   padding-left: 25rpx;
 }
 
+/* 选项点击选中改变样式 */
 .active {
   background-color: rgb(217, 216, 216);
   color: rgb(230, 120, 120);
