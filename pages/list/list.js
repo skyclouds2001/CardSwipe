@@ -14,11 +14,11 @@ Page({
     isSelectedHabit: false,
     // 礼物信息
     giftInfo: [
-      // {
-      //   giftName: "礼物",
-      //   giftLoveNum: 23,
-      //   giftImgSrc: "../../images/1.jpg"
-      // }
+      {
+        giftName: "礼物",
+        giftLoveNum: 23,
+        giftImgSrc: "../../images/1.jpg"
+      }
     ],
 
     // 记录选择的身份，仅可单选  默认0.1.2
@@ -32,8 +32,12 @@ Page({
   giftRankAll: [],
   // 记录已加载的礼物数量
   giftNumber: 0,
+  openid: '',
 
   onLoad: function (options) {
+    const openid = wx.getStorageSync('openid') || '';
+    this.openid = openid;
+
     this.getGiftList();
     this.setGiftList();
   },
@@ -46,6 +50,7 @@ Page({
   async getGiftList() {
     // 获取各参数
     const {chooseSituation, chooseSex, chooseHabit, habitChoice} = this.data;
+    const openid = this.openid;
     // 提取tags各参数值
     const situation = ["热恋期", "追求ing", "普通朋友"][chooseSituation];
     const sex = chooseSex === 0 ? 'male' : 'female';
@@ -56,17 +61,20 @@ Page({
       url: '/gift/gift/getTopByTag',
       method: 'POST',
       data: {
-        openid: '',
+        openid,
+        sex,
         tags: [
           situation,
-          sex,
           choice
         ]
+      },
+      header: {
+        'Content-Type': 'application/json'
       }
     });
-    
+    console.log(res.data);
     // 存储礼物信息
-    this.giftRankAll = res.data.data['gift_rank:'];
+    // this.giftRankAll = res.data.data['gift_rank:'];
   },
 
   // 加载礼物
