@@ -21,20 +21,21 @@ Page({
   // 记录选中的标签
   selectedTag: [],
 
-  onLoad: function (options) {
+  onLoad: function () {
     // 检查有无个人身份信息
-    const userinfo = wx.getStorageSync('userinfo');
     const openid = wx.getStorageSync('openid');
 
     // 没有个人信息先获取昵称和头像url
-    if(!userinfo || !openid) {
+    if(!openid) {
       showToast({
         title: '为了更好的使用体验，请您先登录',
         icon: 'none'
       });
-      wx.navigateTo({
-        url: '../../pages/login/login',
-      });
+      setTimeout(() => {
+        wx.navigateTo({
+          url: '../../pages/login/login'
+        });
+      }, 1500);
     }
   },
   
@@ -87,15 +88,18 @@ Page({
 
     // 提交信息
     try {
-      const res = await request({
+      await request({
         url: '/gift/user/addTag',
+        method: 'POST',
         data: {
           openid,
-          sex: this.sex,
+          sex: this.sex === 0 ? '男' : '女',
           tags: this.selectedTag
+        },
+        header: {
+          'content-type': 'application/json'
         }
       });
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
