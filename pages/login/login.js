@@ -27,12 +27,16 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       }
-    });
+    });console.log(data);
 
-    const {token} = data.data;
-    const {openid} = data.data.user;
-    wx.setStorageSync('token', token);
-    wx.setStorageSync('openid', openid);
+    if(data.data.user) {
+      const {token} = data.data.user;
+      const {openid} = data.data.user;
+      wx.setStorageSync('token', token);
+      wx.setStorageSync('openid', openid);
+    } else {
+      console.log('error in get openid');
+    }
 
     wx.navigateBack({
       delta: 1
