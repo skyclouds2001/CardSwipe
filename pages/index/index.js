@@ -34,7 +34,7 @@ Page({
     iconsrc_click: "../../icons/shoucang _click.png"
   },
   openid: '',
-  page: 0,
+  page: 1,
 
   onLoad: function () {
     // 先检测有无用户信息
@@ -54,7 +54,7 @@ Page({
       const openid = wx.getStorageSync('openid') || '';
       this.openid = openid;
     }
-    
+
     this.getGiftInfo();
   },
 
