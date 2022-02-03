@@ -4,7 +4,7 @@ page {
   display: block;
 
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
 
   font-size: 28rpx;
 }
@@ -62,6 +62,10 @@ page {
 
   padding: 0 100rpx 25rpx 0;
 }
+.name {
+  font-weight: bold;
+  font-size: 35rpx;
+}
 
 .label {
   padding-bottom: 25rpx;
@@ -86,11 +90,16 @@ page {
 
   width: 100%;
   padding: 5rpx;
+  margin-top: 10rpx;
 }
-.number view {
+.number > view {
   flex: 1;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.number progress {
+.number > progress {
   flex: 1;
 }
 
@@ -101,6 +110,6 @@ page {
 .content {
   padding-bottom: 25rpx;
 
-  line-height: 42rpx;
-  text-align: center;
+  line-height: 1.5em;
+  text-align: left;
 }
