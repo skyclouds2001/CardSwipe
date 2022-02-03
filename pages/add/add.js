@@ -2,7 +2,7 @@
 
 import {request} from '../../lib/request.js';
 import regeneratorRuntime from '../../lib/runtime.js';
-import {showToast, chooseMedia} from '../../utils/promise.js';
+import {showToast, chooseMedia, showModal} from '../../utils/promise.js';
 
 Page({
   data: {
@@ -89,7 +89,7 @@ Page({
         url: 'https://www.yangxiangrui.xyz:9092/eduoss/fileoss',
         timeout: 60000,
         header: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data"
         },
         success: async (res) => {
           await showToast({
@@ -105,6 +105,23 @@ Page({
           console.log(err);
         }
       });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  // 删除图片方法
+  async handleRemoveImg() {
+    try {
+      const res = await showModal({
+        title: '确认删除图片？',
+        content: ''
+      });
+      if(res.confirm) {
+        this.setData({
+          imgurl: ''
+        });
+      }
     } catch (err) {
       console.log(err);
     }
