@@ -33,45 +33,56 @@ Page({
     iconsrc: "../../icons/shoucang.png",
     iconsrc_click: "../../icons/shoucang _click.png"
   },
+  openid: '',
+  page: 0,
 
-  onLoad: function (options) {
+  onLoad: function () {
     // 先检测有无用户信息
     // 没有表示尚未登录
-    const userinfo = wx.getStorageSync('userinfo');
     const openid = wx.getStorageSync('openid');
-    if(!userinfo || !openid) {
+    this.openid = openid;
+
+    if(!openid) {
       wx.navigateTo({
         url: '../../pages/welcome/welcome'
       });
     }
   },
 
-  onShow: function (options) {
+  onShow: function () {
+    if(!this.openid) {
+      const openid = wx.getStorageSync('openid') || '';
+      this.openid = openid;
+    }
+    
     this.getGiftInfo();
   },
 
   // 获取礼物信息方法
   async getGiftInfo() {
     try {
-      // 请求获取信息
-      const openid = wx.getStorageSync('openid') || '';
-
+      // 请求获取礼物信息
       const res = await request({
         url: '/gift/gift/getGift',
+        method: 'GET',
         data: {
-          openid
+          openid: this.openid,
+          page: this.page
+        },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
         }
       });
-      console.log(res);
+      this.page = this.page + 1;
+
+      console.log(res.data);
 
       // 提取礼物信息并更新页面内容
-      const {giftList} = res;
-      giftList.is_collect = false;
-      this.setData({
-        gift_info: giftList
-      });
-
-      wx.setStorageSync('giftinfo', giftList);
+      // const {giftList} = res;
+      // giftList.is_collect = false;
+      // this.setData({
+      //   gift_info: giftList
+      // });
     } catch (err) {
       console.log(err);
     }
@@ -79,12 +90,22 @@ Page({
 
   // 用户点击收藏响应
   handleStarOnClick: function(e) {
+    // 更新至data对象
     const {gift_info} = this.data;
     const {is_collect} = gift_info;
     gift_info.is_collect = !is_collect;
     this.setData({
       gift_info
     });
-    wx.setStorageSync('giftinfo', gift_info);
+
+    // 更新至存储: 保存礼物id
+    let collect = wx.getStorageSync('collect') || [];
+    const index = collect.indexOf(gift_info.id);
+    if(gift_info.is_collect && index === -1) {
+      collect.push(gift_info.id);
+    } else if (!gift_info.is_collect && index !== -1) {
+      collect.splice(index, 1);
+    }
+    wx.setStorageSync('collect', collect);
   }
 })
