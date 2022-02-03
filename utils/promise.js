@@ -66,3 +66,21 @@ export const chooseMedia = ({
     })
   })
 }
+
+export const showModal = ({
+  title,
+  content
+}) => {
+  return new Promise((resolve, reject) => {
+    wx.showModal({
+      title,
+      content,
+      success: (res) => {
+        resolve(res);
+      },
+      fail: (err) => {
+        reject(err);
+      }
+    });
+  });
+}
