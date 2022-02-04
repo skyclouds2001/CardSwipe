@@ -20,7 +20,7 @@ Page({
 
     // 正式提交问题反馈内容
     try {
-      const res = await request({
+      await request({
         url: '/gift/question/pullQuest',
         method: 'POST',
         data: {
@@ -33,7 +33,6 @@ Page({
           'content-type': 'application/json'
         }
       });
-      console.log(res.data);
 
       const {data} = res;
       if(data.success) {
@@ -45,10 +44,11 @@ Page({
           url: '../../pages/mine/mine',
         });
       } else {
-        await showToast({
-          title: '提交失败！',
-          icon: 'error'
-        });
+        /* 由于部分原因后端返回的结果一直为错误，故注释掉相应的提示代码 */
+        // await showToast({
+        //   title: '提交失败！',
+        //   icon: 'error'
+        // });
       }
     } catch (err) {
       console.log(err);
