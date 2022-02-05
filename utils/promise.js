@@ -36,7 +36,7 @@ export const showToast = ({
 export const login = () => {
   return new Promise((resolve, reject) => {
     wx.login({
-      timeout: 1000,
+      timeout: 10000,
       success: (res) => {
         resolve(res);
       },
