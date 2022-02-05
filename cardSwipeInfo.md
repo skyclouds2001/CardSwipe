@@ -5,7 +5,7 @@
 | 1 | 欢迎 | welcome | <!--  done  -->
 | 2 | 礼物评测 | index | tab页 |
  | 3 | 礼物详情 | info | <!--  done  -->
-| 4 | 礼物排行榜 | list | tab页 |
+| 4 | 礼物排行榜 | list | tab页 | <!--  done  -->
 | 5 | 个性化推荐 | recommend | tab页 |
 | 6 | "我的"页面 | mine | tab页 | <!--  done  -->
 | 7 | 我的收藏 | collect |
