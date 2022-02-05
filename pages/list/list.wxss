@@ -107,6 +107,27 @@ page {
   color: #ddd;
 }
 
+/* 
+ * @ 2022/2/5 
+ * 新增的下拉框效果
+ * 由JS改为利用CSS实现
+ */
+.choose_sex, .choose_habit {
+  display: none;
+}
+.sex:hover .choose_sex, .habbit:hover .choose_habit {
+  display: flex;
+}
+
+/* 
+ * @ 2022/2/6 
+ * 新增的下拉框样式效果
+ * 记录选中内容
+ */
+.select {
+  background-color: #eee;
+}
+
 /* 下部礼物信息部分 */
 .gift_item {
   display: flex;
@@ -114,6 +135,7 @@ page {
   align-items: center;
 
   height: 200rpx;
+  margin: 0rpx 20rpx;
 
   border-bottom: 1rpx solid #ccc;
 }
