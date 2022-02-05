@@ -8,25 +8,16 @@ Page({
 
   data: {
     // 渲染爱好下拉框所用
-    habitChoice: [ "运动", "读书", "旅行", "美食", "收藏", "艺术", "桌游", "网游", "智力游戏", "学习", "美丽", "帅气" ],
-    // 实现下拉框功能用
-    isSelectedSex: false,
-    isSelectedHabit: false,
+    habitChoice: ["运动", "读书", "旅行", "美食", "收藏", "艺术", "桌游", "网游", "智力游戏", "学习", "美丽", "帅气"],
     // 礼物信息
-    giftInfo: [
-      {
-        giftName: "礼物",
-        giftLoveNum: 23,
-        giftImgSrc: "../../images/1.jpg"
-      }
-    ],
+    giftInfo: [],
 
     // 记录选择的身份，仅可单选  默认0.1.2
     chooseSituation: 0,
     // 记录选择的性别，仅可单选  默认0男性 1女性
     chooseSex: 0,
-    // 记录选择的爱好，仅可单选  默认为-1
-    chooseHabit: -1
+    // 记录选择的爱好，仅可单选  默认为0
+    chooseHabit: 0
   },
   // 记录礼物完整信息
   giftRankAll: [],
@@ -38,12 +29,15 @@ Page({
     const openid = wx.getStorageSync('openid') || '';
     this.openid = openid;
 
-    this.getGiftList();
-    this.setGiftList();
+    (async () => {
+      await this.getGiftList();
+      await this.setGiftList();
+    })();
   },
 
   onReachBottom: function (options) {
-    this.setGiftList();
+    if(this.giftNumber !== 50)
+      this.setGiftList();
   },
 
   // 获取礼物
@@ -53,7 +47,7 @@ Page({
     const openid = this.openid;
     // 提取tags各参数值
     const situation = ["热恋期", "追求ing", "普通朋友"][chooseSituation];
-    const sex = chooseSex === 0 ? 'male' : 'female';
+    const sex = chooseSex === 0 ? '男' : '女';
     const choice = habitChoice[chooseHabit];
 
     // 请求礼物信息
@@ -72,13 +66,13 @@ Page({
         'Content-Type': 'application/json'
       }
     });
-    console.log(res.data);
+
     // 存储礼物信息
-    // this.giftRankAll = res.data.data['gift_rank:'];
+    this.giftRankAll = res?.data?.data['gift_rank:'];
   },
 
   // 加载礼物
-  setGiftList() {
+  async setGiftList() {
     // 获取礼物下标
     const start = this.giftNumber;
     const end = (this.giftNumber + 6) <= 50 ? (this.giftNumber + 6) : 50;
@@ -93,33 +87,11 @@ Page({
     this.giftNumber = end;
   },
 
-  // 下拉框响应
-  handleSelect(e) {
-    const {id} = e.currentTarget.dataset;
-
-    switch(id) {
-      case "0":
-        let {isSelectedSex} = this.data;
-        isSelectedSex = !isSelectedSex;
-        this.setData({
-          isSelectedSex
-        });
-        break;
-      case "1":
-        let {isSelectedHabit} = this.data;
-        isSelectedHabit = !isSelectedHabit;
-        this.setData({
-          isSelectedHabit
-        });
-        break;
-    }
-  },
-
   // 身份情况选择
   handleOnChooseSituation(e) {
     const {id} = e.currentTarget.dataset;
     let {chooseSituation} = this.data;
-    chooseSituation = id;
+    chooseSituation = Number(id);
     this.setData({
       chooseSituation
     });
@@ -139,5 +111,13 @@ Page({
     this.setData({
       chooseHabit: id
     });
+  },
+
+  // 更新礼物方法
+  handleUpdateGiftInfo() {
+    (async () => {
+      await this.getGiftList();
+      await this.setGiftList();
+    })();
   }
 })
