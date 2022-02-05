@@ -47,7 +47,7 @@
     "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.21.3",
+  "libVersion": "2.22.0",
   "appid": "wx37d2ea0b6d0ceffa",
   "projectname": "cardSwipe",
   "debugOptions": {
