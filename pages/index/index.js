@@ -41,21 +41,15 @@ Page({
     // 没有表示尚未登录
     const openid = wx.getStorageSync('openid');
     this.openid = openid;
+    this.page = 1;
 
     if(!openid) {
       wx.navigateTo({
         url: '../../pages/welcome/welcome'
       });
+    } else {
+      this.getGiftInfo();
     }
-  },
-
-  onShow: function () {
-    if(!this.openid) {
-      const openid = wx.getStorageSync('openid') || '';
-      this.openid = openid;
-    }
-
-    this.getGiftInfo();
   },
 
   // 获取礼物信息方法
@@ -63,7 +57,7 @@ Page({
     try {
       // 请求获取礼物信息
       const res = await request({
-        url: '/gift/gift/getGift',
+        url: `/gift/gift/getGift/${this.openid}/${this.page}`,
         method: 'GET',
         data: {
           openid: this.openid,
