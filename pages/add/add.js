@@ -48,9 +48,11 @@ Page({
           title: '提交成功！',
           icon: 'success'
         });
-        wx.navigateTo({
-          url: '../../pages/mine/mine',
-        });
+        setTimeout(() => {
+          wx.switchTab({
+            url: '../../pages/mine/mine',
+          });
+        }, 1500);
       } else {
         await showToast({
           title: '提交失败！',
