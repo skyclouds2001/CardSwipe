@@ -33,13 +33,13 @@ Page({
 
   // 获取收藏信息
   async getCollectInfo() {
-    const token = this.token;
+    const openid = this.openid;
 
     const res = await request({
-      url: '/gift/gift/selectCollectGift',
+      url: `/gift/gift/selectCollectGift`,
       method: 'GET',
       data: {
-        token
+        openid
       },
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
