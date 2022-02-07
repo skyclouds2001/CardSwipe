@@ -52,7 +52,9 @@ page {
 .giftInfo {
   font-size: 28rpx;
 
-  padding: 25rpx 15rpx 0;
+  padding: 25rpx 25rpx 0;
+  
+  box-sizing: border-box;
 }
 
 .name_price {
