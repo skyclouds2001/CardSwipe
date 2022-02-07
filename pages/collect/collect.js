@@ -31,7 +31,7 @@ Page({
       this.openid = openid;
 
       const res = await request({
-        url: '/gift/gift/selectCollectGift',
+        url: `/gift/collection/select/${openid}`,
         method: 'GET',
         data: {
           openid
@@ -40,11 +40,15 @@ Page({
           "Content-Type": "application/x-www-form-urlencoded"
         }
       });
-      console.log(res.data);
   
-      // this.setData({
-      //   gift_data: {}
-      // });
+      const collect = res.data.data['collections:'];
+
+      // 添加is_on_delete属性
+      collect.map(v => v['is_on_delete'] = false);
+
+      this.setData({
+        gift_data: collect
+      });
     } catch (err) {
       console.log(err);
     }
