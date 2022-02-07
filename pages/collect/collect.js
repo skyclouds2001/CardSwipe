@@ -106,8 +106,19 @@ Page({
   // 项目点击事件：未显示删除按钮跳转至详情页面，显示删除按钮隐藏删除按钮
   async handleCollectionInfo (e) {
     const {index} = e.currentTarget.dataset;
-    const flag = this.data.gift_data[index].is_on_delete;
+    const {gift_data} = this.data;
+    const flag = gift_data[index].is_on_delete;
 
-    if(flag) {} else {}
+    if(flag) {
+      const {id} = e.currentTarget.dataset;
+      wx.navigateTo({
+        url: `../../pages/info/info?id=${id}`,
+      });
+    } else {
+      gift_data[index].is_on_delete = false;
+      this.setData({
+        gift_data
+      });
+    }
   },
 })
