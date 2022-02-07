@@ -12,14 +12,11 @@ Page({
     gift_info: {}
   },
 
-  onLoad: function (options) {
+  onLoad: async function (options) {
     const {id} = options;
-    this.getGiftInfo(id);
-  },
 
-  // 获取礼物
-  async getGiftInfo(id) {
     try {
+      // 请求获取礼物信息
       const {data} = await request({
         url: '/gift/gift/getGiftById/' + id,
         method: 'GET',
@@ -31,6 +28,7 @@ Page({
         }
       });
 
+      // 请求成功则设置礼物信息；否则弹出提示信息
       if(data.success) {
         const {gift} = data.data;
         gift.is_collect = false;
