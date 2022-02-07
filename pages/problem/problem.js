@@ -21,7 +21,15 @@ Page({
 
     // 正式提交问题反馈内容
     try {
-      await request({
+      let qus = {
+        examine: 0,
+        id: 0,
+        insertTime: new Date().toString(),
+        name: userinfo.nickName,
+        question: problem_content,
+        url: userinfo.avatarUrl
+      }; console.log(qus);
+      const res = await request({
         url: '/gift/question/pullQuest',
         method: 'POST',
         data: {
@@ -29,16 +37,15 @@ Page({
             examine: 0,
             id: 0,
             insertTime: new Date().toString(),
-            name: userinfo.nickname,
+            name: userinfo.nickName,
             question: problem_content,
             url: userinfo.avatarUrl
           }
         },
         header: {
-          'content-type': 'application/json'
+          'Content-Type': 'application/json'
         }
-      });
-
+      });console.log(res);
       /* 由于部分原因后端返回的结果一直为错误，故注释掉相应的提示代码 */
       // const {data} = res;
       // if(data.success) {
