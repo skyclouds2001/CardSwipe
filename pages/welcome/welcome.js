@@ -28,7 +28,7 @@ Page({
     // 没有个人信息先获取昵称和头像url
     if(!openid) {
       showToast({
-        title: '为了更好的使用体验，请您先登录',
+        title: '为了更好的使用体验，请先登录',
         icon: 'none'
       });
       setTimeout(() => {
@@ -39,7 +39,7 @@ Page({
     }
   },
   
-  onShow: function (options) {
+  onShow: function () {
     // 检查并设置初始页面位于页面1
     if(this.data.STATE != 1) {
       this.setData({
@@ -81,13 +81,13 @@ Page({
     this.selectedTag = selectedTag;
   },
 
-  // 提交按钮
+  // 提交按钮：提交信息；更新记录使用者性别
   async handleSubmit(e) {
     // 获取openid
     const openid = wx.getStorageSync('openid');
 
-    // 提交信息
     try {
+      // 提交信息
       await request({
         url: '/gift/user/addTag',
         method: 'POST',
@@ -100,6 +100,13 @@ Page({
           'content-type': 'application/json'
         }
       });
+
+      // 记录性别
+      const userinfo = wx.getStorageSync('userinfo');
+      if(this.sex !== userinfo.gender) {
+        userinfo.gender = this.sex;
+        wx.setStorageSync('userinfo', userinfo);
+      }
     } catch (err) {
       console.log(err);
     }
