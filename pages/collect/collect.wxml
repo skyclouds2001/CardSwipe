@@ -18,15 +18,15 @@
     
     <!-- 列表内容部分 -->
     <view class="content_list">
-      <view class="content_list_item" wx:for="{{gift_data}}" wx:key="gift_id" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-index="{{index}}" bindtap="handleCollectionInfo" data-id="{{item.gift_id}}">
+      <view class="content_list_item" wx:for="{{gift_data}}" wx:key="gift_id" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-index="{{index}}" bindtap="handleCollectionInfo" data-id="{{item.id}}">
         <view class="{{item.is_on_delete ? 'delete' : ''}}">
-          <view class="content_item_id">{{item.gift_id}}</view>
-          <view class="content_item_name">{{item.gift_name}}</view>
-          <view class="content_item_tag">{{item.gift_tag}}</view>
+          <view class="content_item_id">{{item.id}}</view>
+          <view class="content_item_name">{{item.title}}</view>
+          <view class="content_item_tag">{{item.tag ? item.tag : ' '}}</view>
           <view class="content_item_img">
-            <image src="{{item.gift_img_src}}" mode="heightFix"></image>
+            <image src="{{item.url}}" mode="heightFix"></image>
           </view>
-          <view class="content_item_delete" catchtap="handleDeleteCollection" data-id="{{item.gift_id}}">删除</view>
+          <view class="content_item_delete" catchtap="handleDeleteCollection" data-id="{{item.id}}">删除</view>
         </view>
         
       </view>
