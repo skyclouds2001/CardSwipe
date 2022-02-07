@@ -8,7 +8,7 @@
 | 4 | 礼物排行榜 | list | tab页 | <!--  done  -->
 | 5 | 个性化推荐 | recommend | tab页 |
 | 6 | "我的"页面 | mine | tab页 | <!--  done  -->
-| 7 | 我的收藏 | collect |
+| 7 | 我的收藏 | collect | <!--  done  -->
 <!-- | 8 | 我的朋友 | friend | -->
 <!-- | 9 | 朋友详情 | friend_info | -->
 | 10 | 礼物添加 | add | <!--  done  -->
