@@ -109,7 +109,7 @@ Page({
     const {gift_data} = this.data;
     const flag = gift_data[index].is_on_delete;
 
-    if(flag) {
+    if(!flag) {
       const {id} = e.currentTarget.dataset;
       wx.navigateTo({
         url: `../../pages/info/info?id=${id}`,
