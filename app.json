@@ -8,8 +8,6 @@
     "pages/recommend/recommend",
     "pages/mine/mine",
     "pages/collect/collect",
-    "pages/friend/friend",
-    "pages/friendInfo/friendInfo",
     "pages/add/add",
     "pages/problem/problem",
     "pages/login/login"
