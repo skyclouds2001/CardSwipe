@@ -1,11 +1,11 @@
 <!--index.wxml-->
 
-<view class="index" style="background-image: url(../../images/background.jpg);">
+<view class="index" style="background-image: url(../../images/background.jpg);" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-id="{{gift_info.id}}">
 
   <!-- 图片部分 -->
   <view class="imageBox">
     <view>
-      <image src="{{gift_info.url}}" mode="aspectFit"></image>
+      <image src="{{gift_info.url}}" mode="aspectFit" lazy-load catchtap="handlePreviewImage" data-url="{{gift_info.url}}"></image>
       <navigator url="../info/info?id={{gift_info.id}}"	hover-stop-propagation="true" data-giftid="{{gift_info.id}}">详情</navigator>
       <view class="icon_star" bindtap="handleStarOnClick">
         <image src="{{gift_info.is_collect ? iconsrc_click: iconsrc}}"></image>
@@ -20,10 +20,10 @@
       <text>{{gift_info.title}}</text>
     </view>
     <view class="price">
-      <text>￥{{gift_info.price}}</text>
+      <text>{{gift_info.price ? '￥' + gift_info.price : '价格未知'}}</text>
     </view>
     <view class="content">
-      <text>{{gift_info.des}}</text>
+      <text>{{gift_info.des ? gift_info.des : ''}}</text>    
     </view>
   </view>
 
