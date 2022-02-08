@@ -23,7 +23,7 @@
         </text>
       </view>
       <!-- 图标部分 -->
-      <view class="icon_love_black"><image src="/icons/aixin.png" mode="heightFix"></image></view>
+      <view class="icon_love_black"><image src="../../icons/aixin.png" mode="heightFix"></image></view>
     </view>
 
     <!-- 页面之二 -->
@@ -36,9 +36,9 @@
         <view class="boy" data-sex="0" bindtap="handleChooseSex">boy</view>
       </view>
       <!-- 图片部分 -->
-      <image class="choice_img" mode="widthFix" src="/images/boy_girl.png"></image>
+      <image class="choice_img" mode="widthFix" src="../../images/boy-girl.png"></image>
       <!-- 图标部分 -->
-      <image class="icon_love_pink" src="/icons/aixin_click.png" mode="heightFix"></image>
+      <image class="icon_love_pink" src="../../icons/aixin_click.png" mode="heightFix"></image>
     </view>
 
     <!-- 页面之三 -->
