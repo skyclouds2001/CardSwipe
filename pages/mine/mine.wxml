@@ -10,10 +10,22 @@
 
   <!-- 下部选项部分 -->
   <view class="menu">
-    <navigator class="item {{item.isActive ? 'active' : ''}}" wx:for="{{menu_item}}" wx:key="text" bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{index}}" url="{{item.url}}">
-      <image mode="heightFix" src="{{item.isActive ? item.iconActiveSrc : item.iconSrc}}"></image>
-      <view class="text">{{item.text}}</view>
+
+    <navigator class="item" hover-class="active" hover-stop-propagation bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{0}}" url="../../pages/collect/collect">
+      <image mode="heightFix" src="{{isActive === 0 ? '../../icons/shoucang _click.png' : '../../icons/shoucang.png'}}"></image>
+      <view class="text">我的收藏</view>
     </navigator>
+
+    <navigator class="item" hover-class="active" hover-stop-propagation bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{1}}" url="../../pages/problem/problem">
+      <image mode="heightFix" src="{{isActive === 1 ? '../../icons/xinfeng_click.png' : '../../icons/xinfeng.png'}}"></image>
+      <view class="text">问题反馈</view>
+    </navigator>
+
+    <navigator class="item" hover-class="active" hover-stop-propagation bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{2}}" url="../../pages/add/add">
+      <image mode="heightFix" src="{{isActive === 2 ? '../../icons/shaogouwu_click.png' : '../../icons/shaogouwu.png'}}"></image>
+      <view class="text">礼物添加</view>
+    </navigator>
+
   </view>
 
 </view>
