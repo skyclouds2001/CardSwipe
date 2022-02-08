@@ -46,14 +46,14 @@ Page({
     return {
       title: '从心礼选',
       query: '../../pages/index/index',
-      imageUrl: '../../images/share-img.jpg',
+      imageUrl: 'https://edu-1014.oss-cn-beijing.aliyuncs.com/2022/02/08/8c1e0e85b4c341639e93d34d7f1a5306share-img.jpg',
     };
   },
 
   onAddToFavorites: function () {
     return {
       title: '从心礼选',
-      imageUrl: '../../images/share-img.jpg',
+      imageUrl: 'https://edu-1014.oss-cn-beijing.aliyuncs.com/2022/02/08/8c1e0e85b4c341639e93d34d7f1a5306share-img.jpg',
       query: '../../pages/index/index',
     }
   },
