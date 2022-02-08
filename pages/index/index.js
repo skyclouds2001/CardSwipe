@@ -36,8 +36,33 @@ Page({
     } else {
       this.openid = openid;
       this.page = 1;
+      this.index = 0;
+      
       this.getGiftInfo();
     }
+  },
+
+  onShareAppMessage: function () {
+    return {
+      title: '从心礼选',
+      query: '../../pages/index/index',
+      imageUrl: '../../images/share-img.jpg',
+    };
+  },
+
+  onAddToFavorites: function () {
+    return {
+      title: '从心礼选',
+      imageUrl: '../../images/share-img.jpg',
+      query: '../../pages/index/index',
+    }
+  },
+
+  onShareTimeline: function () {
+    return {
+      title: '从心礼选',
+      query: '../../pages/index/index',
+    };
   },
 
   // 获取礼物信息方法
@@ -73,14 +98,64 @@ Page({
   },
 
   // 用户点击收藏响应
-  handleStarOnClick(e) {
-    // 更新至data对象
+  async handleCollect() {
+    // 更新信息至data对象
     const {gift_info} = this.data;
-    const {is_collect} = gift_info;
-    gift_info.is_collect = !is_collect;
+    gift_info.is_collect = !gift_info.is_collect;
     this.setData({
       gift_info
     });
+
+    // 请求更新数据
+    if(gift_info.is_collect) {
+      const res = await request({
+        url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
+        method: 'GET',
+        data: {
+          openid: this.openid,
+          cid: gift_info.id,
+        },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      
+      if(res?.data?.success) {
+        showToast({
+          title: '收藏成功',
+          icon: 'success',
+        });
+      } else {
+        showToast({
+          title: '收藏失败\n请稍后再试',
+          icon: 'error',
+        });
+      }
+    } else {
+      const res = await request({
+        url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
+        method: 'GET',
+        data: {
+          openid: this.openid,
+          cid: gift_info.id,
+        },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      
+      if(res?.data?.success) {
+        showToast({
+          title: '取消收藏成功',
+          icon: 'success',
+        });
+      } else {
+        showToast({
+          title: '取消收藏失败\n请稍后再试',
+          icon: 'error',
+        });
+      }
+    }
   },
 
   // 处理左滑右滑
@@ -101,8 +176,8 @@ Page({
     this.cy = -1;
 
     if (Math.abs(x - cx) > 50 && Math.abs(y - cy) < 50) {
-      // 左滑：不喜欢 删除该礼物并刷新礼物
-      // 右滑：喜欢 保留该礼物并刷新
+      // 左滑：不喜欢 刷新礼物
+      // 右滑：喜欢 刷新礼物
       
       // 自增礼物下标
       this.index = this.index + 1;
@@ -124,8 +199,9 @@ Page({
         gift_info: gift, 
       });
     }
+
     if(cx - x > 50 && Math.abs(y - cy) < 50) {
-      // 左滑：不喜欢 删除该礼物并刷新礼物
+      // 左滑：不喜欢 删除该礼物
 
       // 提取礼物id
       const {id} = e.currentTarget.dataset;
@@ -133,6 +209,19 @@ Page({
       const index = this.gift.findIndex(v => v.id === id);
       // 删除该礼物
       this.gift.splice(index, 1);
+
+      showToast({
+        title: '已选择不喜欢该商品',
+        icon: 'none',
+      });
+    }
+
+    if(x - cx > 50 && Math.abs(y - cy) < 50) {
+      // 右滑：喜欢
+      showToast({
+        title: '已选择喜欢该商品',
+        icon: 'none',
+      });
     }
 
   },
