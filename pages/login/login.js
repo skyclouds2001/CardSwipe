@@ -22,7 +22,7 @@ Page({
         code,
       },
       header: {
-        'content-type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
 
