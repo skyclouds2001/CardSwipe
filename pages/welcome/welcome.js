@@ -8,7 +8,7 @@ Page({
   
   data: {
     // 标记页面进度所处的状态，将整个页面分为页面1、页面2、页面3
-    STATE: 1,
+    STATE: 0,
 
     // 页面3渲染用标签名数组
     tag_name: [
@@ -29,28 +29,32 @@ Page({
     if(!openid) {
       showToast({
         title: '为了更好的使用体验，请先登录',
-        icon: 'none'
+        icon: 'none',
       });
       setTimeout(() => {
         wx.navigateTo({
-          url: '../../pages/login/login'
+          url: '../../pages/login/login',
         });
       }, 1500);
+    } else {
+      wx.switchTab({
+        url: '../../pages/index/index',
+      });
     }
   },
   
   onShow: function () {
     // 检查并设置初始页面位于页面1
-    if(this.data.STATE != 1) {
+    if(this.data.STATE !== 1) {
       this.setData({
-        STATE: 1
+        STATE: 1,
       });
     }
 
     // 设置页面1至页面2的跳转，延迟时间3s
     setTimeout(() => {
       this.setData({
-        STATE: 2
+        STATE: 2,
       });
     }, 3000);
   },
@@ -115,5 +119,5 @@ Page({
     wx.switchTab({
       url: '/pages/index/index',
     });
-  }
-})
+  },
+});
