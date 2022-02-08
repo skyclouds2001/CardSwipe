@@ -44,19 +44,23 @@ Page({
   },
   
   onShow: function () {
-    // 检查并设置初始页面位于页面1
-    if(this.data.STATE !== 1) {
-      this.setData({
-        STATE: 1,
-      });
-    }
+    const openid = wx.getStorageSync('openid');
+    
+    if(openid) {
+      // 检查并设置初始页面位于页面1
+      if(this.data.STATE !== 1) {
+        this.setData({
+          STATE: 1,
+        });
+      }
 
-    // 设置页面1至页面2的跳转，延迟时间3s
-    setTimeout(() => {
-      this.setData({
-        STATE: 2,
-      });
-    }, 3000);
+      // 设置页面1至页面2的跳转，延迟时间3s
+      setTimeout(() => {
+        this.setData({
+          STATE: 2,
+        });
+      }, 3000);
+    }
   },
 
   // 选择与记录性别
