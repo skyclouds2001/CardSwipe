@@ -36,7 +36,7 @@
         <view class="boy" data-sex="0" bindtap="handleChooseSex">boy</view>
       </view>
       <!-- 图片部分 -->
-      <image class="choice_img" mode="widthFix" src="../../images/boy-girl.png"></image>
+      <image class="choice_img" mode="widthFix" src="https://edu-1014.oss-cn-beijing.aliyuncs.com/2022/02/08/77faf42b391b4a0ab1e07fb1b9214201boy-girl.png"></image>
       <!-- 图标部分 -->
       <image class="icon_love_pink" src="../../icons/aixin_click.png" mode="heightFix"></image>
     </view>
