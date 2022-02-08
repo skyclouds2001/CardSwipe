@@ -75,13 +75,13 @@ Page({
     const {gift_data} = this.data;
     let flag = gift_data[index].is_on_delete;
 
-    if(cx - x > 50 && Math.abs(y - cy) < 50 && !flag) {
+    if(cx - x > 50 && Math.abs(y - cy) < 50 && !flag) { // 左滑
       gift_data[index].is_on_delete = true;
       this.setData({
         gift_data
       });
     }
-    if(x - cx > 50 && Math.abs(y - cy) < 50 && flag) {
+    if(x - cx > 50 && Math.abs(y - cy) < 50 && flag) { // 右滑
       gift_data[index].is_on_delete = false;
       this.setData({
         gift_data
