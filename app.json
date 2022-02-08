@@ -14,7 +14,7 @@
     "pages/problem/problem",
     "pages/login/login"
   ],
-  "entryPagePath": "pages/index/index",
+  "entryPagePath": "pages/welcome/welcome",
 
   "window": {
     "backgroundColor": "#ddd",
