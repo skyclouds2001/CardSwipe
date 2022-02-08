@@ -22,14 +22,20 @@ Page({
     // 先检测有无用户信息
     // 没有表示尚未登录
     const openid = wx.getStorageSync('openid');
-    this.openid = openid;
-    this.page = 1;
 
     if(!openid) {
-      wx.navigateTo({
-        url: '../../pages/welcome/welcome',
+      showToast({
+        title: '为了更好的使用体验，请先登录',
+        icon: 'none',
       });
+      setTimeout(() => {
+        wx.navigateTo({
+          url: '../../pages/login/login',
+        });
+      }, 1500);
     } else {
+      this.openid = openid;
+      this.page = 1;
       this.getGiftInfo();
     }
   },
@@ -77,7 +83,7 @@ Page({
     });
   },
 
-  // 处理左滑右滑时间
+  // 处理左滑右滑
   cx: -1,
   cy: -1,
   handleTouchStart(e) {
