@@ -1,3 +1,14 @@
 <!--pages/login/login.wxml-->
 
-<button type="primary" plain bindtap="handleGetUserInfo">登录</button>
+<view class="login">
+  <!-- 背景部分 -->
+  <view class="background">
+    <view class="bgBox" style="background-color: rgb(255, 238, 238);"></view>
+    <view class="bgBox" style="background-color: rgb(182, 212, 232);"></view>
+  </view>
+
+  <!-- 登录按钮 -->
+  <view class="button">
+    <button type="primary" bindtap="handleGetUserInfo">登录</button>
+  </view>
+</view>
