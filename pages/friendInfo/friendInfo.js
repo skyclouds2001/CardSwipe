@@ -7,21 +7,11 @@ Page({
 
   data: {
     friend_info: {
-      friend_icon_url: '/images/1.jpg',
-      friend_name: '天空的云',
+      friend_icon_url: '',
+      friend_name: '',
       friend_id: 0,
-      gift_info: [
-        {
-          gift_id: 0,
-          gift_name: '礼物',
-          gift_tag: '精美',
-          gift_img_src: '/images/1.jpg'
-        }
-      ]
-    }
+      gift_info: [],
+    },
   },
 
-  onLoad: function (options) {
-
-  }
-})
+});
