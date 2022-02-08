@@ -41,10 +41,10 @@ page{
 
   border-bottom: 1px solid #999;
 }
-.item image {
+.item > image {
   height: 40%;
 }
-.item view {
+.item > view {
   font-size: 30rpx;
 
   padding-left: 25rpx;
