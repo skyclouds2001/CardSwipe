@@ -5,23 +5,51 @@
   <!-- 标题部分 -->
   <view class="title">个性推荐</view>
 
-  <!-- 提示文字部分 -->
-  <view class="text">
-    <view class="line1">请点亮送礼对象的兴趣星球</view>
-    <view class="line2">我们将根据选择结果进行个性化推荐~</view>
-  </view>
+  <!-- 选择标签页 -->
+  <block wx:if="{{!STATE}}">
 
-  <!-- 标签部分 -->
-  <view class="contain">
-    <view class="tag" wx:for="{{tag}}" wx:key="title" style="top: {{item.t}}; left: {{item.l}};" bindtap="handleSelect" data-id="{{item.id}}">
-      <view class="name">{{item.title}}</view>
-      <image class="icon" mode="widthFix" src="{{item.is_selected ? icon_click : icon}}"></image>
+    <!-- 提示文字部分 -->
+    <view class="text">
+      <view class="line1">请点亮送礼对象的兴趣星球</view>
+      <view class="line2">我们将根据选择结果进行个性化推荐~</view>
     </view>
-  </view>
 
-  <!-- 按钮部分 -->
-  <view class="button">
-    <button bindtap="handleSubmit">确定</button>
-  </view>
+    <!-- 标签部分 -->
+    <view class="contain">
+      <view class="tag {{item.is_selected ? 'pink' : ''}}" wx:for="{{tag}}" wx:key="title" style="top: {{item.t}}; left: {{item.l}};" bindtap="handleSelect" data-id="{{item.id}}">
+        <view class="name">{{item.title}}</view>
+        <image class="icon" mode="widthFix" src="{{item.is_selected ? icon_click : icon}}"></image>
+      </view>
+    </view>
+
+    <!-- 按钮部分 -->
+    <view class="button">
+      <button bindtap="handleSubmit">确定</button>
+    </view>
+
+  </block>
+
+  <!-- 礼物显示页 -->
+  <block wx:else>
+
+    <view class="main_content">
+
+      <view class="gift_title">
+        <view>礼物名称</view>
+        <view>礼物匹配度</view>
+        <view>礼物图片</view>
+      </view>
+
+      <view class="gift_item" wx:for="{{gift}}" wx:key="id" data-id="{{item.id}}" catchtap="handleJump">
+        <view class="gift_name">{{item.title}}</view>
+        <view class="gift_love_num">{{item.boylike + item.girllike}}</view>
+        <view class="gift_img">
+          <image mode="heightFix" src="{{item.url}}"></image>
+        </view>
+      </view>
+
+    </view>
+
+  </block>
 
 </view>
