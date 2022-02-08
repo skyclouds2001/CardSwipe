@@ -1,9 +1,14 @@
 /* pages/recommend/recommend.wxss */
 
+/* 整体部分 */
 .recommend {
   width: 100vw;
   height: 100vh;
+
+  box-sizing: border-box;
 }
+
+/* 标签提交页部分 */
 
 /* 标题部分 */
 .title {
@@ -21,6 +26,7 @@
 /* 提示文字部分 */
 .text {
   padding-left: 50rpx;
+  margin-top: 25rpx;
 
   font-weight: bold;
   line-height: 1.5em;
@@ -31,9 +37,8 @@
 
 /* 标签部分 */
 .contain {
-  height: calc(100vh - 110rpx - 125rpx - 84rpx - 20rpx);
+  height: calc(100vh - 110rpx - 125rpx - 84rpx - 25rpx);
   width: 100vw;
-  margin-top: 20rpx;
 
   position: relative;
 }
@@ -58,6 +63,10 @@
   width: 1.5em;
 }
 
+.pink {
+  color: var(--theme-color-pink);
+}
+
 /* 按钮部分 */
 .button{
   display: flex;
@@ -79,6 +88,59 @@
   background-color: var(--theme-color-blue);
 }
 .button button:hover {
-  background-color: var(--theme-color-pink);
-  color: #555;
+  box-shadow: 0px 0px 5px #ccc;
+}
+
+/* 礼物信息页部分 */
+.main_content {
+  overflow: scroll;
+
+  width: 100vw;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gift_item, .gift_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 200rpx;
+  width: 100%;
+  padding: 0rpx 25rpx;
+
+  border-top: 1rpx solid #ccc;
+}
+.gift_item > view, .gift_title > view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}
+
+.gift_title {
+  height: 100rpx;
+
+  background-color: rgb(255, 236, 236);
+}
+
+.gift_name, .gift_title > view:nth-child(1) {
+  flex: 2;
+}
+
+.gift_love_num, .gift_title > view:nth-child(2) {
+  flex: 2;
+}
+
+.gift_img, .gift_title > view:nth-child(3) {
+  flex: 3;
+}
+
+.gift_img > image {
+  height: 80%;
 }
