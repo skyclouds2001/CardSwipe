@@ -6,7 +6,7 @@ import {showToast, chooseMedia, showModal} from '../../utils/promise.js';
 
 Page({
   data: {
-    imgurl: ''
+    imgurl: '',
   },
 
   // 提交礼物信息方法
@@ -18,7 +18,7 @@ Page({
       if(value[v].trim().length === 0) {
         await showToast({
           title: '信息不能为空',
-          icon: 'error'
+          icon: 'error',
         });
         return;
       }
@@ -35,18 +35,18 @@ Page({
           tag: value.gift_tags,
           title: value.gift_name,
           url: this.data.imgurl,
-          price: value.gift_price
+          price: value.gift_price,
         },
         header: {
-          'content-type': 'application/json'
-        }
+          'content-type': 'application/json',
+        },
       });
 
       const {data} = res;
       if(data.success) {
         await showToast({
           title: '提交成功！',
-          icon: 'success'
+          icon: 'success',
         });
         setTimeout(() => {
           wx.switchTab({
@@ -56,7 +56,7 @@ Page({
       } else {
         await showToast({
           title: '提交失败！',
-          icon: 'error'
+          icon: 'error',
         });
       }
     } catch (err) {
@@ -71,7 +71,7 @@ Page({
     if(this.data.imgurl) {
       await showToast({
         title: '只可上传一张图片',
-        icon: 'error'
+        icon: 'error',
       });
       return;
     }
@@ -81,7 +81,7 @@ Page({
       const res = await chooseMedia({
         count: 1,
         mediaType: ['image'],
-        sourceType: ['album', 'camera']
+        sourceType: ['album', 'camera'],
       });
       
       // 上传图片
@@ -91,21 +91,21 @@ Page({
         url: 'https://www.yangxiangrui.xyz:9092/eduoss/fileoss',
         timeout: 60000,
         header: {
-          "Content-Type": "multipart/form-data"
+          "Content-Type": "multipart/form-data",
         },
         success: async (res) => {
           await showToast({
             title: '图片上传成功',
-            icon: 'success'
+            icon: 'success',
           });
           const data = JSON.parse(res.data);
           this.setData({
-            imgurl: data.data.url
+            imgurl: data.data.url,
           });
         },
         fail: (err) => {
           console.log(err);
-        }
+        },
       });
     } catch (err) {
       console.log(err);
@@ -117,15 +117,16 @@ Page({
     try {
       const res = await showModal({
         title: '确认删除图片？',
-        content: ''
+        content: '',
       });
       if(res.confirm) {
         this.setData({
-          imgurl: ''
+          imgurl: '',
         });
       }
     } catch (err) {
       console.log(err);
     }
-  }
-})
+  },
+
+});
