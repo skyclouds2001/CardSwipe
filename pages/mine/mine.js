@@ -7,7 +7,7 @@ Page({
 
   data: {
     // 头像链接
-    imgurl: '../../images/1.jpg',
+    imgurl: '',
     // 昵称
     nickname: '昵称',
     // 标记活跃的项
