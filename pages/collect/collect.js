@@ -6,22 +6,7 @@ import regeneratorRuntime from '../../lib/runtime.js';
 Page({
 
   data: {
-    gift_data: [
-      {
-        gift_id: 99216,
-        gift_name: "西瓜",
-        gift_tag: "水果",
-        gift_img_src: "../../images/1.jpg",
-        is_on_delete: false
-      },
-      {
-        gift_id: 99209,
-        gift_name: "西瓜",
-        gift_tag: "水果",
-        gift_img_src: "../../images/1.jpg",
-        is_on_delete: false
-      },
-    ]
+    gift_data: [],
   },
   openid: '',
 
