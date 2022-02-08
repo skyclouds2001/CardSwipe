@@ -10,7 +10,7 @@ Page({
     icon: '../../icons/shoucang.png',
     icon_click: '../../icons/shoucang _click.png',
     gift: {},
-    STATE: 0,  // 记录分页：0代表选择标签页，1代表礼物页
+    STATE: false,  // 记录分页：false代表选择标签页，true代表礼物页
   },
   openid: '',
 
@@ -27,7 +27,7 @@ Page({
 
     // 强制重置初始为信息提交页
     this.setData({
-      STATE: 0,
+      STATE: false,
     });
   },
 
@@ -59,6 +59,7 @@ Page({
     });
 
     if(res.data.data['gift_rank:']) {
+      
       // 提交成功提示
       await showToast({
         title: '提交成功',
@@ -66,11 +67,13 @@ Page({
       });
 
       // 跳转礼物信息页 & 提取记录礼物信息
-      const gift = res.data.data['gift_rank:'];
-      this.setData({
-        gift,
-        STATE: 1,
-      });
+      setTimeout(() => {
+        const gift = res.data.data['gift_rank:'];
+        this.setData({
+          gift,
+          STATE: true,
+        });
+      }, 1500);
       
     } else {
       await showToast({
@@ -89,7 +92,15 @@ Page({
     tag[index].is_selected = !tag[index].is_selected;
 
     this.setData({
-      tag
+      tag,
+    });
+  },
+
+  // 礼物点击跳转
+  handleJump(e) {
+    const {id} = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `../../pages/info/info?id=${id}`,
     });
   },
 
@@ -119,12 +130,12 @@ Page({
         l: tag_l[i] + '%',
         t: tag_t[i] + '%',
         is_selected: false,
-        id: i
+        id: i,
       });
     }
 
     this.setData({
-      tag
+      tag,
     });
   },
 })
