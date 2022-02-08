@@ -9,8 +9,9 @@ Page({
   data: {
     iconsrc: "../../icons/shoucang.png",
     iconsrcSelect: "../../icons/shoucang _click.png",
-    gift_info: {}
+    gift_info: {},
   },
+  openid: '',
 
   onLoad: async function (options) {
     const {id} = options;
@@ -21,11 +22,11 @@ Page({
         url: '/gift/gift/getGiftById/' + id,
         method: 'GET',
         data: {
-          id
+          id,
         },
         header: {
-          'content-type': 'application/x-www-form-urlencoded'
-        }
+          'content-type': 'application/x-www-form-urlencoded',
+        },
       });
 
       // 请求成功则设置礼物信息；否则弹出提示信息
@@ -33,37 +34,82 @@ Page({
         const {gift} = data.data;
         gift.is_collect = false;
         this.setData({
-          gift_info: data.data.gift
+          gift_info: data.data.gift,
         });
       } else {
         await showToast({
-          title: '网络异常',
-          icon: 'error'
+          title: '网络异常\n请稍后再试',
+          icon: 'error',
         });
       }
     } catch (err) {
       console.log(err);
     }
+
+    // 获取openid
+    const openid = wx.getStorageSync('openid');
+    this.openid = openid;
   },
 
   // 响应收藏
-  handleStarOnClick: function(e) {
+  async handleCollect() {
     // 更新至data对象
     const {gift_info} = this.data;
-    const {is_collect} = gift_info;
-    gift_info.is_collect = !is_collect;
+    gift_info.is_collect = !gift_info.is_collect;
     this.setData({
-      gift_info
+      gift_info,
     });
 
-    // 更新至存储: 保存礼物id
-    let collect = wx.getStorageSync('collect') || [];
-    const index = collect.indexOf(gift_info.id);
-    if(gift_info.is_collect && index === -1) {
-      collect.push(gift_info.id);
-    } else if (!gift_info.is_collect && index !== -1) {
-      collect.splice(index, 1);
+    // 请求更新数据
+    if(gift_info.is_collect) {
+      const res = await request({
+        url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
+        method: 'GET',
+        data: {
+          openid: this.openid,
+          cid: gift_info.id,
+        },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      
+      if(res?.data?.success) {
+        showToast({
+          title: '收藏成功',
+          icon: 'success',
+        });
+      } else {
+        showToast({
+          title: '收藏失败\n请稍后再试',
+          icon: 'error',
+        });
+      }
+    } else {
+      const res = await request({
+        url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
+        method: 'GET',
+        data: {
+          openid: this.openid,
+          cid: gift_info.id,
+        },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      
+      if(res?.data?.success) {
+        showToast({
+          title: '取消收藏成功',
+          icon: 'success',
+        });
+      } else {
+        showToast({
+          title: '取消收藏失败\n请稍后再试',
+          icon: 'error',
+        });
+      }
     }
-    wx.setStorageSync('collect', collect);
-  }
-})
+  },
+
+});
