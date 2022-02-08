@@ -2,7 +2,7 @@
 
 import {request} from '../../lib/request.js';
 import regeneratorRuntime from '../../lib/runtime.js';
-import {showToast, chooseMedia, showModal} from '../../utils/promise.js';
+import {showToast, chooseMedia, showModal, uploadFile} from '../../utils/promise.js';
 
 Page({
   data: {
@@ -85,7 +85,7 @@ Page({
       });
       
       // 上传图片
-      wx.uploadFile({
+      const {data} = await uploadFile({
         filePath: res.tempFiles[0].tempFilePath,
         name: 'file',
         url: 'https://www.yangxiangrui.xyz:9092/eduoss/fileoss',
@@ -93,20 +93,23 @@ Page({
         header: {
           "Content-Type": "multipart/form-data",
         },
-        success: async (res) => {
-          await showToast({
-            title: '图片上传成功',
-            icon: 'success',
-          });
-          const data = JSON.parse(res.data);
-          this.setData({
-            imgurl: data.data.url,
-          });
-        },
-        fail: (err) => {
-          console.log(err);
-        },
       });
+      
+      const info = JSON.parse(data);
+      if(info.success) {
+        await showToast({
+          title: '图片上传成功',
+          icon: 'success',
+        });
+        this.setData({
+          imgurl: info.data.url,
+        });
+      } else {
+        await showToast({
+          title: '图片上传失败\n请稍后再试',
+          icon: 'error',
+        });
+      }
     } catch (err) {
       console.log(err);
     }
