@@ -97,3 +97,29 @@ export const showModal = ({
     });
   });
 };
+
+export const uploadFile = ({
+  url,
+  filePath,
+  name,
+  header,
+  timeout,
+}) => {
+  return new Promise((resolve, reject) => {
+    wx.uploadFile({
+      filePath,
+      name,
+      url,
+      header: header ?? {
+        'Content-Type': 'application/json',
+      },
+      timeout: timeout ?? 10000,
+      success: (res) => {
+        resolve(res);
+      },
+      fail: (err) => {
+        reject(err);
+      },
+    });
+  });
+};
