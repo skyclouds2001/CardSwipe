@@ -6,16 +6,7 @@ import regeneratorRuntime from '../../lib/runtime.js';
 Page({
 
   data: {
-    friend_info: [
-      {
-        icon_url: '/images/1.jpg',
-        name: '天空的云',
-        id: 0
-      }
-    ]
+    friend_info: [],
   },
 
-  onLoad: function (options) {
-
-  }
-})
+});
