@@ -35,6 +35,9 @@ page {
 
 .imageBox .giftImage {
   height: 75%;
+
+  border-radius: 5rpx;
+  box-shadow: 0rpx 0rpx 5rpx #ccc;
 }
 
 .imageBox .icon_star {
@@ -52,7 +55,7 @@ page {
 .giftInfo {
   font-size: 28rpx;
 
-  padding: 25rpx 25rpx 0;
+  padding: 25rpx 50rpx;
   
   box-sizing: border-box;
 }
