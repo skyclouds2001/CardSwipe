@@ -5,10 +5,10 @@
   <!-- 图片部分 -->
   <view class="imageBox">
     <view>
-      <image src="{{gift_info.url}}" mode="aspectFit" lazy-load catchtap="handlePreviewImage" data-url="{{gift_info.url}}"></image>
+      <image src="{{gift_info.url}}" mode="heightFix" lazy-load catchtap="handlePreviewImage" data-url="{{gift_info.url}}"></image>
       <navigator url="../info/info?id={{gift_info.id}}"	hover-stop-propagation="true" data-giftid="{{gift_info.id}}">详情</navigator>
-      <view class="icon_star" bindtap="handleStarOnClick">
-        <image src="{{gift_info.is_collect ? iconsrc_click: iconsrc}}"></image>
+      <view class="icon_star" catchtap="handleCollect">
+        <image src="{{gift_info.is_collect ? iconsrc_click: iconsrc}}" mode="widthFix"></image>
       </view>
     </view>
     <view class="icon_love"><image src="../../icons/aixin.png"></image></view>
