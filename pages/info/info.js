@@ -12,11 +12,17 @@ Page({
     gift_info: {},
   },
   openid: '',
+  collect: [],
 
   onLoad: async function (options) {
     const {id} = options;
 
     try {
+
+      // 获取礼物收藏信息
+      const collect = wx.getStorageSync('collect');
+      this.collect = collect;
+
       // 请求获取礼物信息
       const {data} = await request({
         url: '/gift/gift/getGiftById/' + id,
@@ -32,7 +38,7 @@ Page({
       // 请求成功则设置礼物信息；否则弹出提示信息
       if(data.success) {
         const {gift} = data.data;
-        gift.is_collect = false;
+        gift.is_collect = collect.includes(parseInt(id));
         this.setData({
           gift_info: data.data.gift,
         });
@@ -42,6 +48,7 @@ Page({
           icon: 'error',
         });
       }
+
     } catch (err) {
       console.log(err);
     }
@@ -49,10 +56,12 @@ Page({
     // 获取openid
     const openid = wx.getStorageSync('openid');
     this.openid = openid;
+
   },
 
   // 响应收藏
   async handleCollect() {
+
     // 更新至data对象
     const {gift_info} = this.data;
     gift_info.is_collect = !gift_info.is_collect;
@@ -62,6 +71,7 @@ Page({
 
     // 请求更新数据
     if(gift_info.is_collect) {
+
       const res = await request({
         url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
         method: 'GET',
@@ -75,17 +85,19 @@ Page({
       });
       
       if(res?.data?.success) {
-        showToast({
+        await showToast({
           title: '收藏成功',
           icon: 'success',
         });
       } else {
-        showToast({
+        await showToast({
           title: '收藏失败\n请稍后再试',
           icon: 'error',
         });
       }
+
     } else {
+
       const res = await request({
         url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
         method: 'GET',
@@ -99,16 +111,17 @@ Page({
       });
       
       if(res?.data?.success) {
-        showToast({
+        await showToast({
           title: '取消收藏成功',
           icon: 'success',
         });
       } else {
-        showToast({
+        await showToast({
           title: '取消收藏失败\n请稍后再试',
           icon: 'error',
         });
       }
+
     }
   },
 
