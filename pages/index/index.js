@@ -17,29 +17,46 @@ Page({
   page: 1,
   index: 0,
   gift: [],
+  collect: [],
 
-  onLoad: function () {
+  onLoad: async function () {
     // 先检测有无用户信息
     // 没有表示尚未登录
     const openid = wx.getStorageSync('openid');
 
     if(!openid) {
-      showToast({
+      await showToast({
         title: '为了更好的使用体验，请先登录',
         icon: 'none',
       });
+
       setTimeout(() => {
         wx.navigateTo({
           url: '../../pages/login/login',
         });
       }, 1500);
     } else {
+      await showToast({
+        title: '右滑表示喜欢，左滑表示不喜欢',
+        icon: 'none',
+      });
+
       this.openid = openid;
       this.page = 1;
       this.index = 0;
       
-      this.getGiftInfo();
+      await this.getCollectInfo();
+      await this.getGiftInfo();
+      await this.checkCollectSession();
     }
+  },
+
+  onHide: function () {
+    wx.setStorageSync('collect', this.collect);
+  },
+
+  onUnload: function () {
+    wx.setStorageSync('collect', this.collect);
   },
 
   onShareAppMessage: function () {
@@ -55,7 +72,7 @@ Page({
       title: '从心礼选',
       imageUrl: 'https://edu-1014.oss-cn-beijing.aliyuncs.com/2022/02/08/8c1e0e85b4c341639e93d34d7f1a5306share-img.jpg',
       query: '../../pages/index/index',
-    }
+    };
   },
 
   onShareTimeline: function () {
@@ -97,8 +114,48 @@ Page({
     }
   },
 
+  // 获取用户当前收藏信息
+  async getCollectInfo() {
+    const openid = this.openid;
+
+    try {
+
+      const res = await request({
+        url: `/gift/collection/select/${openid}`,
+        method: 'GET',
+        data: {
+          openid,
+        },
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+  
+      const collect = res?.data?.data['collections:'] || [];
+      const collect_id = collect.map(v => v.id);
+
+      this.collect = collect_id;
+      wx.setStorageSync('collect', collect_id);
+
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  // 更新收藏信息
+  async checkCollectSession() {
+    const gift = this.data.gift_info;
+    if(this.collect.includes(gift.id)) {
+      gift.is_collect = true;
+      this.setData({
+        gift_info: gift,
+      });
+    }
+  },
+
   // 用户点击收藏响应
   async handleCollect() {
+
     // 更新信息至data对象
     const {gift_info} = this.data;
     gift_info.is_collect = !gift_info.is_collect;
@@ -108,6 +165,9 @@ Page({
 
     // 请求更新数据
     if(gift_info.is_collect) {
+
+      this.collect.push(gift_info.id);
+
       const res = await request({
         url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
         method: 'GET',
@@ -121,17 +181,21 @@ Page({
       });
       
       if(res?.data?.success) {
-        showToast({
+        await showToast({
           title: '收藏成功',
           icon: 'success',
         });
       } else {
-        showToast({
+        await showToast({
           title: '收藏失败\n请稍后再试',
           icon: 'error',
         });
       }
+
     } else {
+
+      this.collect.splice(this.collect.indexOf(gift_info.id), 1);
+
       const res = await request({
         url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
         method: 'GET',
@@ -145,16 +209,17 @@ Page({
       });
       
       if(res?.data?.success) {
-        showToast({
+        await showToast({
           title: '取消收藏成功',
           icon: 'success',
         });
       } else {
-        showToast({
+        await showToast({
           title: '取消收藏失败\n请稍后再试',
           icon: 'error',
         });
-      }
+      };
+
     }
   },
 
@@ -187,16 +252,16 @@ Page({
         // 页数自增
         this.page = this.page + 1;
         // 获取礼物信息
-        this.getGiftInfo();
+        await this.getGiftInfo();
       }
 
       // 获取礼物信息并添加收藏属性，随后设置进data
       const gift = this.gift[this.index];
       if(!gift.hasOwnProperty('is_collect')) {
-        gift['is_collect'] = false;
+        gift['is_collect'] = this.collect.includes(gift.id);
       }
       this.setData({
-        gift_info: gift, 
+        gift_info: gift,
       });
     }
 
