@@ -6,7 +6,7 @@
   <view class="imageBox">
     <image src="{{gift_info.url}}" mode="heightFix" class="giftImage"></image>
     <view class="icon_star" bindtap="handleCollect">
-      <image src="{{gift_info.is_collect ? iconsrcSelect : iconsrc}}" mode="widthFix"></image>
+      <image src="{{gift_info.is_collect ? iconsrcSelect : iconsrc}}" mode="widthFix" catchtap="handlePreviewImage"></image>
     </view>
   </view>
 
