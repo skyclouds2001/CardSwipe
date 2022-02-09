@@ -23,7 +23,7 @@ Page({
     // 先检测有无用户信息
     // 没有表示尚未登录
     const openid = wx.getStorageSync('openid');
-
+console.log(openid);
     if(!openid) {
       await showToast({
         title: '为了更好的使用体验，请先登录',
@@ -52,11 +52,13 @@ Page({
   },
 
   onHide: function () {
-    wx.setStorageSync('collect', this.collect);
+    if(collect)
+      wx.setStorageSync('collect', this.collect);
   },
 
   onUnload: function () {
-    wx.setStorageSync('collect', this.collect);
+    if(collect)
+      wx.setStorageSync('collect', this.collect);
   },
 
   onShareAppMessage: function () {
