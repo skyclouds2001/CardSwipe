@@ -11,7 +11,7 @@ Page({
     gift_info: {},
     // star图标路径
     iconsrc: "../../icons/shoucang.png",
-    iconsrc_click: "../../icons/shoucang _click.png",
+    iconsrc_click: "../../icons/shoucang_click.png",
   },
   openid: '',
   page: 1,
