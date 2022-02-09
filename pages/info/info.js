@@ -8,7 +8,7 @@ Page({
 
   data: {
     iconsrc: "../../icons/shoucang.png",
-    iconsrcSelect: "../../icons/shoucang _click.png",
+    iconsrcSelect: "../../icons/shoucang_click.png",
     gift_info: {},
   },
   openid: '',
@@ -123,6 +123,15 @@ Page({
       }
 
     }
+  },
+
+  // 预览图片效果
+  handlePreviewImage() {
+    const url = this.data.gift_info.url;
+    wx.previewImage({
+      urls: [url],
+      current: url,
+    });
   },
 
 });
