@@ -35,6 +35,16 @@ Page({
     })();
   },
 
+  onHide: function () {
+    if(this.collect)
+      wx.setStorageSync('collect', this.collect);
+  },
+
+  onUnload: function () {
+    if(this.collect)
+      wx.setStorageSync('collect', this.collect);
+  },
+
   onReachBottom: function (options) {
     if(this.giftNumber !== 50)
       this.setGiftList();
