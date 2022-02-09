@@ -12,7 +12,7 @@
   <view class="menu">
 
     <navigator class="item" hover-class="active" hover-stop-propagation bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{0}}" url="../../pages/collect/collect">
-      <image mode="heightFix" src="{{isActive === 0 ? '../../icons/shoucang _click.png' : '../../icons/shoucang.png'}}"></image>
+      <image mode="heightFix" src="{{isActive === 0 ? '../../icons/shoucang_click.png' : '../../icons/shoucang.png'}}"></image>
       <view class="text">我的收藏</view>
     </navigator>
 
