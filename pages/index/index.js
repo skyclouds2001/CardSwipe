@@ -23,7 +23,7 @@ Page({
     // 先检测有无用户信息
     // 没有表示尚未登录
     const openid = wx.getStorageSync('openid');
-console.log(openid);
+
     if(!openid) {
       await showToast({
         title: '为了更好的使用体验，请先登录',
@@ -45,19 +45,19 @@ console.log(openid);
       this.page = 1;
       this.index = 0;
       
-      this.getGiftInfo();
-      this.getCollectInfo();
-      this.checkCollectSession();
+      await this.getGiftInfo();
+      await this.getCollectInfo();
+      await this.checkCollectSession();
     }
   },
 
   onHide: function () {
-    if(collect)
+    if(this.collect)
       wx.setStorageSync('collect', this.collect);
   },
 
   onUnload: function () {
-    if(collect)
+    if(this.collect)
       wx.setStorageSync('collect', this.collect);
   },
 
@@ -228,13 +228,13 @@ console.log(openid);
   // 处理左滑右滑
   cx: -1,
   cy: -1,
-  handleTouchStart(e) {
+  async handleTouchStart(e) {
     let x = e.changedTouches[0].clientX;
     let y = e.changedTouches[0].clientY;
     this.cx = x;
     this.cy = y;
   },
-  handleTouchEnd(e) {
+  async handleTouchEnd(e) {
     let x = e.changedTouches[0].clientX;
     let y = e.changedTouches[0].clientY;
     let cx = this.cx;
@@ -301,4 +301,5 @@ console.log(openid);
       current: url,
     });
   },
+  
 });
