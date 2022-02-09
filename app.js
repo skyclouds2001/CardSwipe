@@ -20,6 +20,12 @@ App({
     
   },
 
+  onUnhandledRejection: function (e) {
+    console.log(e.reason);
+  },
+
+  globalData: {},
+
   // 版本号比较代码：来源微信开发文档
   compareVersion(v1, v2) {
     v1 = v1.split('.');
