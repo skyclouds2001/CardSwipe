@@ -8,7 +8,7 @@ Page({
   data: {
     tag: [],
     icon: '../../icons/shoucang.png',
-    icon_click: '../../icons/shoucang _click.png',
+    icon_click: '../../icons/shoucang_click.png',
     gift: {},
     STATE: false,  // 记录分页：false代表选择标签页，true代表礼物页
   },
@@ -55,7 +55,7 @@ Page({
       },
       header: {
         'Content-Type': 'application/json',
-      }
+      },
     });
 
     if(res.data.data['gift_rank:']) {
