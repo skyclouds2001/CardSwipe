@@ -19,11 +19,11 @@ Page({
         url: `/gift/collection/select/${openid}`,
         method: 'GET',
         data: {
-          openid
+          openid,
         },
         header: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       });
   
       const collect = res.data.data['collections:'];
@@ -63,13 +63,13 @@ Page({
     if(cx - x > 50 && Math.abs(y - cy) < 50 && !flag) { // 左滑
       gift_data[index].is_on_delete = true;
       this.setData({
-        gift_data
+        gift_data,
       });
     }
     if(x - cx > 50 && Math.abs(y - cy) < 50 && flag) { // 右滑
       gift_data[index].is_on_delete = false;
       this.setData({
-        gift_data
+        gift_data,
       });
     }
   },
@@ -82,11 +82,11 @@ Page({
       method: 'GET',
       data: {
         cid: id,
-        openid: this.openid
+        openid: this.openid,
       },
       header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
     });
 
     console.log(res.data);
@@ -106,7 +106,7 @@ Page({
     } else {
       gift_data[index].is_on_delete = false;
       this.setData({
-        gift_data
+        gift_data,
       });
     }
   },
