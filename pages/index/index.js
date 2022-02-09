@@ -45,9 +45,9 @@ Page({
       this.page = 1;
       this.index = 0;
       
-      await this.getCollectInfo();
-      await this.getGiftInfo();
-      await this.checkCollectSession();
+      this.getGiftInfo();
+      this.getCollectInfo();
+      this.checkCollectSession();
     }
   },
 
