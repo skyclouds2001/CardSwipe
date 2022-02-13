@@ -57,7 +57,7 @@
       </view>
       <!-- 输入框部分 -->
       <view class="input">
-        <input type="text" value="" placeholder="输入" placeholder-class="placeForInput" focus/>
+        <input type="text" value="" placeholder="输入" placeholder-class="placeForInput" cursor-spacing="25"/>
       </view>
       <!-- submit部分 -->
       <view class="submit">
