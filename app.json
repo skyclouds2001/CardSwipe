@@ -20,8 +20,7 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "从心礼选",
     "navigationBarTextStyle": "black",
-    "initialRenderingCache": "static",
-    "visualEffectInBackground": "hidden"
+    "initialRenderingCache": "static"
   },
 
   "tabBar": {
