@@ -7,7 +7,7 @@ page, view, text, swiper, swiper-item, image, navigator, icon, audio, video, fro
 }
 
 page {
-  font-size: 28rpx;
+  font-size: 30rpx;
 
   --theme-color-blue: rgb(169, 203, 228);
   --theme-color-pink: rgb(221, 190, 198);
