@@ -1,11 +1,11 @@
 export const getUserProfile = ({
-  desc,
-  lang,
+  desc = ' ',
+  lang = 'en',
 }) => {
   return new Promise((resolve, reject) => {
     wx.getUserProfile({
-      desc: desc ?? ' ',
-      lang: lang ?? 'en',
+      desc,
+      lang,
       success: (res) => {
         resolve(res);
       },
@@ -17,17 +17,17 @@ export const getUserProfile = ({
 };
 
 export const showToast = ({
-  title,
-  icon,
-  duration,
-  mask,
+  title = '提示',
+  icon = 'success',
+  duration = 1500,
+  mask = true,
 }) => {
   return new Promise((resolve, reject) => {
     wx.showToast({
       title,
-      icon: icon ?? 'success',
-      mask: mask ?? true,
-      duration: duration ?? 1500,
+      icon,
+      mask,
+      duration,
       success: (res) => {
         resolve(res);
       },
@@ -39,11 +39,11 @@ export const showToast = ({
 };
 
 export const login = ({
-  timeout,
+  timeout = 10000,
 }) => {
   return new Promise((resolve, reject) => {
     wx.login({
-      timeout: timeout ?? 10000,
+      timeout,
       success: (res) => {
         resolve(res);
       },
@@ -55,21 +55,21 @@ export const login = ({
 };
 
 export const chooseMedia = ({
-  count,
-  mediaType,
-  sourceType,
-  maxDuration,
-  sizeType,
-  camera,
+  count = 9,
+  mediaType = ['image', 'video'],
+  sourceType = ['album', 'camera'],
+  maxDuration = 10,
+  sizeType = ['original', 'compressed'],
+  camera = 'back',
 }) => {
   return new Promise((resolve, reject) => {
     wx.chooseMedia({
-      count: count ?? 9,
-      mediaType: mediaType ?? ['image', 'video'],
-      sourceType: sourceType ?? ['album', 'camera'],
-      maxDuration: maxDuration ?? 10,
-      sizeType: sizeType ?? ['original', 'compressed'],
-      camera: camera ?? 'back',
+      count,
+      mediaType,
+      sourceType,
+      maxDuration,
+      sizeType,
+      camera,
       success: (res) => {
         resolve(res);
       },
@@ -81,13 +81,13 @@ export const chooseMedia = ({
 };
 
 export const showModal = ({
-  title,
-  content,
+  title = '提示',
+  content = '',
 }) => {
   return new Promise((resolve, reject) => {
     wx.showModal({
-      title: title ?? ' ',
-      content: content ?? ' ',
+      title,
+      content,
       success: (res) => {
         resolve(res);
       },
@@ -102,18 +102,18 @@ export const uploadFile = ({
   url,
   filePath,
   name,
-  header,
-  timeout,
+  header = {
+    'Content-Type': 'application/json',
+  },
+  timeout = 10000,
 }) => {
   return new Promise((resolve, reject) => {
     wx.uploadFile({
       filePath,
       name,
       url,
-      header: header ?? {
-        'Content-Type': 'application/json',
-      },
-      timeout: timeout ?? 10000,
+      header,
+      timeout,
       success: (res) => {
         resolve(res);
       },
