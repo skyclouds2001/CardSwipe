@@ -5,7 +5,7 @@ import regeneratorRuntime from '../../lib/runtime.js';
 import {getUserProfile} from '../../utils/promise.js';
 
 Page({
-  async handleGetUserInfo(e) {
+  async handleGetUserInfo() {
     // 正式获取个人信息
     const res = await getUserProfile({
       desc: '获取个人头像及昵称'
@@ -15,6 +15,7 @@ Page({
 
     // 换取openid和token
     const code = wx.getStorageSync('code');
+    wx.setStorageSync('code', '');
     const {data} = await request({
       url: '/login/wx',
       method: 'POST',
@@ -27,8 +28,7 @@ Page({
     });
 
     if(data.data.user) {
-      const {token} = data.data.user;
-      const {openid} = data.data.user;
+      const {token, openid} = data.data.user;
       wx.setStorageSync('token', token);
       wx.setStorageSync('openid', openid);
     }
