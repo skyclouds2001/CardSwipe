@@ -10,7 +10,7 @@ Page({
   },
   openid: '',
 
-  onLoad: async function (options) {
+  onLoad: async function () {
     try {
       const openid = wx.getStorageSync('openid') || '';
       this.openid = openid;
@@ -26,13 +26,14 @@ Page({
         },
       });
   
-      const collect = res.data.data['collections:'];
+      const collect = res?.data?.data?.['collections:'];
 
       // 添加is_on_delete属性
-      collect.map(v => v['is_on_delete'] = false);
+      if(collect)
+        collect?.map(v => v['is_on_delete'] = false);
 
       this.setData({
-        gift_data: collect
+        gift_data: collect ?? []
       });
     } catch (err) {
       console.log(err);
