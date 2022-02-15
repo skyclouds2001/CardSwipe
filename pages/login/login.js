@@ -2,20 +2,30 @@
 
 import {request} from '../../lib/request.js';
 import regeneratorRuntime from '../../lib/runtime.js';
-import {getUserProfile} from '../../utils/promise.js';
+import {getUserProfile, login} from '../../utils/promise.js';
+import {showToast} from '../../utils/interact.js';
 
 Page({
+  onLoad: function () {
+  },
+
   async handleGetUserInfo() {
     // 正式获取个人信息
     const res = await getUserProfile({
       desc: '获取个人头像及昵称'
     });
     const {userInfo} = res;
-    wx.setStorageSync('userinfo', userInfo);
+    const userinfo = {
+      avatarUrl: userInfo.avatarUrl,
+      nickName: userInfo.nickName,
+    };
+    wx.setStorageSync('userinfo', userinfo);
 
     // 换取openid和token
-    const code = wx.getStorageSync('code');
-    wx.setStorageSync('code', '');
+    // 用户登录
+    const {code} = await login({
+      timeout: 10000,
+    });
     const {data} = await request({
       url: '/login/wx',
       method: 'POST',
@@ -41,5 +51,6 @@ Page({
         });
       },
     });
+
   },
 });
