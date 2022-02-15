@@ -86,9 +86,11 @@ Page({
 
   // 获取礼物信息方法
   async getGiftInfo() {
+
     try {
+
       // 请求获取礼物信息
-      const res = await request({
+      const {data} = await request({
         url: `/gift/gift/getGift/${this.openid}/${this.page}`,
         method: 'GET',
         data: {
@@ -101,23 +103,39 @@ Page({
       });
       this.page = this.page + 1;
 
-      // 提取礼物信息并更新页面内容
-      const gift = res?.data?.data['giftList:'];
-      // 存入gift数组
-      this.gift = [...this.gift, ...gift];
+      if(data.success) {
+        // 提取礼物信息并更新页面内容
+        const gift = res?.data?.data['giftList:'];
+        // 存入gift数组
+        this.gift = [...this.gift, ...gift];
 
-      let gift_info = gift[this.index];
-      gift_info['is_collect'] = false;
-      this.setData({
-        gift_info,
-      });
+        let gift_info = gift[this.index];
+        gift_info['is_collect'] = false;
+        this.setData({
+          gift_info,
+        });
+      } else {
+        // const {data} = await request({
+        //   url: '/gift/gift/getGiftById/10001',
+        //   header: {
+        //     "Content-Type": "application/x-www-form-urlencoded",
+        //   },
+        //   method: 'GET',
+        // });
+        // this.setData({
+        //   gift_info: data?.data?.gift ?? {},
+        // });
+      }
+
     } catch (err) {
       console.log(err);
     }
+
   },
 
   // 获取用户当前收藏信息
   async getCollectInfo() {
+
     const openid = this.openid;
 
     try {
@@ -133,19 +151,25 @@ Page({
         },
       });
   
-      const collect = res?.data?.data['collections:'] || [];
-      const collect_id = collect.map(v => v.id);
+      const collect = res?.data?.data?.['collections:'];
+      if(collect) {
+        const collect_id = collect?.map(v => v.id);
 
-      this.collect = collect_id;
-      wx.setStorageSync('collect', collect_id);
+        this.collect = collect_id;
+        wx.setStorageSync('collect', collect_id);
+      } else {
+        wx.setStorageSync('collect', []);
+      }
 
     } catch (e) {
       console.log(e);
     }
+
   },
 
   // 更新收藏信息
   async checkCollectSession() {
+
     const gift = this.data.gift_info;
     if(this.collect.includes(gift.id)) {
       gift.is_collect = true;
@@ -153,6 +177,7 @@ Page({
         gift_info: gift,
       });
     }
+    
   },
 
   // 用户点击收藏响应
