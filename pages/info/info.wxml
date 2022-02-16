@@ -4,9 +4,9 @@
 
   <!-- 上部礼物图片部分 -->
   <view class="imageBox">
-    <image src="{{gift_info.url}}" mode="heightFix" class="giftImage"></image>
+    <image src="{{gift_info.url}}" mode="heightFix" class="giftImage" bindtap="handlePreviewImage"></image>
     <view class="icon_star" bindtap="handleCollect">
-      <image src="{{gift_info.is_collect ? iconsrcSelect : iconsrc}}" mode="widthFix" catchtap="handlePreviewImage"></image>
+      <image src="{{gift_info.is_collect ? iconsrcSelect : iconsrc}}" mode="widthFix" ></image>
     </view>
   </view>
 
