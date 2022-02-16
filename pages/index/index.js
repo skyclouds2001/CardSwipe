@@ -14,8 +14,8 @@ Page({
     iconsrc_click: "../../icons/shoucang_click.png",
   },
   openid: '',
-  page: 1,
-  index: 0,
+  page: 1,    // 用于礼物请求时所用的page 
+  index: 0,     // 用于礼物数组中下标记录
   gift: [],
   collect: [],
 
@@ -93,19 +93,17 @@ Page({
       const {data} = await request({
         url: `/gift/gift/getGift/${this.openid}/${this.page}`,
         method: 'GET',
-        data: {
-          openid: this.openid,
-          page: this.page,
-        },
+        data: {},
         header: {
           'content-type': 'application/x-www-form-urlencoded',
         }
       });
-      this.page = this.page + 1;
 
-      if(data.success) {
+      if(data?.success === null) {
+        this.page = this.page + 1;
+
         // 提取礼物信息并更新页面内容
-        const gift = res?.data?.data['giftList:'];
+        const gift = data?.data?.['giftList:'];
         // 存入gift数组
         this.gift = [...this.gift, ...gift];
 
@@ -114,17 +112,6 @@ Page({
         this.setData({
           gift_info,
         });
-      } else {
-        // const {data} = await request({
-        //   url: '/gift/gift/getGiftById/10001',
-        //   header: {
-        //     "Content-Type": "application/x-www-form-urlencoded",
-        //   },
-        //   method: 'GET',
-        // });
-        // this.setData({
-        //   gift_info: data?.data?.gift ?? {},
-        // });
       }
 
     } catch (err) {
@@ -183,14 +170,14 @@ Page({
   // 用户点击收藏响应
   async handleCollect() {
 
-    // 更新信息至data对象
+    // 更新是否已收藏信息至gift对象
     const {gift_info} = this.data;
     gift_info.is_collect = !gift_info.is_collect;
     this.setData({
       gift_info
     });
 
-    // 请求更新数据
+    // 请求更新数据&维护至collect数组
     if(gift_info.is_collect) {
 
       this.collect.push(gift_info.id);
