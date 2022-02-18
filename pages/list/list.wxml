@@ -47,6 +47,7 @@
 
   <!-- 礼物排行榜 -->
   <view class="main_content">
+
     <view class="gift_item" wx:for="{{giftInfo}}" wx:key="giftName">
       <view class="gift_name">{{item.title}}</view>
       <view class="gift_love_num">{{item.boylike + item.girllike}}</view>
@@ -54,6 +55,7 @@
         <image mode="heightFix" src="{{item.url}}"></image>
       </navigator>
     </view>
+    
   </view>
 
 </view>
