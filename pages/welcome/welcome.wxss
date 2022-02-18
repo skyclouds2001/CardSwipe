@@ -178,7 +178,7 @@
   border-radius: 5rpx;
 }
 .select {
-  background-color: rgb(255, 161, 184);
+  background-color: rgb(255, 161, 184) !important;
 }
 
 /* 输入框部分 */

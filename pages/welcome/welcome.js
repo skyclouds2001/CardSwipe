@@ -11,15 +11,10 @@ Page({
     STATE: 0,
 
     // 页面3渲染用标签名数组
-    tag_name: [
-      '运动', '读书', '旅行', '美食', '收藏', '艺术', '桌游', '网游',
-      '智力游戏', '学习', '美丽|帅气', '独处', '影视剧', '追星', '睡觉', '……'
-    ]
+    tag: [],
   },
   // 记录玩家性别，0为男性，1为女性；默认为男性
   sex: 0,
-  // 记录选中的标签
-  selectedTag: [],
 
   onLoad: function () {
     // 检查有无个人身份信息
@@ -41,6 +36,9 @@ Page({
         url: '../../pages/index/index',
       });
     }
+
+    // 初始化标签
+    this.initTag();
   },
   
   onShow: function () {
@@ -75,22 +73,21 @@ Page({
   // 选中标签
   handleChooseTag(e) {
     const {name} = e.currentTarget.dataset;
-    let selectedTag = this.selectedTag;
+    
+    const tag = this.data.tag;
+    tag.forEach(v => v.name === name.trim() ? v.is_selected = !v.is_selected : '');
 
-    // 已存在则删除
-    // 未存在则添加
-    const index = selectedTag.indexOf(name);
-    if(index !== -1) {
-      selectedTag = selectedTag.splice(index, 1);
-    } else if(name !== '……') {
-      selectedTag.push(name);
-    }
-
-    this.selectedTag = selectedTag;
+    this.setData({
+      tag,
+    });
   },
 
   // 提交按钮：提交信息；更新记录使用者性别
-  async handleSubmit(e) {
+  async handleSubmit() {
+    // 获取选择的标签
+    let selectedTag = [];
+    this.data.tag.forEach(v => v.is_selected ? selectedTag.push(v.name) : '');
+
     // 获取openid
     const openid = wx.getStorageSync('openid');
 
@@ -102,7 +99,7 @@ Page({
         data: {
           openid,
           sex: this.sex === 0 ? '男' : '女',
-          tags: this.selectedTag
+          tags: selectedTag
         },
         header: {
           'content-type': 'application/json'
@@ -124,4 +121,21 @@ Page({
       url: '/pages/index/index',
     });
   },
+
+  initTag() {
+    let tag = [];
+    const tag_name = ['运动', '读书', '旅行', '美食', '收藏', '艺术', '桌游', '网游','智力游戏', '学习', '美丽|帅气', '独处', '影视剧', '追星', '睡觉', '……'];
+
+    for (const v of tag_name) {
+      tag.push({
+        name: v,
+        is_selected: false,
+      });
+    }
+
+    this.setData({
+      tag,
+    });
+  },
+
 });

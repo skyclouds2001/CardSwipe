@@ -13,6 +13,7 @@
 
     <!-- 页面之一 -->
     <view class="content_1" wx:if="{{STATE === 1}}">
+
       <!-- 文字主题部分 -->
       <view class="text">
         <text>
@@ -22,47 +23,60 @@
           请允许我们更好的了解你<br/>
         </text>
       </view>
+
       <!-- 图标部分 -->
       <view class="icon_love_black"><image src="../../icons/aixin.png" mode="heightFix"></image></view>
+      
     </view>
 
     <!-- 页面之二 -->
     <view class="content_2" wx:elif="{{STATE === 2}}">
+
       <!-- or文字部分 -->
       <view class="text_or">or</view>
+
       <!-- 选择性别部分 -->
       <view class="choose_sex">
         <view class="girl" data-sex="1" bindtap="handleChooseSex">girl</view>
         <view class="boy" data-sex="0" bindtap="handleChooseSex">boy</view>
       </view>
+
       <!-- 图片部分 -->
       <image class="choice_img" mode="widthFix" src="https://edu-1014.oss-cn-beijing.aliyuncs.com/2022/02/08/77faf42b391b4a0ab1e07fb1b9214201boy-girl.png"></image>
+
       <!-- 图标部分 -->
       <image class="icon_love_pink" src="../../icons/aixin_click.png" mode="heightFix"></image>
+
     </view>
 
     <!-- 页面之三 -->
     <view class="content_3" wx:elif="{{STATE === 3}}">
+
       <!-- 上部固定窗口 -->
       <view class="info">
         让我们更好的了解你~
       </view>
+
       <!-- 提示文字部分 -->
       <view class="text">
         请选择您的兴趣爱好，这将有助于我们为您提供更精确的推荐
       </view>
+
       <!-- 标签部分 -->
       <view class="tag">
-        <view wx:for="{{tag_name}}" wx:key="*this" data-name="{{item}}" bindtap="handleChooseTag">{{item}}</view>
+        <view wx:for="{{tag}}" wx:key="name" data-name="{{item.name}}" class="{{item.is_selected ? 'select' : ''}}" bindtap="handleChooseTag">{{item.name}}</view>
       </view>
+
       <!-- 输入框部分 -->
       <view class="input">
         <input type="text" value="" placeholder="输入" placeholder-class="placeForInput" cursor-spacing="25"/>
       </view>
+
       <!-- submit部分 -->
       <view class="submit">
         <view bindtap="handleSubmit">确定</view>
       </view>
+
     </view>
 
   </view>
