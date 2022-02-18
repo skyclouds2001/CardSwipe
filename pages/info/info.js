@@ -99,7 +99,7 @@ Page({
     } else {
 
       const res = await request({
-        url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
+        url: `/gift/collection/delete/${this.openid}/${gift_info.id}`,
         method: 'GET',
         data: {
           openid: this.openid,
