@@ -48,6 +48,7 @@
   left: 0vw;
 
   width: 5em;
+  height: auto;
 
   display: flex;
   flex-direction: column;
@@ -60,7 +61,7 @@
   text-align: center;
 }
 .tag .icon {
-  width: 1.5em;
+  font-size: 40rpx;
 }
 
 .pink {

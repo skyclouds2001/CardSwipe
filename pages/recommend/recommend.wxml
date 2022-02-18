@@ -18,7 +18,7 @@
     <view class="contain">
       <view class="tag {{item.is_selected ? 'pink' : ''}}" wx:for="{{tag}}" wx:key="title" style="top: {{item.t}}; left: {{item.l}};" bindtap="handleSelect" data-id="{{item.id}}">
         <view class="name">{{item.title}}</view>
-        <image class="icon" mode="widthFix" src="{{item.is_selected ? icon_click : icon}}"></image>
+        <view class="icon cuIcon-favor"></view>
       </view>
     </view>
 
