@@ -177,64 +177,32 @@ Page({
       gift_info
     });
 
+    // 记录是否已收藏
+    const flag = gift_info.is_collect;
+
     // 请求更新数据&维护至collect数组
-    if(gift_info.is_collect) {
-
-      this.collect.push(gift_info.id);
-
-      const res = await request({
-        url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
-        method: 'GET',
-        data: {
-          openid: this.openid,
-          cid: gift_info.id,
-        },
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+    const res = await request({
+      url: `/gift/collection/${flag ? 'add' : 'delete'}/${this.openid}/${gift_info.id}`,
+      method: 'GET',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+    
+    if(res?.data?.success) {
+      await showToast({
+        title: `${flag ? '添加' : '删除'}收藏成功`,
+        icon: 'success',
       });
-      
-      if(res?.data?.success) {
-        await showToast({
-          title: '收藏成功',
-          icon: 'success',
-        });
-      } else {
-        await showToast({
-          title: '收藏失败\n请稍后再试',
-          icon: 'error',
-        });
-      }
-
+      flag ? this.collect.push(gift_info.id) : this.collect.splice(this.collect.indexOf(gift_info.id), 1);
     } else {
-
-      this.collect.splice(this.collect.indexOf(gift_info.id), 1);
-
-      const res = await request({
-        url: `/gift/collection/delete/${this.openid}/${gift_info.id}`,
-        method: 'GET',
-        data: {
-          openid: this.openid,
-          cid: gift_info.id,
-        },
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+      await showToast({
+        title: `${flag ? '添加' : '删除'}收藏失败
+                请稍后再试`,
+        icon: 'error',
       });
-      
-      if(res?.data?.success) {
-        await showToast({
-          title: '取消收藏成功',
-          icon: 'success',
-        });
-      } else {
-        await showToast({
-          title: '取消收藏失败\n请稍后再试',
-          icon: 'error',
-        });
-      };
-
     }
+    
   },
 
   // 处理左滑右滑
