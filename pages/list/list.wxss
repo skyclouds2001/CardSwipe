@@ -2,11 +2,11 @@
 
 @import "/styles/arrow.wxss";
 
-page {
+.list {
   display: block;
 
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 
 /* 顶栏标题部分 */
@@ -129,39 +129,42 @@ page {
 }
 
 /* 下部礼物信息部分 */
+.main_content {
+  width: 100%;
+  height: auto;
+}
+
 .gift_item {
   display: flex;
   justify-content: center;
   align-items: center;
 
   height: 200rpx;
-  margin: 0rpx 20rpx;
+  margin: 0rpx 50rpx;
 
   border-bottom: 1rpx solid #ccc;
 }
-.gift_name {
-  flex: 2;
 
+.gift_item > view {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.gift_love_num {
-  flex: 2;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.gift_img {
-  flex: 3;
 
   height: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
+
+.gift_name {
+  flex: 2;
+}
+
+.gift_love_num {
+  flex: 2;
+}
+
+.gift_img {
+  flex: 3;
+}
+
 .gift_img > image {
   height: 80%;
 }
