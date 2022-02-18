@@ -2,8 +2,7 @@
 
 import {request} from '../../lib/request.js';
 import regeneratorRuntime from '../../lib/runtime.js';
-import {getUserProfile, login} from '../../utils/promise.js';
-import {showToast} from '../../utils/interact.js';
+import {getUserProfile, login, showToast} from '../../utils/promise.js';
 
 Page({
   onLoad: function () {
