@@ -6,12 +6,10 @@
   <view class="imageBox">
     <view>
       <image src="{{gift_info.url}}" mode="heightFix" lazy-load catchtap="handlePreviewImage" data-url="{{gift_info.url}}"></image>
-      <navigator url="../info/info?id={{gift_info.id}}"	hover-stop-propagation="true" data-giftid="{{gift_info.id}}">详情</navigator>
-      <view class="icon_star" catchtap="handleCollect">
-        <image src="{{gift_info.is_collect ? iconsrc_click: iconsrc}}" mode="widthFix"></image>
-      </view>
+      <navigator url="../info/info?id={{gift_info.id}}"	hover-stop-propagation data-giftid="{{gift_info.id}}">详情</navigator>
+      <view class="icon_star cuIcon-{{gift_info.is_collect ? 'favorfill': 'favor'}}" catchtap="handleCollect"></view>
     </view>
-    <view class="icon_love"><image src="../../icons/aixin.png"></image></view>
+    <view class="icon_love"></view>
   </view>
 
   <!-- 礼物信息部分 -->

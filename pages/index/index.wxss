@@ -76,13 +76,13 @@ page {
   right: 10rpx;
   top: 10rpx;
 
-  width: 100rpx;
-  height: 50rpx;
+  width: 5em;
+  height: 2.5emem;
   background-color: rgb(164, 173, 179);
 
   color: white;
-  font-size: 25rpx;
-  line-height: 50rpx;
+  font-size: 26rpx;
+  line-height: 2.5em;
   text-align: center;
   font-weight: bold;
 
@@ -94,11 +94,18 @@ page {
   bottom: 10rpx;
   right: 10rpx;
 
-  width: 50rpx;
-  height: 50rpx;
+  font-size: 48rpx;
+  line-height: 60rpx;
+  text-align: center;
+
+  width: 60rpx;
+  height: 60rpx;
+
+  display: block;
 
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
+  box-shadow: 0rpx 0rpx 10rpx #999;
 }
 
 .icon_love {
@@ -106,10 +113,13 @@ page {
   left: -50rpx;
   top: 10rpx;
 
-  width: 150rpx;
-  height: 150rpx;
+  font-size: 48rpx;
+
+  display: block;
 
   transform: rotate(-15deg);
+
+  z-index: 9;
 }
 
 /* 下部礼物信息部分 */
