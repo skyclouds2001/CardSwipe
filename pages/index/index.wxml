@@ -1,6 +1,6 @@
 <!--index.wxml-->
 
-<view class="index" style="background-image: url('https://edu-1014.oss-cn-beijing.aliyuncs.com/2022/02/08/6a95356858ac4f4aa13e0b1b975bbb48background.jpg');" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-id="{{gift_info.id}}">
+<view class="index" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-id="{{gift_info.id}}">
 
   <!-- 图片部分 -->
   <view class="imageBox">
