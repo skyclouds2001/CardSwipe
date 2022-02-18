@@ -1,5 +1,7 @@
 /**app.wxss**/
 
+@import './miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
+
 page, view, text, swiper, swiper-item, image, navigator, icon, audio, video, from, input, textarea {
   padding: 0rpx;
   margin: 0rpx;
