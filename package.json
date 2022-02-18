@@ -1,0 +1,28 @@
+{
+  "name": "cardswipe",
+  "version": "1.1.0",
+  "description": "none",
+  "main": ".eslintrc.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skyclouds2001/cardSwipe.git"
+  },
+  "keywords": [
+    "swipe"
+  ],
+  "author": "csy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skyclouds2001/cardSwipe/issues"
+  },
+  "homepage": "https://github.com/skyclouds2001/cardSwipe#readme",
+  "dependencies": {
+    "weui-miniprogram": "^1.2.3"
+  }
+}
