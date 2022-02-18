@@ -34,18 +34,18 @@ page{
   justify-content: flex-start;
   align-items: center;
 
-  height: 100rpx;
+  height: 120rpx;
   width: 100%;
 
   padding-left: 25rpx;
 
   border-bottom: 1px solid #999;
 }
-.item > image {
-  height: 40%;
+.icon {
+  font-size: 50rpx;
 }
-.item > view {
-  font-size: 30rpx;
+.text {
+  font-size: 35rpx;
 
   padding-left: 25rpx;
 }
