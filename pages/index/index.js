@@ -170,15 +170,9 @@ Page({
   // 用户点击收藏响应
   async handleCollect() {
 
-    // 更新是否已收藏信息至gift对象
-    const {gift_info} = this.data;
-    gift_info.is_collect = !gift_info.is_collect;
-    this.setData({
-      gift_info
-    });
-
     // 记录是否已收藏
-    const flag = gift_info.is_collect;
+    const {gift_info} = this.data;
+    const flag = !gift_info.is_collect;
 
     // 请求更新数据&维护至collect数组
     const res = await request({
@@ -194,7 +188,15 @@ Page({
         title: `${flag ? '添加' : '删除'}收藏成功`,
         icon: 'success',
       });
+
+      // 更新收藏信息至collect数组
       flag ? this.collect.push(gift_info.id) : this.collect.splice(this.collect.indexOf(gift_info.id), 1);
+
+      // 更新是否已收藏信息至gift对象
+      gift_info.is_collect = !gift_info.is_collect;
+      this.setData({
+        gift_info
+      });
     } else {
       await showToast({
         title: `${flag ? '添加' : '删除'}收藏失败
