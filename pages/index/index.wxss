@@ -11,9 +11,7 @@ page {
 }
 
 .index {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  background-color: var(--theme-color-blue);
 
   width: 100%;
   height: 100%;
@@ -22,6 +20,24 @@ page {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.index::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  content: '';
+
+  background-color: var(--theme-color-pink);
+
+  width: 100%;
+  height: 100%;
+
+  clip-path: circle(50% at right 50%);
+}
+
+.index > view {
+  z-index: 1;
 }
 
 /* 上部图片及配套内容 */
