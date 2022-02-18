@@ -1,6 +1,8 @@
 /**app.wxss**/
 
 @import './miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
+@import "./colorui/main.wxss";
+@import "./colorui/icon.wxss";
 
 page, view, text, swiper, swiper-item, image, navigator, icon, audio, video, from, input, textarea {
   padding: 0rpx;
