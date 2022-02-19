@@ -39,11 +39,15 @@ page {
 .index > view {
   z-index: 1;
 }
+.index > view:nth-child(1) {
+  flex-grow: 5;
+}
+.index > view:nth-child(2) {
+  flex-grow: 2;
+}
 
 /* 上部图片及配套内容 */
 .imageBox {
-  flex-grow: 3;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -116,8 +120,6 @@ page {
 
 /* 下部礼物信息部分 */
 .giftInfo {
-  flex-grow: 2;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -128,12 +130,12 @@ page {
   margin: 50rpx;
   padding: 50rpx;
 
-  background-color: rgba(245, 245, 245, 0.75);
-  border-radius: 10rpx;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 25rpx;
+  backdrop-filter: blur(10rpx);
 
   box-sizing: border-box;
 
-  backdrop-filter: blur(5rpx);
 }
 
 .name {
