@@ -87,6 +87,8 @@
   align-items: center;
 
   border: 1rpx solid #aaa;
+
+  z-index: 9;
 }
 .choose_sex {
   border-bottom: 0rpx;
