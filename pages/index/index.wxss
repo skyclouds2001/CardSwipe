@@ -42,9 +42,11 @@ page {
 
 /* 上部图片及配套内容 */
 .imageBox {
-  flex: 1;
+  flex-grow: 3;
 
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   width: 100%;
   height: auto;
@@ -52,13 +54,13 @@ page {
   background-color: transparent;
 }
 
-.imageBox > view:first-child {
+.imageBox > view {
   position: relative;
 
   width: auto;
   height: 100%;
 
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
 }
@@ -68,16 +70,16 @@ page {
   height: 100%;
 
   border-radius: 10rpx;
-  box-shadow: 0rpx 0rpx 5rpx #ccc;
+  box-shadow: 0rpx 0rpx 10rpx #ccc;
 }
 
 .imageBox > view > navigator {
   position: absolute;
-  right: 10rpx;
-  top: 10rpx;
+  right: 1rpx;
+  top: 1rpx;
 
   width: 5em;
-  height: 2.5emem;
+  height: 2.5em;
   background-color: rgb(164, 173, 179);
 
   color: white;
@@ -91,8 +93,8 @@ page {
 
 .icon_star {
   position: absolute;
-  bottom: 10rpx;
-  right: 10rpx;
+  bottom: 1rpx;
+  right: 1rpx;
 
   font-size: 48rpx;
   line-height: 60rpx;
@@ -108,51 +110,45 @@ page {
   box-shadow: 0rpx 0rpx 10rpx #999;
 }
 
-.icon_love {
-  position: absolute;
-  left: -50rpx;
-  top: 10rpx;
-
-  font-size: 48rpx;
-
-  display: block;
-
-  transform: rotate(-15deg);
-
-  z-index: 9;
+.collect {
+  color: rgb(247, 199, 211);
 }
 
 /* 下部礼物信息部分 */
 .giftInfo {
-  flex: 1;
+  flex-grow: 2;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  width: 100%;
+  width: auto;
   height: auto;
+  margin: 50rpx;
+  padding: 50rpx;
 
-  padding: 25rpx 50rpx;
+  background-color: rgba(245, 245, 245, 0.75);
+  border-radius: 10rpx;
 
   box-sizing: border-box;
 }
 
 .name {
-  flex: 2;
+  flex-grow: 2;
 }
 .name > text {
-  font-size: 35rpx;
+  font-size: 40rpx;
   font-weight: bold;
 }
 
 .price {
-  flex: 2;
+  flex-grow: 2;
+  align-self: flex-start;
 }
 
 .content {
-  flex: 5;
+  flex-grow: 5;
 }
 .content > text {
   text-align: left;
