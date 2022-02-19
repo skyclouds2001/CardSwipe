@@ -132,6 +132,8 @@ page {
   border-radius: 10rpx;
 
   box-sizing: border-box;
+
+  backdrop-filter: blur(5rpx);
 }
 
 .name {
