@@ -6,7 +6,7 @@
   <view class="imageBox">
     <image src="{{gift_info.url}}" mode="heightFix" class="giftImage" bindtap="handlePreviewImage"></image>
     <view class="icon_star" bindtap="handleCollect">
-      <image src="{{gift_info.is_collect ? iconsrcSelect : iconsrc}}" mode="widthFix" ></image>
+      <view class="cuIcon-{{gift_info.is_collect ? 'favorfill collect' : 'favor'}}"></view>
     </view>
   </view>
 

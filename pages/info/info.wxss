@@ -46,9 +46,11 @@ page {
   bottom: 10rpx;
 
   z-index: 9;
+
+  font-size: 48rpx;
 }
-.imageBox .icon_star image {
-  width: 50rpx;
+.collect {
+  color: rgb(247, 199, 211);
 }
 
 /* 下部礼物信息部分 */
