@@ -23,8 +23,8 @@
           "name": "info",
           "pathName": "pages/info/info",
           "query": "id=10000",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "list",
@@ -50,20 +50,6 @@
         {
           "name": "collect",
           "pathName": "pages/collect/collect",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "friend",
-          "pathName": "pages/friend/friend",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "friendinfo",
-          "pathName": "pages/friendInfo/friendInfo",
           "query": "",
           "launchMode": "default",
           "scene": null
