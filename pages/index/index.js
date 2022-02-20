@@ -17,6 +17,8 @@ Page({
   collect: [],
 
   onLoad: async function () {
+    const openid = wx.getStorageSync('openid');
+
     await showToast({
       title: '为了更好的使用体验，请先登录',
       icon: 'none',
