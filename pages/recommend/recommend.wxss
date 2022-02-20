@@ -19,29 +19,28 @@
   font-size: 50rpx;
   color: rgb(107, 168, 209);
 
-  padding: 30rpx;
   height: 110rpx;
 }
 
 /* 提示文字部分 */
 .text {
   padding-left: 50rpx;
-  margin-top: 25rpx;
 
   font-weight: bold;
   line-height: 1.5em;
   letter-spacing: 1rpx;
 
-  height: 125rpx;
+  height: 150rpx;
 }
 
 /* 标签部分 */
 .contain {
-  height: calc(100vh - 110rpx - 125rpx - 84rpx - 25rpx);
+  height: calc(100vh - 110rpx - 150rpx - 100rpx);
   width: 100vw;
 
   position: relative;
 }
+
 .tag {
   position: absolute;
   top: 0vh;
@@ -57,15 +56,17 @@
 
   z-index: 9;
 }
+
 .tag .name {
   text-align: center;
 }
+
 .tag .icon {
   font-size: 40rpx;
 }
 
 .pink {
-  color: var(--theme-color-pink);
+  color: rgb(255, 192, 203);
 }
 
 /* 按钮部分 */
@@ -74,21 +75,21 @@
   justify-content: center;
   align-items: center;
 
-  height: 84rpx;
+  height: 100rpx;
 }
 .button button {
   font-size: 30rpx;
   font-weight: normal;
-  line-height: 2.5em;
+  line-height: 2em;
   color: #fff;
 
   width: 5em;
-  height: 2.5em;
+  height: 2em;
   padding: 0rpx;
 
   border-radius: 5rpx;
 
-  background-color: var(--theme-color-blue);
+  background-color: rgb(107, 193, 255);
 }
 .button button:hover {
   box-shadow: 0px 0px 5px #ccc;
