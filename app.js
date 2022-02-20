@@ -18,9 +18,11 @@ App({
     // 获取存储内数据并放入globalData
     const openid = wx.getStorageSync('openid');
     const userinfo = wx.getStorageSync('userinfo');
-    if(openid && userinfo) {
+    const token = wx.getStorageSync('token');
+    if(openid && userinfo && token) {
       this.globalData.openid = openid;
       this.globalData.userinfo = userinfo;
+      this.globalData.token = token;
     }
   },
 
@@ -31,6 +33,7 @@ App({
   globalData: {
     userinfo: {},
     openid: '',
+    token: '',
   },
 
   // 版本号比较代码：来源微信开发文档
