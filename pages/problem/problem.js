@@ -13,8 +13,9 @@ Page({
     // 检测问题反馈内容长度
     if(problem_content.trim().length === 0) {
       await showToast({
-        title: '问题反馈内容不能为空！',
-        icon: 'error'
+        title: '问题反馈为空！',
+        icon: 'error',
+        duration: 2000,
       });
       return;
     }
@@ -31,14 +32,14 @@ Page({
             insertTime: new Date().toString(),
             name: userinfo.nickName,
             question: problem_content,
-            url: userinfo.avatarUrl
-          }
+            url: userinfo.avatarUrl,
+          },
         },
         header: {
           'Content-Type': 'application/json'
-        }
+        },
       });
-      /* 由于后端返回的结果一直报500错误，但监测发现该报错并不影响正常提交问题功能，故注释掉相应的提示代码 */
+      /* 由于后端返回的结果一直报500错误，但后台监测发现该报错并不影响正常提交问题功能，故注释掉相应的提示代码 */
       // const {data} = res;
       // if(data.success) {
 

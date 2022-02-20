@@ -1,30 +1,23 @@
 /* pages/problem/problem.wxss */
 
-/* 上部标题部分 */
-.title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 50rpx;
-  color: rgb(107, 168, 209);
-
-  height: 100rpx;
-
-  border-bottom: 1rpx solid #ccc;
+.problem {
+  width: auto;
+  height: auto;
 }
 
 /* 下部表单部分 */
 .problem_text {
   width: 100vw;
-  height: 40vh;
-  padding: 10rpx 5rpx;
+  height: 50vh;
+  padding: 50rpx;
 }
 .problem_text textarea {
-  border: 1rpx solid #ccc;
+  background-color: white;
+  border-radius: 25rpx;
+  box-shadow:  10rpx 10rpx 25rpx #d9d9d9 inset,
+              -10rpx -10rpx 25rpx #ffffff inset;
 
-  padding: 25rpx;
-  border: 1rpx solid #ccc;
+  padding: 50rpx;
   width: 100%;
   height: 100%;
 }
@@ -36,5 +29,26 @@
 }
 .problem_button button {
   background-color: rgb(107,168,209);
+  border-radius: 25rpx;
+
+  height: 3em;
+  width: 12em;
+  padding: 0rpx;
+
+  font-weight: 500;
+  font-size: 35rpx;
+  line-height: 3em;
+  text-align: center;
   color: white;
+
+  transition: all 250ms ease 0s;
+}
+.problem_button button:active {
+  box-shadow: 0rpx 0rpx 10rpx 5rpx #ccc;
+}
+
+/* textarea placeholder样式 */
+.ph {
+  line-height: 1.5em;
+  letter-spacing: 2rpx;
 }
