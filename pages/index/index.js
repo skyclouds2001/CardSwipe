@@ -9,9 +9,6 @@ Page({
   data: {
     // 礼物信息
     gift_info: {},
-    // star图标路径
-    iconsrc: "../../icons/shoucang.png",
-    iconsrc_click: "../../icons/shoucang_click.png",
   },
   openid: '',
   page: 1,    // 用于礼物请求时所用的page 
@@ -20,35 +17,22 @@ Page({
   collect: [],
 
   onLoad: async function () {
-    // 先检测有无用户信息
-    // 没有表示尚未登录
-    const openid = wx.getStorageSync('openid');
+    await showToast({
+      title: '为了更好的使用体验，请先登录',
+      icon: 'none',
+    });
+    await showToast({
+      title: '右滑表示喜欢，左滑表示不喜欢',
+      icon: 'none',
+    });
 
-    if(!openid) {
-      await showToast({
-        title: '为了更好的使用体验，请先登录',
-        icon: 'none',
-      });
-
-      setTimeout(() => {
-        wx.navigateTo({
-          url: '../../pages/login/login',
-        });
-      }, 1500);
-    } else {
-      await showToast({
-        title: '右滑表示喜欢，左滑表示不喜欢',
-        icon: 'none',
-      });
-
-      this.openid = openid;
-      this.page = 1;
-      this.index = 0;
-      
-      await this.getGiftInfo();
-      await this.getCollectInfo();
-      await this.checkCollectSession();
-    }
+    this.openid = openid;
+    this.page = 1;
+    this.index = 0;
+    
+    await this.getGiftInfo();
+    await this.getCollectInfo();
+    await this.checkCollectSession();
   },
 
   onHide: function () {
