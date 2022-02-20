@@ -1,8 +1,6 @@
 // app.js
 
-import {request} from './lib/request.js';
 import regeneratorRuntime, { async } from './lib/runtime.js';
-import {login} from './utils/promise.js';
 
 App({
 
@@ -16,13 +14,24 @@ App({
         this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
       },
     });
+
+    // 获取存储内数据并放入globalData
+    const openid = wx.getStorageSync('openid');
+    const userinfo = wx.getStorageSync('userinfo');
+    if(openid && userinfo) {
+      this.globalData.openid = openid;
+      this.globalData.userinfo = userinfo;
+    }
   },
 
   onUnhandledRejection: function (e) {
     console.log(e.reason);
   },
 
-  globalData: {},
+  globalData: {
+    userinfo: {},
+    openid: '',
+  },
 
   // 版本号比较代码：来源微信开发文档
   compareVersion(v1, v2) {
