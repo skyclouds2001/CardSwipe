@@ -7,6 +7,7 @@ import {login} from './utils/promise.js';
 App({
 
   onLaunch: function () {
+    // colorui 库导航栏预设代码
     wx.getSystemInfo({
       success: e => {
         this.globalData.StatusBar = e.statusBarHeight;
