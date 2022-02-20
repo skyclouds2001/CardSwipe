@@ -2,8 +2,11 @@
 
 <view class="add">
 
-  <!-- 标题部分 -->
-  <view class="title">礼物添加</view>
+  <!-- 礼物添加标题 -->
+  <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">礼物添加</view>
+  </cu-custom>
 
   <!-- 下部礼物提交部分 -->
   <form catchsubmit="submitGiftInfo" class="form">
@@ -21,7 +24,7 @@
       <view class="gift_discribe">
         <view class="gift_discribe_title">礼物描述</view>
         <view class="gift_discribe_input">
-          <textarea value="" maxlength="200" placeholder="请输入您的礼物描述" name="gift_discribe"></textarea>
+          <textarea value="" maxlength="200" placeholder="请输入礼物描述" name="gift_discribe"></textarea>
         </view>
       </view>
 
@@ -54,16 +57,16 @@
         <view class="gift_image_title">
           <view>
             <!-- 请上传Excel文件，文件中礼物数量不超过100个 -->
-            图片上传（耐心等待成功提示后再点击提交哦）
+            图片上传（耐心等待成功提示后再提交哦）
           </view>
-          <view>0/1</view>
+          <view>{{imgurl ? 1: 0}}/1</view>
         </view>
         <view class="gift_image_input">
           <view wx:if="{{imgurl.length !== 0}}">
-            <image src="{{imgurl}}" mode="widthFix"></image>
-            <view class="del_img" bindtap="handleRemoveImg">✖</view>
+            <image src="{{imgurl}}" mode="aspectFill"></image>
+            <view class="del_img cuIcon-close" bindtap="handleRemoveImg"></view>
           </view>
-          <view wx:else bindtap="handleUpdateImg">+</view>
+          <view wx:else class="cuIcon-add" bindtap="handleUpdateImg"></view>
         </view>
       </view>
 

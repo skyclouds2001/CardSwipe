@@ -1,17 +1,8 @@
 /* pages/add/add.wxss */
 
-/* 上部标题部分 */
-.title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 50rpx;
-  color: rgb(107, 168, 209);
-
-  height: 100rpx;
-
-  border-bottom: 1rpx solid #ccc;
+.add {
+  width: 100vw;
+  height: auto;
 }
 
 /* 列表总体部分 */
@@ -19,31 +10,38 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 
   width: 100vw;
-  height: var(100vh - 100rpx);
+  height: auto;
+
+  margin: 30rpx 0rpx;
 }
 .form_box {
-  background-color: #ddd;
+  background-color: #eee;
+
+  width: 100vw;
+  height: auto;
 }
-.gift_name, .gift_discribe, .gift_price, .gift_pos, .gift_imag, .gift_tags {
+
+.gift_name, .gift_discribe, .gift_price, .gift_pos, .gift_image, .gift_tags {
   background-color: #fff;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  margin-bottom: 20rpx;
+  margin: 20rpx 0rpx;
 
-  width: 100vw;
+  width: 100%;
+  height: auto;
 }
 
 /* 列表细节部分 */
 .gift_name_title, .gift_discribe_title, .gift_price_title, .gift_pos_title, .gift_tags_title {
   flex: 1;
 
-  padding-left: 25rpx;
+  padding: 0rpx 25rpx;
 
   display: flex;
   justify-content: center;
@@ -55,12 +53,11 @@
 .gift_discribe_title {
   height: 10em;
 }
+
 .gift_name_input, .gift_discribe_input, .gift_price_input, .gift_pos_input, .gift_tags_input {
   flex: 4;
 
   color: #999;
-
-  border-left: 1rpx solid #ddd;
 
   display: flex;
   justify-content: center;
@@ -79,19 +76,22 @@
 
   background-color: #fff;
 }
+
 .gift_image_title {
   display: flex;
   align-items: center;
   justify-content: space-around;
 
-  padding-left: 25rpx;
-  /* border-bottom: 1rpx solid #ccc; */
-  
   height: 2em;
+}
+
+.gift_image_title > view:first-child {
+  padding: 0rpx 25rpx;
 }
 .gift_image_title > view:last-child {
   color: #bbb;
 }
+
 .gift_image_input {
   padding: 20rpx;
   padding-bottom: 40rpx;
@@ -114,16 +114,20 @@
 
   overflow: hidden;
 }
+
 .gift_image_input image {
-  width: 150px;
+  width: 150rpx;
+  height: 150rpx;
 }
-.gift_image_input > view:first-child {
+
+.gift_image_input > view {
   display: flex;
   justify-content: center;
   align-items: center;
 
   position: relative;
 }
+
 .del_img {
   position: absolute;
   top: 0;
@@ -131,7 +135,7 @@
 
   font-size: 35rpx;
   line-height: 35rpx;
-  border-radius: 50%;
+  text-align: center;
 
   color: white;
   background-color: #999;
@@ -141,7 +145,7 @@
 .gift_button {
   background-color: white;
 
-  padding-top: 50rpx;
+  padding: 25rpx 0rpx;
 }
 .gift_button button {
   background-color: rgb(107,168,209);

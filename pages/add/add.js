@@ -6,7 +6,7 @@ import {showToast, chooseMedia, showModal, uploadFile} from '../../utils/promise
 
 Page({
   data: {
-    imgurl: '',
+    imgurl: '',  // 提交的图片链接
   },
 
   // 提交礼物信息方法
@@ -66,16 +66,6 @@ Page({
 
   // 上传图片方法
   async handleUpdateImg() {
-    // 检测是否已存在图片
-    // 图片只可上传一次
-    if(this.data.imgurl) {
-      await showToast({
-        title: '只可上传一张图片',
-        icon: 'error',
-      });
-      return;
-    }
-
     try {
       // 选取图片
       const res = await chooseMedia({
@@ -85,6 +75,10 @@ Page({
       });
       
       // 上传图片
+      wx.showLoading({
+        title: '加载中',
+        mask: true,
+      });
       const {data} = await uploadFile({
         filePath: res.tempFiles[0].tempFilePath,
         name: 'file',
@@ -95,6 +89,7 @@ Page({
         },
       });
       
+      wx.hideLoading();
       const info = JSON.parse(data);
       if(info.success) {
         await showToast({
@@ -121,6 +116,8 @@ Page({
       const res = await showModal({
         title: '确认删除图片？',
         content: '',
+        confirmText: '确认',
+        cancelText: '再想想',
       });
       if(res.confirm) {
         this.setData({
