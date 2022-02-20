@@ -5,7 +5,7 @@
   <!-- 礼物添加标题 -->
   <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
     <view slot="backText">返回</view>
-    <view slot="content">礼物添加</view>
+    <view slot="content">问题反馈</view>
   </cu-custom>
 
   <!-- 下部提交部分 -->
