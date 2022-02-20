@@ -16,8 +16,8 @@ Page({
 
   onLoad: function () {
     try {
-      const userinfo = wx.getStorageSync('userinfo') || [];
-      if(userinfo.length !== 0) {
+      const userinfo = wx.getStorageSync('userinfo');
+      if(userinfo) {
         this.setData({
           nickname: userinfo.nickName,
           imgurl: userinfo.avatarUrl

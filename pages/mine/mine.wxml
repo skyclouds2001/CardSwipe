@@ -4,8 +4,9 @@
 
   <!-- 上部用户信息部分 -->
   <view class="user_info">
-    <image mode="widthFix" src="{{imgurl}}"></image>
-    <view>{{nickname}}</view>
+    <image class="img-icon" mode="widthFix" src="{{imgurl}}"></image>
+    <view class="nickname">{{nickname}}</view>
+    <view class="bg" style="background-image: url({{imgurl}});"></view>
   </view>
 
   <!-- 下部选项部分 -->
@@ -14,16 +15,19 @@
     <navigator class="item {{isActive === 0 ? 'active' : ''}}" hover-stop-propagation bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{0}}" url="../../pages/collect/collect">
       <view class="icon cuIcon-favor"></view>
       <view class="text">我的收藏</view>
+      <view class="icon-goto cuIcon-right"></view>
     </navigator>
 
     <navigator class="item {{isActive === 1 ? 'active' : ''}}" hover-stop-propagation bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{1}}" url="../../pages/problem/problem">
       <view class="icon cuIcon-mail"></view>
       <view class="text">问题反馈</view>
+      <view class="icon-goto cuIcon-right"></view>
     </navigator>
 
     <navigator class="item {{isActive === 2 ? 'active' : ''}}" hover-stop-propagation bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{2}}" url="../../pages/add/add">
       <view class="icon cuIcon-goods"></view>
       <view class="text">礼物添加</view>
+      <view class="icon-goto cuIcon-right"></view>
     </navigator>
 
   </view>
