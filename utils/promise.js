@@ -83,11 +83,25 @@ export const chooseMedia = ({
 export const showModal = ({
   title = '提示',
   content = '',
+  placeholderText = '',
+  showCancel = true,
+  cancelText = '取消',
+  cancelColor = '#000000',
+  confirmText = '确定',
+  confirmColor = '#576B95',
+  editable = false,
 }) => {
   return new Promise((resolve, reject) => {
     wx.showModal({
       title,
       content,
+      placeholderText,
+      showCancel,
+      cancelText,
+      cancelColor,
+      confirmText,
+      confirmColor,
+      editable,
       success: (res) => {
         resolve(res);
       },
