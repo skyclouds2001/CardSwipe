@@ -19,12 +19,13 @@ Page({
     // 标记是否显示登录提示框
     showModal: false,
   },
+  defaultImgUrl: '../../images/defaultImg.jpg',
 
   onLoad: function () {
     try {
       const userinfo = wx.getStorageSync('userinfo');
       // 存在则直接设置数据|不存在则请求用户信息
-      if(userinfo) {
+      if(userinfo?.nickName && userinfo?.avatarUrl) {
         this.setData({
           nickname: userinfo.nickName,
           imgurl: userinfo.avatarUrl
@@ -90,6 +91,10 @@ Page({
       } catch (err) {
         console.log(err);
       }
+    } else {  // 否则使用默认头像替代
+      this.setData({
+        imgurl: this.defaultImgUrl,
+      });
     }
 
   },
