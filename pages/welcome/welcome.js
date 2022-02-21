@@ -95,7 +95,7 @@ Page({
       });
 
       // 记录性别：更新至存储
-      const userinfo = wx.getStorageSync('userinfo');
+      const userinfo = wx.getStorageSync('userinfo') || {};
       userinfo.sex = this.sex;
       wx.setStorageSync('userinfo', userinfo);
     } catch (err) {
