@@ -23,6 +23,7 @@ Page({
 
   onLoad: function () {
     try {
+      
       const userinfo = wx.getStorageSync('userinfo');
       // 存在则直接设置数据|不存在则请求用户信息
       if(userinfo?.nickName && userinfo?.avatarUrl) {
@@ -59,6 +60,9 @@ Page({
 
   // 模态框响应
   async handleModal(e) {
+    // 获取性别信息
+    const {sex} = wx.getStorageSync('userinfo') ?? 0;
+
     // 隐藏提示框
     this.setData({
     });
@@ -77,6 +81,7 @@ Page({
         const userinfo = {
           avatarUrl: userInfo.avatarUrl,
           nickName: userInfo.nickName,
+          sex: sex,
         };
 
         // 设置data
