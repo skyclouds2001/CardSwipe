@@ -38,6 +38,10 @@ App({
     });
   },
 
+  onUnhandledRejection: function (e) {
+    console.info(e.reason);
+  },
+
   globalData: {},
 
   // 版本号比较代码：来源微信开发文档
