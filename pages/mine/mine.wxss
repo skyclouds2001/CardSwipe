@@ -117,3 +117,16 @@ page {
   background-color: rgb(245, 242, 242);
   color: rgb(230, 120, 120);
 }
+
+/* 模态框样式设置 */
+.cu-modal .cu-dialog .cu-bar .content {
+  font-weight: bold;
+  font-size: 40rpx;
+}
+.cu-modal .cu-dialog .cu-bar .action:last-child {
+  margin: 0rpx;
+}
+.cu-modal .cu-dialog .cu-bar .action:last-child button {
+  margin: 0rpx 25rpx;
+  font-size: 30rpx;
+}
