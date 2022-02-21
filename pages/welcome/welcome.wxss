@@ -75,19 +75,20 @@
   justify-content: center;
   align-items: center;
 }
+
 .content_2 .text_or {
   font-size: 100rpx;
 }
+
 .content_2 .choose_sex {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.content_2 .choose_sex view {
-  width: 200rpx;
-  height: 150rpx;
 
-  color: #eee;
+.content_2 .choose_sex view {
+  width: 250rpx;
+  height: 125rpx;
   margin: 50rpx;
 
   display: flex;
@@ -95,17 +96,34 @@
   align-items: center;
 
   font-weight: bold;
-  font-size: 35rpx;
+  font-size: 40rpx;
+  letter-spacing: 1rpx;
+  color: #eee;
+
+  border-radius: 25rpx/12.5rpx;
+  box-shadow: 5rpx 5rpx 10rpx #999, 0rpx 0rpx 10rpx #eee;
+
+  transition: all 125ms ease;
 }
+.content_2 .choose_sex view:active {
+  box-shadow: 10rpx 10rpx 10rpx #999, 5rpx 5rpx 10rpx #eee;
+}
+
 .content_2 .choose_sex .girl {
   background-color: rgb(230, 118, 118);
 }
+
 .content_2 .choose_sex .boy {
   background-color: rgb(82, 153, 201);
 }
+
 .content_2 .choice_img {
   width: 75%;
+
+  border-radius: 25rpx;
+  box-shadow: 0rpx 0rpx 5rpx #999;
 }
+
 .content_2 .icon_love_pink {
   position: absolute;
   top: -45rpx;
@@ -128,26 +146,32 @@
 /* 固定窗口文字部分 */
 .content_3 .info {
   position: fixed;
-  top: 5rpx;
-  left: 0;
+  top: 25rpx;
 
-  width: 100vw;
+  width: 75vw;
   height: 75rpx;
+
   background-color: rgb(248, 248, 248);
+  border-radius: 10rpx;
+  box-shadow: 0rpx 0rpx 5rpx #ccc;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   font-size: 40rpx;
+  font-weight: 500;
 }
 
 /* 提示文字部分 */
 .content_3 .text {
   text-align: center;
   font-size: 28rpx;
-  line-height: 45rpx;
+  line-height: 1.5em;
+  letter-spacing: 2.5rpx;
+
   width: 75vw;
+  margin-top: 100rpx;
 }
 
 /* 标签部分 */
@@ -159,51 +183,65 @@
   align-content: center;
 
   width: 75vw;
-  margin-top: 50rpx;
+  margin-top: 25rpx;
 }
 .content_3 .tag view {
-  color: #eee;
-  background-color: #a4a4a4;
+  background-color: transparent;
 
-  width: 20vw;
+  width: 5em;
   margin: 2vw 8vw;
+  border: 5rpx solid #d248eb;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  font-size: 28rpx;
-  line-height: 56rpx;
+  font-size: 30rpx;
+  line-height: 2em;
+  color: #d248eb;
+  font-weight: bold;
+  letter-spacing: 1.5rpx;
 
-  border-radius: 5rpx;
+  border-radius: 25rpx/1em;
+  backdrop-filter: saturate(75%);
+
+  transition: all 250ms ease;
 }
-.select {
-  background-color: rgb(255, 161, 184) !important;
+.content_3 .tag .select {
+  color: #f0a2fd;
+  border: 5rpx solid #f0a2fd;
 }
 
 /* 输入框部分 */
 .input input {
-  /* color: #ccc; */
   background-color: white;
 
   margin-top: 20rpx;
-  padding: 10rpx;
+  padding: 0rpx 15rpx;
+  height: 2em;
+  width: 15em;
+
+  border-radius: 10rpx;
+  box-shadow: 2.5rpx 2.5rpx 5rpx #ccc inset, -2.5rpx -2.5rpx 5rpx #fff inset;
+
+  line-height: 2em;
+
+  transition: all 125ms ease;
 }
 .placeForInput {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  line-height: 2em;
 }
 
 /* submit部分 */
 .submit {
-  margin-top: 30rpx;
-  background-color: #ccc;
-  padding: 10rpx 40rpx;
-  border: 1rpx solid #999;
+  margin-top: 25rpx;
 
   font-size: 30rpx;
   font-weight: bold;
 
-  border-radius: 10rpx;
+  transition: all 125ms ease;
+}
+.submit:active {
+  box-shadow: 10rpx 10rpx 15rpx var(--grayShadow);
 }

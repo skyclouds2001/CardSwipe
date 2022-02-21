@@ -73,8 +73,8 @@
       </view>
 
       <!-- submit部分 -->
-      <view class="submit">
-        <view bindtap="handleSubmit">确定</view>
+      <view class="submit cu-btn bg-gray round shadow" bindtap="handleSubmit">
+        <view>确定</view>
       </view>
 
     </view>
