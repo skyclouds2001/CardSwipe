@@ -31,19 +31,19 @@
   <!-- 下部选项部分 -->
   <view class="menu">
 
-    <navigator class="item {{isActive === 0 ? 'active' : ''}}" hover-stop-propagation bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{0}}" url="../../pages/collect/collect">
+    <navigator class="item" hover-class="active" hover-stop-propagation url="../../pages/collect/collect">
       <view class="icon cuIcon-favor"></view>
       <view class="text">我的收藏</view>
       <view class="icon-goto cuIcon-right"></view>
     </navigator>
 
-    <navigator class="item {{isActive === 1 ? 'active' : ''}}" hover-stop-propagation bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{1}}" url="../../pages/problem/problem">
+    <navigator class="item" hover-class="active" hover-stop-propagation url="../../pages/problem/problem">
       <view class="icon cuIcon-mail"></view>
       <view class="text">问题反馈</view>
       <view class="icon-goto cuIcon-right"></view>
     </navigator>
 
-    <navigator class="item {{isActive === 2 ? 'active' : ''}}" hover-stop-propagation bindtouchstart="handleOnChange" bindtouchend="handleOnChange" data-id="{{2}}" url="../../pages/add/add">
+    <navigator class="item" hover-class="active" hover-stop-propagation url="../../pages/add/add">
       <view class="icon cuIcon-goods"></view>
       <view class="text">礼物添加</view>
       <view class="icon-goto cuIcon-right"></view>

@@ -41,23 +41,6 @@ Page({
     }
   },
 
-  // 点击选项响应
-  handleOnChange(e) {
-    const {id} = e.currentTarget.dataset;
-    const {type} = e;
-
-    if(type === "touchstart") {
-      this.setData({
-        isActive: id
-      });
-    }
-    if(type === "touchend") {
-      this.setData({
-        isActive: -1
-      });
-    }
-  },
-
   // 模态框响应
   async handleModal(e) {
     // 获取性别信息
@@ -99,6 +82,7 @@ Page({
     } else {  // 否则使用默认头像替代
       this.setData({
         imgurl: this.defaultImgUrl,
+        nickname: '昵称未知',
       });
     }
 
