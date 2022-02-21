@@ -17,40 +17,23 @@ Page({
   sex: 0,
 
   onLoad: function () {
-    // 检查有无个人身份信息
-    const openid = wx.getStorageSync('openid');
 
-    // 没有个人信息先获取昵称和头像url
-    if(!openid) {
-      showToast({
-        title: '为了更好的使用体验，请先登录',
-        icon: 'none',
-      });
-      setTimeout(() => {
-        wx.navigateTo({
-          url: '../../pages/login/login',
-        });
-      }, 1500);
-    } else {
+    // 通过userinfo内有无sex属性判断是否需经过welcome页
+    const userinfo = wx.getStorageSync('userinfo');
+
+    if(userinfo?.sex) {
+
+      // 跳转至首页
       wx.switchTab({
         url: '../../pages/index/index',
       });
-    }
 
-    // 初始化标签
-    this.initTag();
-  },
-  
-  onShow: function () {
-    const openid = wx.getStorageSync('openid');
-    
-    if(openid) {
-      // 检查并设置初始页面位于页面1
-      if(this.data.STATE !== 1) {
-        this.setData({
-          STATE: 1,
-        });
-      }
+    } else {
+
+      // 设置初始页面
+      this.setData({
+        STATE: 1,
+      });
 
       // 设置页面1至页面2的跳转，延迟时间3s
       setTimeout(() => {
@@ -58,7 +41,12 @@ Page({
           STATE: 2,
         });
       }, 3000);
+
+      // 初始化标签
+      this.initTag();
+
     }
+
   },
 
   // 选择与记录性别
@@ -75,14 +63,14 @@ Page({
     const {name} = e.currentTarget.dataset;
     
     const tag = this.data.tag;
-    tag.forEach(v => v.name === name.trim() ? v.is_selected = !v.is_selected : '');
+    tag.forEach(v => v.name === name.trim() && v.name !== '……' ? v.is_selected = !v.is_selected : '');
 
     this.setData({
       tag,
     });
   },
 
-  // 提交按钮：提交信息；更新记录使用者性别
+  // 提交按钮：提交信息；更新记录使用者性别；移入存储
   async handleSubmit() {
     // 获取选择的标签
     let selectedTag = [];
@@ -106,12 +94,10 @@ Page({
         }
       });
 
-      // 记录性别
+      // 记录性别：更新至存储
       const userinfo = wx.getStorageSync('userinfo');
-      if(this.sex !== userinfo.gender) {
-        userinfo.gender = this.sex;
-        wx.setStorageSync('userinfo', userinfo);
-      }
+      userinfo.sex = this.sex;
+      wx.setStorageSync('userinfo', userinfo);
     } catch (err) {
       console.log(err);
     }
