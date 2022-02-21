@@ -9,8 +9,7 @@
     "pages/mine/mine",
     "pages/collect/collect",
     "pages/add/add",
-    "pages/problem/problem",
-    "pages/login/login"
+    "pages/problem/problem"
   ],
   "entryPagePath": "pages/welcome/welcome",
 
