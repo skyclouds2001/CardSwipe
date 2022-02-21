@@ -2,6 +2,7 @@
 
 @import "./colorui/main.wxss";
 @import "./colorui/icon.wxss";
+@import "./colorui/animation.wxss";
 
 page, view, text, swiper, swiper-item, image, navigator, icon, audio, video, from, input, textarea {
   padding: 0rpx;

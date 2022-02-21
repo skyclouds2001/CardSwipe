@@ -1,10 +1,32 @@
 // app.js
 
 import regeneratorRuntime, { async } from './lib/runtime.js';
+import {request} from './lib/request.js';
+import {login} from './utils/promise.js';
 
 App({
 
-  onLaunch: function () {
+  onLaunch: async function () {
+    // 换取openid和token
+    const {code} = await login({
+      timeout: 10000,
+    });
+    const {data} = await request({
+      url: '/login/wx',
+      method: 'POST',
+      data: {
+        code,
+      },
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
+    if(data?.data?.user) {
+      const {token, openid} = data.data.user;
+      wx.setStorageSync('token', token);
+      wx.setStorageSync('openid', openid);
+    }
+
     // colorui 库导航栏预设代码
     wx.getSystemInfo({
       success: e => {
@@ -14,27 +36,9 @@ App({
         this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
       },
     });
-
-    // 获取存储内数据并放入globalData
-    const openid = wx.getStorageSync('openid');
-    const userinfo = wx.getStorageSync('userinfo');
-    const token = wx.getStorageSync('token');
-    if(openid && userinfo && token) {
-      this.globalData.openid = openid;
-      this.globalData.userinfo = userinfo;
-      this.globalData.token = token;
-    }
   },
 
-  onUnhandledRejection: function (e) {
-    console.log(e.reason);
-  },
-
-  globalData: {
-    userinfo: {},
-    openid: '',
-    token: '',
-  },
+  globalData: {},
 
   // 版本号比较代码：来源微信开发文档
   compareVersion(v1, v2) {
