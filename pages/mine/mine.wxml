@@ -23,8 +23,8 @@
 
   <!-- 上部用户信息部分 -->
   <view class="user_info">
-    <image class="img-icon" mode="widthFix" src="{{imgurl}}"></image>
-    <view class="nickname">{{nickname}}</view>
+    <image class="img-icon" mode="widthFix" src="{{imgurl}}" catchtap="handleLoad"></image>
+    <view class="nickname" catchtap="handleLoad">{{nickname}}</view>
     <view class="bg" style="background-image: url({{imgurl}});"></view>
   </view>
 

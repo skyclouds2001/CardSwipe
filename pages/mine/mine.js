@@ -20,12 +20,14 @@ Page({
     showModal: false,
   },
   defaultImgUrl: '../../images/defaultImg.jpg',
+  defaultNickname: '点击登录',
 
   onLoad: function () {
     try {
       
       const userinfo = wx.getStorageSync('userinfo');
-      // 存在则直接设置数据|不存在则请求用户信息
+
+      // 存在则直接设置数据|不存在则请求用户信息童叟预先设置默认值
       if(userinfo?.nickName && userinfo?.avatarUrl) {
         this.setData({
           nickname: userinfo.nickName,
@@ -34,6 +36,8 @@ Page({
       } else {
         this.setData({
           showModal: true,
+          imgurl: this.defaultImgUrl,
+          nickname: this.defaultNickname,
         });
       }
     } catch (err) {
@@ -41,14 +45,20 @@ Page({
     }
   },
 
+  // 点击登录响应
+  handleLoad() {
+    if(this.defaultImgUrl !== this.data.imgurl && this.data.nickName !== this.defaultNickname) {
+      this.setData({
+        showModal: true,
+      });
+      this.handleModal();
+    }
+  },
+
   // 模态框响应
   async handleModal(e) {
     // 获取性别信息
-    const {sex} = wx.getStorageSync('userinfo') ?? 0;
-
-    // 隐藏提示框
-    this.setData({
-    });
+    const {sex} = wx.getStorageSync('userinfo') ?? {};
 
     const {flag} = e.currentTarget.dataset;
     // 允许获取则请求数据
@@ -82,7 +92,8 @@ Page({
     } else {  // 否则使用默认头像替代
       this.setData({
         imgurl: this.defaultImgUrl,
-        nickname: '昵称未知',
+        nickname: this.defaultNickname,
+        showModal: false,
       });
     }
 
