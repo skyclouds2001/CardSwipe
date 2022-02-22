@@ -16,7 +16,7 @@
     <!-- 礼物名称及价格 -->
     <view class="name_price">
       <view class="name">{{gift_info.title ? gift_info.title : ' '}} </view>
-      <view class="title">{{gift_info.price ? ('￥' + gift_info.price) : ' '}} </view>
+      <view class="price">{{gift_info.price ? ('￥' + gift_info.price) : ' '}} </view>
     </view>
 
     <!-- 礼物标签 -->
@@ -49,7 +49,7 @@
 
     <!-- 礼物文案 -->
     <view class="content">
-      <text>{{gift_info.des ? gift_info.des : ' '}}</text>
+      <view>{{gift_info.des ? gift_info.des : ' '}}</view>
     </view>
 
   </view>
