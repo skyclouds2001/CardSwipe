@@ -2,7 +2,7 @@
 
 <view class="problem">
 
-  <!-- 礼物添加标题 -->
+  <!-- 标题 -->
   <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
     <view slot="backText">返回</view>
     <view slot="content">问题反馈</view>
