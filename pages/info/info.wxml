@@ -2,9 +2,15 @@
 
 <view class="info">
 
+  <!-- 标题 -->
+  <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">礼物详情</view>
+  </cu-custom>
+
   <!-- 上部礼物图片部分 -->
   <view class="imageBox">
-    <image src="{{gift_info.url}}" mode="heightFix" class="giftImage" bindtap="handlePreviewImage"></image>
+    <image src="https://edu-1014.oss-cn-beijing.aliyuncs.com/2021/01/16/7071f928f39f46639b99e17d34fb5acatmp_e115d8559230ea21194d9abdfefd2ca441ae7441781edeb0.jpg" mode="heightFix" class="giftImage" bindtap="handlePreviewImage"></image>
     <view class="icon_star" bindtap="handleCollect">
       <view class="cuIcon-{{gift_info.is_collect ? 'favorfill collect' : 'favor'}}"></view>
     </view>
@@ -14,42 +20,44 @@
   <view class="giftInfo">
 
     <!-- 礼物名称及价格 -->
-    <view class="name_price">
-      <view class="name">{{gift_info.title ? gift_info.title : ' '}} </view>
-      <view class="price">{{gift_info.price ? ('￥' + gift_info.price) : ' '}} </view>
+    <view class="title_price">
+      <view class="title">{{gift_info.title}}</view>
+      <view class="price">{{gift_info.price ? gift_info.price : '未知'}}</view>
     </view>
 
     <!-- 礼物标签 -->
-    <view class="label">{{gift_info.tag ? gift_info.tag : ' '}} </view>
+    <view class="tag">{{gift_info.tag ? gift_info.tag : '暂无标签'}}</view>
 
     <!-- 礼物喜爱人数 -->
     <view class="like">
       <view class="boy number">
-        <view>
+        <view class="data">
           <view>boy</view>
-          <view>{{gift_info.boylike ? gift_info.boylike : ' '}}</view>
-          <view>{{gift_info.boyper ? (gift_info.boyper + '%') : ' '}}</view>
+          <view>{{gift_info.boylike ? gift_info.boylike : 0}}</view>
         </view>
-        <progress percent="{{gift_info.boyper ? gift_info.boyper : 0}}" activeColor="rgb(147, 192, 221)" backgroundColor="rgb(141, 140, 139)" active stroke-width="25"></progress>
+        <view class="cu-progress round striped active progress">
+          <view class="boy-progress" style="width: {{gift_info.boyprogress + '%'}}">{{gift_info.boyprogress}}%</view>
+        </view>
       </view>
       <view class="girl number">
-        <view>
+        <view class="data">
           <view>girl</view>
-          <view>{{gift_info.girllike ? gift_info.girllike : ' '}}</view>
-          <view>{{gift_info.girlper ? (gift_info.girlper + '%') : ' '}}</view>
+          <view>{{gift_info.girllike ? gift_info.girllike : 0}}</view>
         </view>
-        <progress percent="{{gift_info.girlper ? gift_info.girlper : 0}}" activeColor="rgb(255, 211, 211)" backgroundColor="rgb(141, 140, 139)" active stroke-width="25"></progress>
+        <view class="cu-progress round striped active progress">
+          <view class="girl-progress" style="width: {{gift_info.girlprogress + '%'}}">{{gift_info.girlprogress}}%</view>
+        </view>
       </view>
     </view>
 
     <!-- 礼物路径 -->
     <view class="path">
-      <text>{{gift_info.buyurl ? gift_info.buyurl : ' '}}</text>
+      <text>{{gift_info.buyurl ? gift_info.buyurl : '暂无购买链接'}}</text>
     </view>
 
     <!-- 礼物文案 -->
     <view class="content">
-      <view>{{gift_info.des ? gift_info.des : ' '}}</view>
+      <view>{{gift_info.des}}</view>
     </view>
 
   </view>

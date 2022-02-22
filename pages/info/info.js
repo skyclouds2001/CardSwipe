@@ -7,8 +7,6 @@ import { showToast } from '../../utils/promise.js';
 Page({
 
   data: {
-    iconsrc: "../../icons/shoucang.png",
-    iconsrcSelect: "../../icons/shoucang_click.png",
     gift_info: {},
   },
   openid: '',
@@ -38,7 +36,11 @@ Page({
       // 请求成功则设置礼物信息；否则弹出提示信息
       if(data.success) {
         const {gift} = data.data;
+
         gift.is_collect = collect.includes(parseInt(id));
+        gift.boyprogress = (gift.boylike / ((gift.boylike + gift.girllike) / (gift.progress / 100)) * 100).toFixed(0);
+        gift.girlprogress = (gift.girllike / ((gift.boylike + gift.girllike) / (gift.progress / 100)) * 100).toFixed(0);
+
         this.setData({
           gift_info: data.data.gift,
         });

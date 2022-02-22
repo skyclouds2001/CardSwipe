@@ -12,6 +12,8 @@ page {
 .info {
   width: 100%;
   height: 100%;
+
+  overflow: hidden;
 }
 .info::before {
   position: absolute;
@@ -56,9 +58,9 @@ page {
   align-items: center;
 
   width: 100vw;
-  height: 50vh;
+  height: 40vh;
 
-  background-color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10rpx);
 
   overflow: hidden;
@@ -87,7 +89,7 @@ page {
 
   border-radius: 50%;
   background-color: #fff;
-  box-shadow: 5rpx 5rpx 10rpx #ccc, -5rpx -5rpx 10rpx #fff;
+  box-shadow: 0rpx 0rpx 10rpx #ccc;
 }
 .collect {
   color: rgb(247, 199, 211);
@@ -108,25 +110,58 @@ page {
   justify-content: center;
   align-items: center;
 }
+.giftInfo > view {
+  width: 100%;
+  height: auto;
+}
 
-.name_price {
+.title_price {
   flex-grow: 1;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding: 0 100rpx 25rpx 0;
 }
-.name {
+
+.title {
+  flex-grow: 4;
+
+  padding-right: 5rpx;
+
+  font-weight: bold;
+  font-size: 40rpx;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.price {
+  flex-grow: 1;
+
+  padding-left: 5rpx;
+
+  color: var(--red);
+  text-align: center;
+  font-weight: bold;
+  font-size: 35rpx;
+}
+.price::before {
+  content: '￥';
+
+  color: var(--red);
+  text-align: center;
   font-weight: bold;
   font-size: 35rpx;
 }
 
-.label {
+.tag {
   flex-grow: 1;
-  
-  padding-bottom: 25rpx;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .like {
@@ -136,44 +171,103 @@ page {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  align-content: center;
-
-  padding-bottom: 25rpx;
-  padding-right: 150rpx;
 }
+
 .number {
-  flex: 1;
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  width: 100%;
-  padding: 5rpx;
-  margin-top: 10rpx;
-}
-.number > view {
   flex: 1;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  width: 100%;
 }
-.number > progress {
-  flex: 1;
+
+.number > view:first-child {
+  margin: 0rpx 25rpx;
+  flex-grow: 2;
+}
+.number > view:last-child {
+  margin: 0rpx 25rpx;
+  flex-grow: 3;
+}
+
+.data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 15rpx 25rpx;
+
+  border-radius: 30rpx/50%;
+  color: whitesmoke;
+}
+
+.data > view {
+  flex-grow: 1;
+}
+.data > view:first-child {
+  padding-right: 10rpx;
+
+  font-weight: 500;
+}
+.data > view:last-child {
+  padding-left: 10rpx;
+}
+
+.boy > .data {
+  background-color: #24a2fc;
+  box-shadow:  5rpx 5rpx 10rpx #1f8ad6, -5rpx -5rpx 10rpx #29baff;
+}
+.girl > .data {
+  background-color: #fca4b2;
+  box-shadow:  5rpx 5rpx 10rpx #d68b97, -5rpx -5px 10rpx #ffbdcd;
+}
+
+.data > view:first-child::after {
+  font-family: "cuIcon";
+  content: "\e668";
+  padding-left: 5rpx;
+}
+
+.progress {
+  height: 50rpx;
+  box-shadow:  5rpx 5rpx 10rpx #d9d9d9 inset, -5rpx -5rpx 10rpx #ffffff inset;
+
+  overflow: visible;
+}
+
+.progress > view {
+  font-size: 35rpx;
+  border-top-left-radius: 5000rpx;
+  border-bottom-left-radius: 5000rpx;
+}
+
+.boy-progress {
+  background-color: #4eb5ff;
+  box-shadow:  5rpx 5rpx 10rpx #429ad9, -5rpx -5rpx 10rpx #5ad0ff;
+}
+.girl-progress {
+  background-color: #ffc0cb;
+  box-shadow:  5rpx 5rpx 10rpx #d9a3ad, -5rpx -5rpx 10rpx #ffdde9;
 }
 
 .path {
   flex-grow: 1;
 
-  padding-bottom: 25rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .content {
   flex-grow: 2;
-  
-  padding-bottom: 25rpx;
 
+  text-align: center;
   line-height: 1.5em;
-  text-align: left;
 }
