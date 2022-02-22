@@ -15,7 +15,7 @@
   width: 100vw;
   height: auto;
 
-  margin: 30rpx 0rpx;
+  margin: 5rpx 0rpx;
 }
 .form_box {
   background-color: #eee;
@@ -31,10 +31,12 @@
   justify-content: center;
   align-items: center;
 
-  margin: 20rpx 0rpx;
+  margin: 25rpx 0rpx;
 
   width: 100%;
   height: auto;
+
+  box-shadow: inset 5rpx 5rpx 10rpx #d9d9d9, inset -5rpx -5rpx 10rpx #ffffff;
 }
 
 /* 列表细节部分 */
@@ -144,12 +146,28 @@
 /* submit按钮部分 */
 .gift_button {
   background-color: white;
+  box-shadow: inset 5rpx 5rpx 10rpx #d9d9d9, inset -5rpx -5rpx 10rpx #ffffff;
 
   padding: 25rpx 0rpx;
+
+  position: relative;
 }
+
 .gift_button button {
   background-color: rgb(107,168,209);
-  color: white;
+  border-radius: 25rpx;
+  box-shadow: 0rpx 0rpx 10rpx #ccc;
 
-  width: 200rpx;
+  color: white;
+  line-height: 2.5em;
+
+  width: 5.5em;
+  height: 2.5em;
+  padding: 0rpx;
+
+  transition: all 100ms ease 0ms;
+}
+.gift_button button:active {
+  background-color: rgb(125, 184, 224);
+  box-shadow: none;
 }
