@@ -169,7 +169,7 @@ Page({
       },
     });
     
-    if(res?.data?.success) {
+    if(res.data.success) {
       await showToast({
         title: `${flag ? '添加' : '删除'}收藏成功`,
         icon: 'success',
