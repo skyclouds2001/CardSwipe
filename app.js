@@ -7,6 +7,16 @@ import {login} from './utils/promise.js';
 App({
 
   onLaunch: async function () {
+    // colorui 库导航栏预设代码
+    wx.getSystemInfo({
+      success: e => {
+        this.globalData.StatusBar = e.statusBarHeight;
+        let custom = wx.getMenuButtonBoundingClientRect();
+        this.globalData.Custom = custom;  
+        this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
+      },
+    });
+    
     // 换取openid和token
     const {code} = await login({
       timeout: 10000,
@@ -26,23 +36,17 @@ App({
       wx.setStorageSync('token', token);
       wx.setStorageSync('openid', openid);
     }
-
-    // colorui 库导航栏预设代码
-    wx.getSystemInfo({
-      success: e => {
-        this.globalData.StatusBar = e.statusBarHeight;
-        let custom = wx.getMenuButtonBoundingClientRect();
-        this.globalData.Custom = custom;  
-        this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
-      },
-    });
   },
 
   onUnhandledRejection: function (e) {
     console.info(e.reason);
   },
 
-  globalData: {},
+  globalData: {
+    StatusBar,
+    Custom,
+    CustomBar,
+  },
 
   // 版本号比较代码：来源微信开发文档
   compareVersion(v1, v2) {
