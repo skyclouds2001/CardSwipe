@@ -2,6 +2,7 @@
 
 import {request} from '../../lib/request.js';
 import regeneratorRuntime from '../../lib/runtime.js';
+import {showToast} from '../../utils/promise.js';
 
 Page({
 
@@ -11,6 +12,11 @@ Page({
   openid: '',
 
   onLoad: async function () {
+    wx.showLoading({
+      title: '加载中',
+      mask: true,
+    });
+
     try {
       const openid = wx.getStorageSync('openid') || '';
       this.openid = openid;
@@ -18,26 +24,25 @@ Page({
       const res = await request({
         url: `/gift/collection/select/${openid}`,
         method: 'GET',
-        data: {
-          openid,
-        },
         header: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
   
-      const collect = res?.data?.data?.['collections:'];
+      const collect = res?.data?.data?.['collections:'] ?? [];
 
       // 添加is_on_delete属性
       if(collect)
-        collect?.map(v => v['is_on_delete'] = false);
+        collect.map(v => v['is_on_delete'] = false);
 
       this.setData({
-        gift_data: collect ?? []
+        gift_data: collect,
       });
     } catch (err) {
       console.log(err);
     }
+
+    wx.hideLoading();
   },
 
   // 处理左滑及恢复事件：显示收藏按钮
@@ -77,20 +82,52 @@ Page({
 
   // 删除收藏事件
   async handleDeleteCollection(e) {
-    const {id} = e.currentTarget.dataset;
-    const res = await request({
-      url: `/gift/collection/delete/${this.openid}/${id}`,
-      method: 'GET',
-      data: {
-        cid: id,
-        openid: this.openid,
-      },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
+    wx.showLoading({
+      title: '操作中...',
+      mask: true,
     });
 
-    console.log(res.data);
+    const {id, index} = e.currentTarget.dataset;
+    const {gift_data} = this.data;
+    gift_data[index].is_on_delete = false;
+
+    try {
+
+      const res = await request({
+        url: `/gift/collection/delete/${this.openid}/${id}`,
+        method: 'GET',
+        data: {
+          cid: id,
+          openid: this.openid,
+        },
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+
+      if(res.data.success) {
+
+        gift_data.splice(index, 1);
+
+      } else {
+
+        await showToast({
+          title: '删除失败',
+          icon: 'error',
+          mask: true,
+        });
+
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+
+    this.setData({
+      gift_data,
+    });
+    
+    wx.hideLoading();
   },
 
   // 项目点击事件：未显示删除按钮跳转至详情页面，显示删除按钮隐藏删除按钮

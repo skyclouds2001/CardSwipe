@@ -2,31 +2,26 @@
 
 <view class="collect">
 
-  <!-- 标题部分 -->
-  <view class="title">我的收藏</view>
+  <!-- 礼物添加标题 -->
+  <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">礼物收藏</view>
+  </cu-custom>
 
   <!-- 内容区域 -->
   <view class="content">
-
-  <!-- 列表表头部分 -->
-    <view class="content_title">
-      <view class="content_title_id">编号</view>
-      <view class="content_title_name">礼物名称</view>
-      <view class="content_title_tag">标签</view>
-      <view class="content_title_img">礼物图片</view>
-    </view>
     
-    <!-- 列表内容部分 -->
+    <!-- 列表部分 -->
     <view class="content_list">
-      <view class="content_list_item" wx:for="{{gift_data}}" wx:key="gift_id" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-index="{{index}}" bindtap="handleCollectionInfo" data-id="{{item.id}}">
+      <view class="content_list_item" wx:for="{{gift_data}}" wx:key="id" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-index="{{index}}" bindtap="handleCollectionInfo" data-id="{{item.id}}">
         <view class="{{item.is_on_delete ? 'delete' : ''}}">
           <view class="content_item_id">{{item.id}}</view>
           <view class="content_item_name">{{item.title}}</view>
-          <view class="content_item_tag">{{item.tag ? item.tag : ' '}}</view>
+          <view class="content_item_tag">{{item.tag ? item.tag : ''}}</view>
           <view class="content_item_img">
             <image src="{{item.url}}" mode="heightFix"></image>
           </view>
-          <view class="content_item_delete" catchtap="handleDeleteCollection" data-id="{{item.id}}">删除</view>
+          <view class="content_item_delete" catchtap="handleDeleteCollection" data-index="{{index}}" data-id="{{item.id}}">删除</view>
         </view>
         
       </view>

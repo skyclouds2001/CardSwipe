@@ -5,51 +5,12 @@
   height: 100vh;
 }
 
-/* 标题部分 */
-.title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.content_list {
+  width: auto;
+  height: 100%;
+  padding: 50rpx 25rpx;
 
-  font-size: 50rpx;
-  color: rgb(107, 168, 209);
-
-  padding: 30rpx;
-}
-
-/* 礼物列表标题部分 */
-.content_title {
-  background-color: rgb(255, 236, 236);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 30rpx;
-
-  height: 90rpx;
-  padding: 0rpx 25rpx;
-
-  box-sizing: border-box;
-}
-.content_title > view {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 0rpx 15rpx;
-}
-.content_title_id {
-  flex: 2;
-}
-.content_title_name {
-  flex: 5;
-}
-.content_title_tag {
-  flex: 4;
-}
-.content_title_img {
-  flex: 6;
+  background-color: whitesmoke;
 }
 
 /* 礼物列表内容部分 */
@@ -58,13 +19,23 @@
   justify-content: center;
   align-items: center;
 
-  height: 270rpx;
-
-  border-bottom: 1rpx solid #ccc;
+  height: 300rpx;
+  width: 100%;
+  margin: 50rpx 0rpx;
 
   font-size: 32rpx;
 
   position: relative;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  background-color: white;
+  border-radius: 25rpx;
+  box-shadow: 5rpx 5rpx 20rpx #d1d1d1, -5rpx -5rpx 20rpx #ffffff;
+
+  transition: all 500ms ease 0ms;
 }
 
 .content_list_item > view {
@@ -73,7 +44,6 @@
   top: 0;
 
   box-sizing: border-box;
-  padding: 5rpx 25rpx;
 
   width: 100%;
   height: 100%;
@@ -82,14 +52,8 @@
   justify-content: center;
   align-items: center;
 
-  transition-delay: 0;
-  transition-duration: 500ms;
-  transition-property: all;
-  transition-timing-function: ease;
-}
-.content_list_item >.delete {
-  top: 0;
-  left: -150rpx;
+  transition: all 125ms ease 0ms;
+  transition: top,left 500ms ease 0ms;
 }
 
 .content_list_item > view > view {
@@ -98,15 +62,19 @@
   align-items: center;
 
   height: 100%;
-  padding: 0rpx 15rpx;
+  padding: 0rpx 25rpx;
+
+  overflow: hidden;
 }
 
 .content_item_id {
   flex: 2;
+
+  margin-left: 25rpx;
 }
 
 .content_item_name {
-  flex: 5;
+  flex: 4;
 }
 
 .content_item_tag {
@@ -114,13 +82,13 @@
 }
 
 .content_item_img {
-  flex: 6;
+  flex: 7;
+
+  padding: 0rpx !important;
 }
 
 .content_item_img > image {
-  height: 80%;
-
-  border-radius: 5rpx;
+  height: 100%;
 }
 
 .content_item_delete {
@@ -132,10 +100,21 @@
   height: 270rpx;
   width: 150rpx;
 
-  background-color: red;
+  background-color: var(--red);
 
   color: white;
-  font-size: 32rpx;
+  font-size: 35rpx;
   letter-spacing: 0.1em;
   font-weight: 500;
+}
+
+/* 滑动显示删除按钮 */
+.content_list_item > .delete {
+  top: 0;
+  left: -150rpx;
+}
+
+/* 活跃状态样式 */
+.content_list_item:active {
+  box-shadow: 5rpx 5rpx 25rpx #b3b3b3, -5rpx -5rpx 25rpx #ffffff;
 }
