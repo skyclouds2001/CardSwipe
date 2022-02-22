@@ -79,8 +79,8 @@ page {
 
 .imageBox > view > navigator {
   position: absolute;
-  right: 1rpx;
-  top: 1rpx;
+  right: 0rpx;
+  top: 0rpx;
 
   width: 5em;
   height: 2.5em;
