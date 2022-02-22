@@ -43,9 +43,17 @@ App({
   },
 
   globalData: {
-    StatusBar,
-    Custom,
-    CustomBar,
+    // 设置系统样式默认回退值：以应对数据未加载好问题
+    StatusBar: 20,
+    Custom: {
+      bottom: 56,
+      height: 32,
+      left: 281,
+      right: 367,
+      top: 24,
+      width: 86,
+    },
+    CustomBar: 60,
   },
 
   // 版本号比较代码：来源微信开发文档
