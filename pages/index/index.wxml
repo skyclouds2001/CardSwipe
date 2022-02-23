@@ -2,11 +2,15 @@
 
 <view class="index" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-id="{{gift_info.id}}">
 
+  <!-- 标题 -->
+  <cu-custom bgColor="bg-gradual-blue">
+    <view slot="content">礼物评测</view>
+  </cu-custom>
+
   <!-- 图片部分 -->
   <view class="imageBox">
     <view>
       <image src="{{gift_info.url}}" mode="heightFix" lazy-load catchtap="handlePreviewImage" data-url="{{gift_info.url}}"></image>
-      <navigator url="../info/info?id={{gift_info.id}}"	hover-stop-propagation data-giftid="{{gift_info.id}}">详情</navigator>
       <view class="icon_star cuIcon-{{gift_info.is_collect ? 'favorfill collect': 'favor'}}" catchtap="handleCollect"></view>
     </view>
   </view>
@@ -21,6 +25,9 @@
     </view>
     <view class="content">
       <text>{{gift_info.des ? gift_info.des : ''}}</text>    
+    </view>
+    <view class="detail">
+      <navigator class="cu-btn round line-blue" url="../info/info?id={{gift_info.id}}"	hover-stop-propagation data-giftid="{{gift_info.id}}">详情</navigator>
     </view>
   </view>
 

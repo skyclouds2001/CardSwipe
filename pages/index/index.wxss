@@ -36,13 +36,12 @@ page {
   clip-path: circle(50% at right 50%);
 }
 
-.index > view {
+.index > view:nth-child(2) {
   z-index: 1;
-}
-.index > view:nth-child(1) {
   flex-grow: 5;
 }
-.index > view:nth-child(2) {
+.index > view:nth-child(3) {
+  z-index: 1;
   flex-grow: 2;
 }
 
@@ -54,6 +53,7 @@ page {
 
   width: 100%;
   height: auto;
+  margin: 25rpx 0rpx;
 
   background-color: transparent;
 }
@@ -75,24 +75,6 @@ page {
 
   border-radius: 10rpx;
   box-shadow: 0rpx 0rpx 10rpx #ccc;
-}
-
-.imageBox > view > navigator {
-  position: absolute;
-  right: 0rpx;
-  top: 0rpx;
-
-  width: 5em;
-  height: 2.5em;
-  background-color: rgb(164, 173, 179);
-
-  color: white;
-  font-size: 26rpx;
-  line-height: 2.5em;
-  text-align: center;
-  font-weight: bold;
-
-  border-radius: 10rpx;
 }
 
 .icon_star {
@@ -125,21 +107,27 @@ page {
   justify-content: center;
   align-items: center;
 
-  width: auto;
+  width: calc(100% - 100rpx);
   height: auto;
-  margin: 50rpx;
+  margin: 25rpx 50rpx;
   padding: 50rpx;
 
   background-color: rgba(255, 255, 255, 0.75);
   border-radius: 25rpx;
-  backdrop-filter: blur(10rpx);
+  backdrop-filter: blur(15rpx);
+  box-shadow: 0rpx 0rpx 15rpx #ccc;
 
   box-sizing: border-box;
+}
 
+.giftInfo > view {
+  width: 100%;
 }
 
 .name {
   flex-grow: 2;
+
+  text-align: center;
 }
 .name > text {
   font-size: 40rpx;
@@ -148,13 +136,55 @@ page {
 
 .price {
   flex-grow: 2;
-  align-self: flex-start;
+
+  text-align: center;
+}
+.price > text {
+  font-weight: 500;
+  font-size: 35rpx;
+  color: var(--red);
 }
 
 .content {
-  flex-grow: 5;
+  flex-grow: 4;
+
+  padding: 0rpx 0rpx 15rpx;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .content > text {
   text-align: left;
   line-height: 1.5em;
+}
+
+.detail {
+  flex-grow: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detail > navigator {
+  width: 10em;
+  height: 2em;
+  max-height: 100%;
+
+  font-size: 30rpx;
+  line-height: 2.5em;
+  text-align: center;
+  font-weight: bold;
+
+  border-radius: 25rpx;
+
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+/* 解决cu-custom出现的bug */
+.cu-custom view {
+  left: 0;
+  top: 0;
 }

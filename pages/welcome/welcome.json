@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "欢迎"
+  "navigationBarTitleText": "欢迎",
+  "navigationStyle": "custom"
 }

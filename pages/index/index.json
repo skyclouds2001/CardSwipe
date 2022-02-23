@@ -2,5 +2,6 @@
   "usingComponents": {},
 
   "navigationBarTitleText": "礼物评测",
-  "navigationBarBackgroundColor": "#a9cce4"
+  "navigationBarBackgroundColor": "#a9cce4",
+  "navigationStyle": "custom"
 }
