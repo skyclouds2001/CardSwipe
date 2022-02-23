@@ -3,7 +3,7 @@
 <view class="index" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-id="{{gift_info.id}}">
 
   <!-- 标题 -->
-  <cu-custom bgColor="bg-gradual-blue">
+  <cu-custom class="bar">
     <view slot="content">礼物评测</view>
   </cu-custom>
 

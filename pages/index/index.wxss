@@ -184,7 +184,13 @@ page {
 }
 
 /* 解决cu-custom出现的bug */
-.cu-custom view {
+.cu-custom .cu-bar {
   left: 0;
-  top: 0;
+  right: 0;
+}
+
+.bar {
+  color: white;
+  font-weight: 500;
+  letter-spacing: 2.5rpx;
 }

@@ -99,9 +99,10 @@ page {
 .giftInfo {
   font-size: 30rpx;
 
-  width: 100vw;
-  height: 50vh;
-  padding: 25rpx 50rpx;
+  width: calc(100vw - 50rpx);
+  height: calc(50vh - 50rpx);
+  margin: 25rpx;
+  padding: 25rpx;
   
   box-sizing: border-box;
 
@@ -109,6 +110,10 @@ page {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  border-radius: 25rpx;
+  background-color: whitesmoke;
+  box-shadow: 0rpx 0rpx 10rpx #999;
 }
 .giftInfo > view {
   width: 100%;
@@ -124,7 +129,7 @@ page {
 }
 
 .title {
-  flex-grow: 4;
+  flex-grow: 3;
 
   padding-right: 5rpx;
 
@@ -145,15 +150,9 @@ page {
   color: var(--red);
   text-align: center;
   font-weight: bold;
-  font-size: 35rpx;
-}
-.price::before {
-  content: '￥';
-
-  color: var(--red);
-  text-align: center;
-  font-weight: bold;
-  font-size: 35rpx;
+  font-size: 30rpx;
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 .tag {
@@ -198,9 +197,11 @@ page {
   align-items: center;
 
   padding: 15rpx 25rpx;
+  width: 200rpx;
 
   border-radius: 30rpx/50%;
   color: whitesmoke;
+  border: 1rpx solid #ccc;
 }
 
 .data > view {
@@ -217,11 +218,9 @@ page {
 
 .boy > .data {
   background-color: #24a2fc;
-  box-shadow:  5rpx 5rpx 10rpx #1f8ad6, -5rpx -5rpx 10rpx #29baff;
 }
 .girl > .data {
   background-color: #fca4b2;
-  box-shadow:  5rpx 5rpx 10rpx #d68b97, -5rpx -5px 10rpx #ffbdcd;
 }
 
 .data > view:first-child::after {
@@ -232,9 +231,10 @@ page {
 
 .progress {
   height: 50rpx;
-  box-shadow:  5rpx 5rpx 10rpx #d9d9d9 inset, -5rpx -5rpx 10rpx #ffffff inset;
+  width: 350rpx;
 
-  overflow: visible;
+  box-shadow:  5rpx 5rpx 10rpx #d9d9d9 inset, -5rpx -5rpx 10rpx #ffffff inset;
+  border: 1rpx solid #ccc;
 }
 
 .progress > view {
