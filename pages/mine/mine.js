@@ -21,6 +21,7 @@ Page({
   },
   defaultImgUrl: '../../images/defaultImg.jpg',
   defaultNickname: '点击登录',
+  hasUserInfo: false,
 
   onLoad: function () {
     try {
@@ -33,12 +34,14 @@ Page({
           nickname: userinfo.nickName,
           imgurl: userinfo.avatarUrl
         });
+        this.hasUserInfo = true;
       } else {
         this.setData({
           showModal: true,
           imgurl: this.defaultImgUrl,
           nickname: this.defaultNickname,
         });
+        this.hasUserInfo = false;
       }
     } catch (err) {
       console.log(err);
@@ -47,7 +50,7 @@ Page({
 
   // 点击登录响应
   handleLoad() {
-    if(this.defaultImgUrl !== this.data.imgurl && this.data.nickName !== this.defaultNickname) {
+    if(!this.hasUserInfo) {
       this.setData({
         showModal: true,
       });
@@ -63,7 +66,9 @@ Page({
     const {flag} = e.currentTarget.dataset;
     // 允许获取则请求数据
     if(flag) {
+
       try {
+
         // 请求userinfo数据
         const res = await getUserProfile({
           desc: '获取个人头像及昵称'
@@ -86,15 +91,22 @@ Page({
 
         // 设置存储
         wx.setStorageSync('userinfo', userinfo);
+
+        this.hasUserInfo = true;
+
       } catch (err) {
         console.log(err);
       }
     } else {  // 否则使用默认头像替代
+
       this.setData({
         imgurl: this.defaultImgUrl,
         nickname: this.defaultNickname,
         showModal: false,
       });
+
+      this.hasUserInfo = false;
+
     }
 
   },
