@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "礼物排行榜"
+  "navigationBarTitleText": "礼物排行榜",
+  "navigationStyle": "custom"
 }

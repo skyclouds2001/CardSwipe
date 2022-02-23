@@ -9,69 +9,98 @@
   height: 100vh;
 }
 
-/* 顶栏标题部分 */
-.title {
-  width: 100%;
-  height: 100rpx;
-  background-color: rgb(142, 139, 139);
-
-  text-align: center;
-  font-size: 50rpx;
-  color: rgb(247,176,176);
-  font-weight: bold;
-  line-height: 75rpx;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
-  padding-top: 25rpx;
-}
-
 /* 中间选择部分 */
 .choice {
-  border-bottom: 1rpx solid #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 50rpx 50rpx;
+  padding: 25rpx 25rpx;
+
+  background-color: white;
+  border-radius: 25rpx;
+  box-shadow: 5rpx 5rpx 10rpx #ccc, -5rpx -5rpx 10rpx #fff;
 }
 
-.identity, .sex_interest {
+.choice > view {
+  flex-grow: 1;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 40rpx;
+  width: calc(100% - 50rpx);
+  height: auto;
+  margin: 25rpx;
 }
-.identity > view, .sex_interest > view {
+
+.choice > view > view {
   width: 150rpx;
   height: 75rpx;
 
   line-height: 75rpx;
   text-align: center;
 }
-.identity > view {
-  border-radius: 10rpx;
-}
-.gray {
-  background-color: rgb(142, 139, 139);
-}
-.pink {
-  background-color: rgb(255, 179, 179);
-}
+
 .identity > view {
   color: white;
+
+  background-color: rgb(142, 139, 139);
+  border-radius: 25rpx;
+  box-shadow: 5rpx 5rpx 7.5rpx rgb(194, 189, 189);
+
+  position: relative;
+  top: 0;
+  left: 0;
+
+  transition: all 125ms ease 0ms;
 }
-.sex_interest > view {
-  background-color: rgb(160, 199, 226);
+.identity > .select-i {
+  background-color: rgb(255, 179, 179);
 }
+.identity > view:active {
+  top: 2.5rpx;
+  left: 2.5rpx;
+  box-shadow: 2.5rpx 2.5rpx 7.5rpx rgb(194, 189, 189);
+}
+
 .sex, .habbit {
   position: relative;
+  top: 0;
+  left: 0;
 }
-.sex_content, .habit_content {
-  width: 100%;
-  height: 100%;
+
+.sex_content, .habbit_content {
+  width: 150rpx;
+  height: 75rpx;
+
+  color: whitesmoke;
+  font-weight: 500;
+
+  border-radius: 25rpx;
+  background-color: rgb(160, 199, 226);
+  box-shadow: 5rpx 5rpx 7.5rpx rgb(194, 189, 189);
+
+  position: relative;
+  top: 0;
+  left: 0;
+
+  transition: all 125ms ease 0ms;
 }
-.sex_content > text, .habit_content > text {
+.sex_content:active, .habbit_content:active {
+  top: 2.5rpx;
+  left: 2.5rpx;
+  box-shadow: 2.5rpx 2.5rpx 7.5rpx rgb(194, 189, 189);
+}
+
+.sex_content > text, .habbit_content > text {
   display: inline-block;
 }
 
 /* 性别选择下拉框 爱好下拉框 */
-.choose_sex, .choose_habit {
+.choose_sex, .choose_habbit {
   position: absolute;
   top: 75rpx;
   left: 0rpx;
@@ -80,54 +109,53 @@
   height: auto;
 
   background-color: white;
+  border-radius: 25rpx;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  border: 1rpx solid #aaa;
-
-  z-index: 9;
-}
-.choose_sex {
-  border-bottom: 0rpx;
-}
-.choose_habit {
   overflow: scroll;
 
+  z-index: 9;
+
+  transition: all 1000ms ease 0ms;
+}
+
+/* 下拉框显示及隐藏 */
+.show {
+  visibility: visible;
+}
+.show.choose_sex {
+  height: 150rpx;
+}
+.show.choose_habbit {
   height: 450rpx;
 }
-.choose_sex > view, .choose_habit > view {
-  border-bottom: 1rpx solid #aaa;
-
-  width: 100%;
-  height: 100%;
-}
-.picked {
-  background-color: #999;
-  color: #ddd;
+.hide {
+  visibility: hidden;
+  height: 0rpx;
 }
 
-/* 
- * @ 2022/2/5 
- * 新增的下拉框效果
- * 由JS改为利用CSS实现
- */
-.choose_sex, .choose_habit {
-  display: none;
-}
-.sex:hover .choose_sex, .habbit:hover .choose_habit {
+/* 下拉框项目样式 */
+.choose_sex > view, .choose_habbit > view {
+  width: 150rpx;
+  height: 75rpx;
+
+  background-color: rgb(174, 221, 255);
+  border-bottom: 1rpx solid #ccc;
+
   display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 1000ms ease 0ms;
 }
 
-/* 
- * @ 2022/2/6 
- * 新增的下拉框样式效果
- * 记录选中内容
- */
+/* 记录选中内容 */
 .select {
-  background-color: #eee;
+  background-color: rgb(255, 199, 199);
 }
 
 /* 下部礼物信息部分 */

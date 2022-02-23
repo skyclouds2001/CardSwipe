@@ -2,41 +2,43 @@
 
 <view class="list">
 
-  <!-- 顶栏标题部分 -->
-  <view class="title">礼物排行榜</view>
+  <!-- 标题 -->
+  <cu-custom bgColor="bg-gradual-blue">
+    <view slot="content">礼物排行榜</view>
+  </cu-custom>
 
   <!-- 选择部分 -->
   <view class="choice">
 
     <!-- 身份选择 -->
     <view class="identity" bindtap="handleUpdateGiftInfo">
-      <view class="{{chooseSituation === 0 ? 'pink' : 'gray'}}" bindtap="handleOnChooseSituation" data-id="0">热恋期</view>
-      <view class="{{chooseSituation === 1 ? 'pink' : 'gray'}}" bindtap="handleOnChooseSituation" data-id="1">追求ing</view>
-      <view class="{{chooseSituation === 2 ? 'pink' : 'gray'}}" bindtap="handleOnChooseSituation" data-id="2">普通朋友</view>
+      <view class="{{chooseSituation === 0 ? 'select-i' : ''}}" bindtap="handleOnChooseSituation" data-id="0">热恋期</view>
+      <view class="{{chooseSituation === 1 ? 'select-i' : ''}}" bindtap="handleOnChooseSituation" data-id="1">追求ing</view>
+      <view class="{{chooseSituation === 2 ? 'select-i' : ''}}" bindtap="handleOnChooseSituation" data-id="2">普通朋友</view>
     </view>
 
     <!-- 下部性别爱好选择 -->
     <view class="sex_interest">
 
       <!-- 性别 -->
-      <view class="sex">
-        <view class="sex_content">
+      <view class="sex" bindtap="handleSelect">
+        <view class="sex_content" mark:type="{{0}}">
           <text decode>性别&nbsp;&nbsp;&nbsp;</text>
           <text class="arrow-down"></text>
         </view>
-        <view class="choose_sex" bindtap="handleUpdateGiftInfo">
-          <view class="{{1 === chooseSex ? 'select' : ''}}" data-id="{{1}}" bindtap="handleOnChooseSex">girl</view>
-          <view class="{{0 === chooseSex ? 'select' : ''}}" data-id="{{0}}" bindtap="handleOnChooseSex">boy</view>
+        <view class="choose_sex {{isSexHide ? 'hide' : 'show'}}" bindtap="handleUpdateGiftInfo">
+          <view class="{{1 === chooseSex ? 'select' : ''}}" data-id="{{true}}" bindtap="handleOnChooseSex">girl</view>
+          <view class="{{0 === chooseSex ? 'select' : ''}}" data-id="{{false}}" bindtap="handleOnChooseSex">boy</view>
         </view>
       </view>
 
       <!-- 爱好 -->
-      <view class="habbit">
-        <view class="habit_content">
+      <view class="habbit" bindtap="handleSelect">
+        <view class="habbit_content" mark:type="{{1}}">
           <text decode>爱好&nbsp;&nbsp;&nbsp;</text>
           <text class="arrow-down"></text>
         </view>
-        <view class="choose_habit" bindtap="handleUpdateGiftInfo">
+        <view class="choose_habbit {{isHabbitHide ? 'hide' : 'show'}}" bindtap="handleUpdateGiftInfo">
           <view class="{{index === chooseHabit ? 'select' : ''}}" wx:for="{{habitChoice}}" wx:key="*this" data-id="{{index}}" bindtap="handleOnChooseHabit">{{item}}</view>
         </view>
       </view>

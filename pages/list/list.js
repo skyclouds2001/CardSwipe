@@ -12,27 +12,36 @@ Page({
     // 礼物信息
     giftInfo: [],
 
-    // 记录选择的身份，仅可单选  默认0.1.2
+    // 记录选择的身份，仅可单选  默认0   0.1.2
     chooseSituation: 0,
-    // 记录选择的性别，仅可单选  默认0男性 1女性
-    chooseSex: 0,
-    // 记录选择的爱好，仅可单选  默认为0
-    chooseHabit: 0
+    // 记录选择的性别，仅可单选  默认-1 0男性 1女性
+    chooseSex: -1,
+    // 记录选择的爱好，仅可单选  默认-1 下标自0起始
+    chooseHabit: -1,
+    // 是否隐藏habbit下拉框
+    isHabbitHide: true,
+    // 是否隐藏sex下拉框
+    isSexHide: true,
   },
+  openid: '',
   // 记录礼物完整信息
   giftRankAll: [],
   // 记录已加载的礼物数量
   giftNumber: 0,
-  openid: '',
+  // 保存下拉框开发的计时器
+  timekeeper: null,
 
-  onLoad: function (options) {
-    const openid = wx.getStorageSync('openid') || '';
+  onLoad: async function () {
+    const openid = wx.getStorageSync('openid') ?? '';
     this.openid = openid;
 
-    (async () => {
-      await this.getGiftList();
-      await this.setGiftList();
-    })();
+    const {sex} = wx.getStorageSync('userinfo') ?? {};
+    this.setData({
+      chooseSex: sex === 0 || sex === 1 ? sex : 0,
+    });
+
+    await this.getGiftList();
+    await this.setGiftList();
   },
 
   onHide: function () {
@@ -45,20 +54,20 @@ Page({
       wx.setStorageSync('collect', this.collect);
   },
 
-  onReachBottom: function (options) {
+  onReachBottom: function () {
     if(this.giftNumber !== 50)
       this.setGiftList();
   },
 
   // 获取礼物
-  async getGiftList() {
+  async getGiftList () {
     // 获取各参数
     const {chooseSituation, chooseSex, chooseHabit, habitChoice} = this.data;
     const openid = this.openid;
     // 提取tags各参数值
     const situation = ["热恋期", "追求ing", "普通朋友"][chooseSituation];
-    const sex = chooseSex === 0 ? '男' : '女';
-    const choice = habitChoice[chooseHabit];
+    const sex = chooseSex === 0 ? '男' : (chooseSex === 1 ? '女' : '男');
+    const choice = chooseHabit >= 0 ? habitChoice[chooseHabit] : null;
 
     // 请求礼物信息
     const res = await request({
@@ -69,12 +78,12 @@ Page({
         sex,
         tags: [
           situation,
-          choice
-        ]
+          choice ?? '',
+        ],
       },
       header: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
 
     // 存储礼物信息
@@ -82,13 +91,13 @@ Page({
   },
 
   // 加载礼物
-  async setGiftList() {
+  async setGiftList () {
     // 获取礼物下标
     const start = this.giftNumber;
     const end = (this.giftNumber + 6) <= 50 ? (this.giftNumber + 6) : 50;
 
     // 提取礼物信息
-    const giftInfo = [...this.data.giftInfo, ...this.giftRankAll.slice(start, end)];
+    const giftInfo = [...this.data.giftInfo, ...this.giftRankAll?.slice(start, end)];
 
     // 更新礼物信息并记录现在已渲染的礼物数量
     this.setData({
@@ -98,7 +107,7 @@ Page({
   },
 
   // 身份情况选择
-  handleOnChooseSituation(e) {
+  handleOnChooseSituation (e) {
     const {id} = e.currentTarget.dataset;
     let {chooseSituation} = this.data;
     chooseSituation = Number(id);
@@ -108,26 +117,104 @@ Page({
   },
 
   // 性别选择
-  handleOnChooseSex(e) {
+  handleOnChooseSex (e) {
     const {id} = e.currentTarget.dataset;
     this.setData({
-      chooseSex: id
+      chooseSex: id ? 1 : 0,
     });
   },
 
   // 爱好选择
-  handleOnChooseHabit(e) {
+  handleOnChooseHabit (e) {
     const {id} = e.currentTarget.dataset;
     this.setData({
-      chooseHabit: id
+      chooseHabit: id,
     });
   },
 
   // 更新礼物方法
-  handleUpdateGiftInfo() {
-    (async () => {
-      await this.getGiftList();
-      await this.setGiftList();
-    })();
-  }
-})
+  async handleUpdateGiftInfo () {
+    await this.getGiftList();
+    await this.setGiftList();
+  },
+
+  // 下拉框响应方法
+  handleSelect (e) {
+
+    // 代表点击的是性别与爱好按钮：type是0代表性别，type是1代表爱好
+    // * 处理下拉框显示与否
+    const {type} = e.mark;
+    const {isHabbitHide, isSexHide} = this.data;
+
+    // 性别下拉框
+    if(type === 0) {
+
+      // 清空计时器
+      this.timekeeper !== null ? clearTimeout(this.timekeeper) : null;
+
+      // 当将开启下拉框时设定计时器：5s后无点击则关闭下拉框
+      if(isSexHide) {
+        this.timekeeper = setTimeout(() => {
+          this.timekeeper = null;
+          this.setData({
+            isSexHide: true,
+          });
+        }, 5000);
+      }
+
+      // 设置：重置sex下拉框状态；关闭habbit下拉框
+      this.setData({
+        isSexHide: !isSexHide,
+        isHabbitHide: true,
+      });
+
+    } else if (type === 1) {    // 爱好下拉框
+
+      this.timekeeper !== null ? clearTimeout(this.timekeeper) : null;
+      if(isHabbitHide) {
+        this.timekeeper = setTimeout(() => {
+          this.timekeeper = null;
+          this.setData({
+            isHabbitHide: true,
+          });
+        }, 5000);
+      }
+      this.setData({
+        isHabbitHide: !isHabbitHide,
+        isSexHide: true,
+      });
+
+    }
+
+    // 代表点击的是具体选项：id是逻辑值为性别；id是数值为爱好
+    const {id} = e.target.dataset;
+
+    if(typeof id === 'boolean') {    // 开启的是性别下拉框
+
+      // 取消计时器
+      this.timekeeper !== null ? clearTimeout(this.timekeeper) : null;
+
+      // 当将开启下拉框时设定计时器：3s后无点击则关闭下拉框
+      this.timekeeper = setTimeout(() => {
+        this.timekeeper = null;
+        this.setData({
+          isSexHide: true,
+        });
+      }, 5000);
+
+    } else if(typeof id === 'number') {
+
+      this.timekeeper !== null ? clearTimeout(this.timekeeper) : null;
+
+      this.timekeeper = setTimeout(() => {
+        this.timekeeper = null;
+        this.setData({
+          isHabbitHide: true,
+        });
+      }, 5000);
+
+    }
+
+  },
+
+});
