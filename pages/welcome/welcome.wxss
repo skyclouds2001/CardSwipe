@@ -103,10 +103,17 @@
   border-radius: 25rpx/12.5rpx;
   box-shadow: 5rpx 5rpx 10rpx #999, 0rpx 0rpx 10rpx #eee;
 
-  transition: all 125ms ease;
+  transition: all 125ms ease 0ms;
+
+  position: relative;
+  top: 0;
+  left: 0;
+  box-shadow: 5rpx 5rpx 10rpx #999;
 }
 .content_2 .choose_sex view:active {
-  box-shadow: 10rpx 10rpx 10rpx #999, 5rpx 5rpx 10rpx #eee;
+  top: 5rpx;
+  left: 5rpx;
+  box-shadow: 0rpx 0rpx 10rpx #999;
 }
 
 .content_2 .choose_sex .girl {
@@ -241,7 +248,16 @@
   font-weight: bold;
 
   transition: all 125ms ease;
+
+  position: relative;
+  top: 0;
+  left: 0;
+
+  box-shadow: 10rpx 10rpx 15rpx var(--grayShadow);
 }
 .submit:active {
-  box-shadow: 10rpx 10rpx 15rpx var(--grayShadow);
+  top: 5rpx;
+  left: 5rpx;
+
+  box-shadow: 5rpx 5rpx 15rpx var(--grayShadow);
 }
