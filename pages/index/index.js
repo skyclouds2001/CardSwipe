@@ -15,22 +15,22 @@ Page({
   index: 0,     // 用于礼物数组中下标记录
   gift: [],
   collect: [],
+  sex: 0,
 
   onLoad: async function () {
     const openid = wx.getStorageSync('openid');
+    const userinfo = wx.getStorageSync('userinfo');
 
-    await showToast({
-      title: '为了更好的使用体验，请先登录',
-      icon: 'none',
-    });
-    await showToast({
+    showToast({
       title: '右滑表示喜欢，左滑表示不喜欢',
       icon: 'none',
+      duration: 3000,
     });
 
     this.openid = openid;
     this.page = 1;
     this.index = 0;
+    this.sex = Number(userinfo?.sex ?? 0);
     
     await this.getGiftInfo();
     await this.getCollectInfo();
@@ -116,9 +116,6 @@ Page({
       const res = await request({
         url: `/gift/collection/select/${openid}`,
         method: 'GET',
-        data: {
-          openid,
-        },
         header: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -170,7 +167,7 @@ Page({
     });
     
     if(res.data.success) {
-      await showToast({
+      showToast({
         title: `${flag ? '添加' : '删除'}收藏成功`,
         icon: 'success',
       });
@@ -184,7 +181,7 @@ Page({
         gift_info
       });
     } else {
-      await showToast({
+      showToast({
         title: `${flag ? '添加' : '删除'}收藏失败
                 请稍后再试`,
         icon: 'error',
@@ -252,11 +249,26 @@ Page({
     }
 
     if(x - cx > 50 && Math.abs(y - cy) < 50) {
+
       // 右滑：喜欢
       showToast({
         title: '已选择喜欢该商品',
         icon: 'none',
       });
+
+      const {id} = e.currentTarget.dataset;
+      // 提交喜欢信息
+      const res = await request({
+        url: `/gift/gift/${this.sex ? 'girl' : 'boy'}like/${id}`,
+        method: 'PUT',
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: {
+          id,
+        },
+      });
+      console.log(res);
     }
 
   },
