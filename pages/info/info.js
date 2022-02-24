@@ -18,16 +18,13 @@ Page({
     try {
 
       // 获取礼物收藏信息
-      const collect = wx.getStorageSync('collect');
+      const collect = wx.getStorageSync('collect') || [];
       this.collect = collect;
 
       // 请求获取礼物信息
       const {data} = await request({
         url: '/gift/gift/getGiftById/' + id,
         method: 'GET',
-        data: {
-          id,
-        },
         header: {
           'content-type': 'application/x-www-form-urlencoded',
         },
@@ -77,10 +74,6 @@ Page({
       const res = await request({
         url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
         method: 'GET',
-        data: {
-          openid: this.openid,
-          cid: gift_info.id,
-        },
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -103,10 +96,6 @@ Page({
       const res = await request({
         url: `/gift/collection/delete/${this.openid}/${gift_info.id}`,
         method: 'GET',
-        data: {
-          openid: this.openid,
-          cid: gift_info.id,
-        },
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -125,6 +114,7 @@ Page({
       }
 
     }
+    
   },
 
   // 预览图片效果
