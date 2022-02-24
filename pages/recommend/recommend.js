@@ -5,17 +5,17 @@ import regeneratorRuntime from '../../lib/runtime.js';
 import { showToast } from '../../utils/promise.js';
 
 Page({
+  
   data: {
     tag: [],
-    icon: '../../icons/shoucang.png',
-    icon_click: '../../icons/shoucang_click.png',
     gift: {},
     STATE: false,  // 记录分页：false代表选择标签页，true代表礼物页
   },
   openid: '',
 
   
-  onLoad: function (options) {
+  onLoad: function () {
+
     // 加载标签
     this.loadTag();
 
@@ -45,6 +45,7 @@ Page({
     // 获取openid
     const openid = this.openid;
 
+    // 提交信息并获取礼物列表
     const res = await request({
       url: '/gift/gift/getTopByTag',
       method: 'POST',
@@ -61,7 +62,7 @@ Page({
     if(res.data.data['gift_rank:']) {
       
       // 提交成功提示
-      await showToast({
+      showToast({
         title: '提交成功',
         icon: 'success',
       });
@@ -76,7 +77,7 @@ Page({
       }, 1500);
       
     } else {
-      await showToast({
+      showToast({
         title: '提交失败',
         icon: 'error',
       });
@@ -108,8 +109,8 @@ Page({
   loadTag() {
     const tag_name = [
       '运动', '旅行', '收藏', '学习', '独处', 
-      '桌游', '影视剧', '艺术', '网游', '睡觉', 
-      '美食', '追星', '美丽', '智力游戏', '读书',
+      '桌游', '影视', '艺术', '网游', '睡觉', 
+      '美食', '追星', '美丽', '游戏', '读书',
     ];
     const tag_l = [
       10, 37, 70, 5, 30, 
@@ -138,4 +139,5 @@ Page({
       tag,
     });
   },
-})
+
+});

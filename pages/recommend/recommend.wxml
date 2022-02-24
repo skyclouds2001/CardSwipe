@@ -3,7 +3,9 @@
 <view class="recommend">
 
   <!-- 标题部分 -->
-  <view class="title">个性推荐</view>
+  <cu-custom bgColor="bg-gradual-blue">
+    <view slot="content">个性推荐</view>
+  </cu-custom>
 
   <!-- 选择标签页 -->
   <block wx:if="{{!STATE}}">
@@ -16,7 +18,7 @@
 
     <!-- 标签部分 -->
     <view class="contain">
-      <view class="tag {{item.is_selected ? 'pink' : ''}}" wx:for="{{tag}}" wx:key="title" style="top: {{item.t}}; left: {{item.l}};" bindtap="handleSelect" data-id="{{item.id}}">
+      <view class="tag {{item.is_selected ? 'select' : ''}}" wx:for="{{tag}}" wx:key="title" style="top: {{item.t}}; left: {{item.l}};" bindtap="handleSelect" data-id="{{item.id}}">
         <view class="name">{{item.title}}</view>
         <view class="icon cuIcon-favor"></view>
       </view>
@@ -32,21 +34,13 @@
   <!-- 礼物显示页 -->
   <block wx:else>
 
-    <view class="main_content">
+    <view class="main-content">
 
-      <view class="gift_title">
-        <view>礼物名称</view>
-        <view>礼物匹配度</view>
-        <view>礼物图片</view>
-      </view>
-
-      <view class="gift_item" wx:for="{{gift}}" wx:key="id" data-id="{{item.id}}" catchtap="handleJump">
-        <view class="gift_name">{{item.title}}</view>
-        <view class="gift_love_num">{{item.boylike + item.girllike}}</view>
-        <view class="gift_img">
-          <image mode="heightFix" src="{{item.url}}"></image>
-        </view>
-      </view>
+      <navigator class="gift-item" wx:for="{{gift}}" wx:key="id" data-id="{{item.id}}" catchtap="handleJump" wx:if="{{item.url}}" url="../../pages/info/info?id={{item.id}}">
+        <image class="gift-img" mode="aspectFill" src="{{item.url}}"></image>
+        <view class="gift-title">{{item.title}}</view>
+        <view class="style"></view>
+      </navigator>
 
     </view>
 
