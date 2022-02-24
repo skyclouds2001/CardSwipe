@@ -11,10 +11,10 @@
   <view class="choice">
 
     <!-- 身份选择 -->
-    <view class="identity" bindtap="handleUpdateGiftInfo">
-      <view class="{{chooseSituation === 0 ? 'select-i' : ''}}" bindtap="handleOnChooseSituation" data-id="0">热恋期</view>
-      <view class="{{chooseSituation === 1 ? 'select-i' : ''}}" bindtap="handleOnChooseSituation" data-id="1">追求ing</view>
-      <view class="{{chooseSituation === 2 ? 'select-i' : ''}}" bindtap="handleOnChooseSituation" data-id="2">普通朋友</view>
+    <view class="identity" bindtap="handleOnChooseSituation">
+      <view class="{{chooseSituation === 0 ? 'select-i' : ''}}" data-id="{{0}}">热恋期</view>
+      <view class="{{chooseSituation === 1 ? 'select-i' : ''}}" data-id="{{1}}">追求ing</view>
+      <view class="{{chooseSituation === 2 ? 'select-i' : ''}}" data-id="{{2}}">普通朋友</view>
     </view>
 
     <!-- 下部性别爱好选择 -->
@@ -26,9 +26,9 @@
           <text decode>性别&nbsp;&nbsp;&nbsp;</text>
           <text class="arrow-down"></text>
         </view>
-        <view class="choose_sex {{isSexHide ? 'hide' : 'show'}}" bindtap="handleUpdateGiftInfo">
-          <view class="{{1 === chooseSex ? 'select' : ''}}" data-id="{{true}}" bindtap="handleOnChooseSex">girl</view>
-          <view class="{{0 === chooseSex ? 'select' : ''}}" data-id="{{false}}" bindtap="handleOnChooseSex">boy</view>
+        <view class="choose_sex {{isSexHide ? 'hide' : 'show'}}">
+          <view class="{{1 === chooseSex ? 'select' : ''}}" data-id="{{true}}">girl</view>
+          <view class="{{0 === chooseSex ? 'select' : ''}}" data-id="{{false}}">boy</view>
         </view>
       </view>
 
@@ -38,8 +38,8 @@
           <text decode>爱好&nbsp;&nbsp;&nbsp;</text>
           <text class="arrow-down"></text>
         </view>
-        <view class="choose_habbit {{isHabbitHide ? 'hide' : 'show'}}" bindtap="handleUpdateGiftInfo">
-          <view class="{{index === chooseHabit ? 'select' : ''}}" wx:for="{{habitChoice}}" wx:key="*this" data-id="{{index}}" bindtap="handleOnChooseHabit">{{item}}</view>
+        <view class="choose_habbit {{isHabbitHide ? 'hide' : 'show'}}">
+          <view class="{{index === chooseHabit ? 'select' : ''}}" wx:for="{{habitChoice}}" wx:key="*this" data-id="{{index}}">{{item}}</view>
         </view>
       </view>
       
@@ -51,11 +51,19 @@
   <view class="main_content">
 
     <navigator class="gift_item" wx:for="{{giftInfo}}" wx:key="giftName" url="../../pages/info/info?id={{item.id}}" hover-class="none" hover-stop-propagation>
-      <view class="gift_name">{{item.title}}</view>
-      <view class="gift_love_num">{{item.boylike + item.girllike}}</view>
-      <view class="gift_img">
-        <image mode="heightFix" src="{{item.url}}"></image>
+
+      <view class="gift_index">
+        <view wx:if="{{index >= 3}}">{{index + 1}}</view>
+        <view wx:else>
+          <image mode="widthFix" src="../../icons/rank{{index + 1}}.png"></image>
+        </view>
       </view>
+      <view class="gift_title">{{item.title}}</view>
+      <view class="gift_love_num cuIcon-likefill">{{item.boylike + item.girllike}}</view>
+      <view class="gift_img">
+        <image mode="aspectFill" src="{{item.url}}" lazy-load show-menu-by-longpress></image>
+      </view>
+
     </navigator>
     
   </view>
