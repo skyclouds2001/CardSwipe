@@ -11,6 +11,7 @@ Page({
     gift_info: {},
   },
   openid: '',
+  token: '',
   page: 1,    // 用于礼物请求时所用的page 
   index: 0,     // 用于礼物数组中下标记录
   gift: [],
@@ -20,6 +21,7 @@ Page({
   onLoad: async function () {
     const openid = wx.getStorageSync('openid');
     const userinfo = wx.getStorageSync('userinfo');
+    const token = wx.getStorageSync('token');
 
     showToast({
       title: '右滑表示喜欢，左滑表示不喜欢',
@@ -28,6 +30,7 @@ Page({
     });
 
     this.openid = openid;
+    this.token = token;
     this.page = 1;
     this.index = 0;
     this.sex = Number(userinfo?.sex ?? 0);
@@ -153,39 +156,58 @@ Page({
   // 用户点击收藏响应
   async handleCollect() {
 
-    // 记录是否已收藏
+    // 更新至data对象
     const {gift_info} = this.data;
-    const flag = !gift_info.is_collect;
-
-    // 请求更新数据&维护至collect数组
-    const res = await request({
-      url: `/gift/collection/${flag ? 'add' : 'delete'}/${this.openid}/${gift_info.id}`,
-      method: 'GET',
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+    gift_info.is_collect = !gift_info.is_collect;
+    this.setData({
+      gift_info,
     });
-    
-    if(res.data.success) {
-      showToast({
-        title: `${flag ? '添加' : '删除'}收藏成功`,
-        icon: 'success',
-      });
 
-      // 更新收藏信息至collect数组
-      flag ? this.collect.push(gift_info.id) : this.collect.splice(this.collect.indexOf(gift_info.id), 1);
+    // 请求更新数据
+    if(gift_info.is_collect) {
 
-      // 更新是否已收藏信息至gift对象
-      gift_info.is_collect = !gift_info.is_collect;
-      this.setData({
-        gift_info
+      const res = await request({
+        url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
+        method: 'GET',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       });
+      
+      if(res?.data?.success) {
+        await showToast({
+          title: '收藏成功',
+          icon: 'success',
+        });
+      } else {
+        await showToast({
+          title: '收藏失败\n请稍后再试',
+          icon: 'error',
+        });
+      }
+
     } else {
-      showToast({
-        title: `${flag ? '添加' : '删除'}收藏失败
-                请稍后再试`,
-        icon: 'error',
+
+      const res = await request({
+        url: `/gift/collection/delete/${this.openid}/${gift_info.id}`,
+        method: 'GET',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       });
+      
+      if(res?.data?.success) {
+        await showToast({
+          title: '取消收藏成功',
+          icon: 'success',
+        });
+      } else {
+        await showToast({
+          title: '取消收藏失败\n请稍后再试',
+          icon: 'error',
+        });
+      }
+
     }
     
   },
@@ -265,7 +287,7 @@ Page({
           "Content-Type": "application/x-www-form-urlencoded",
         },
         data: {
-          id,
+          token: this.token,
         },
       });
       console.log(res);
