@@ -17,13 +17,12 @@
         <view class="{{item.is_on_delete ? 'delete' : ''}}">
           <view class="content_item_id">{{item.id}}</view>
           <view class="content_item_name">{{item.title}}</view>
-          <view class="content_item_tag">{{item.tag ? item.tag : ''}}</view>
+          <view class="content_item_tag">{{item.tag ? item.tag : '暂无标签'}}</view>
           <view class="content_item_img">
             <image src="{{item.url}}" mode="heightFix"></image>
           </view>
           <view class="content_item_delete" catchtap="handleDeleteCollection" data-index="{{index}}" data-id="{{item.id}}">删除</view>
         </view>
-        
       </view>
     </view>
 

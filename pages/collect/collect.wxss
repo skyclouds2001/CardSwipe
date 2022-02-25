@@ -3,14 +3,14 @@
 .collect {
   width: 100vw;
   height: 100vh;
+
+  background-color: whitesmoke;
 }
 
 .content_list {
   width: auto;
   height: 100%;
   padding: 50rpx 25rpx;
-
-  background-color: whitesmoke;
 }
 
 /* 礼物列表内容部分 */
