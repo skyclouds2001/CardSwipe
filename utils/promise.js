@@ -38,6 +38,22 @@ export const showToast = ({
   });
 };
 
+export const hideToast = ({
+  noConflict = false,
+}) => {
+  return new Promise((resolve, reject) => {
+    wx.hideToast({
+      noConflict: noConflict,
+      success: (res) => {
+        resolve(res);
+      },
+      fail: (err) => {
+        reject(err);
+      },
+    });
+  });
+};
+
 export const login = ({
   timeout = 10000,
 }) => {

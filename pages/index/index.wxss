@@ -7,7 +7,7 @@ page {
   width: 100vw;
   height: 100vh;
 
-  font-size: 28rpx;
+  font-size: 30rpx;
 }
 
 .index {
@@ -33,19 +33,10 @@ page {
   width: 100%;
   height: 100%;
 
-  clip-path: circle(50% at right 50%);
+  clip-path: circle(40% at right 50%);
 }
 
-.index > view:nth-child(2) {
-  z-index: 1;
-  flex-grow: 5;
-}
-.index > view:nth-child(3) {
-  z-index: 1;
-  flex-grow: 2;
-}
-
-/* 上部图片及配套内容 */
+/* 上部图片及配套内容
 .imageBox {
   display: flex;
   justify-content: center;
@@ -98,10 +89,10 @@ page {
 
 .collect {
   color: rgb(247, 199, 211);
-}
+} */
 
 /* 下部礼物信息部分 */
-.giftInfo {
+.gift-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,24 +109,30 @@ page {
   box-shadow: 0rpx 0rpx 15rpx #ccc;
 
   box-sizing: border-box;
+
+  flex-grow: 3;
+  flex-shrink: 0;
 }
 
-.giftInfo > view {
+.gift-info > view {
   width: 100%;
+  height: auto;
 }
 
-.name {
+.title {
   flex-grow: 2;
+  flex-shrink: 0;
 
   text-align: center;
 }
-.name > text {
+.title > text {
   font-size: 40rpx;
   font-weight: bold;
 }
 
 .price {
   flex-grow: 2;
+  flex-shrink: 0;
 
   text-align: center;
 }
@@ -147,12 +144,13 @@ page {
 
 .content {
   flex-grow: 4;
-
-  padding: 0rpx 0rpx 15rpx;
+  flex-shrink: 0;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  overflow: scroll;
 }
 .content > text {
   text-align: left;
@@ -161,6 +159,7 @@ page {
 
 .detail {
   flex-grow: 1;
+  flex-shrink: 0;
 
   display: flex;
   justify-content: center;
@@ -181,6 +180,20 @@ page {
   position: relative;
   top: 0;
   left: 0;
+}
+
+/* swiper */
+swiper {
+  width: 100%;
+  height: auto;
+
+  flex-grow: 2;
+  flex-shrink: 0;
+}
+swiper_list {
+  width: 100%;
+  height: auto;
+  min-height: 100%;
 }
 
 /* 解决cu-custom出现的bug */

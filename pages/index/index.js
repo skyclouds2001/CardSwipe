@@ -2,51 +2,59 @@
 
 import {request} from '../../lib/request.js';
 import regeneratorRuntime from '../../lib/runtime.js';
-import { showToast } from '../../utils/promise.js';
+import {
+  hideToast,
+  showToast
+} from '../../utils/promise.js';
 
 Page({
 
   data: {
     // 礼物信息
-    gift_info: {},
+    gift_list: [],
+    // 礼物当前下标
+    gift_index: 0,
+    // 当前礼物
+    gift: {},
   },
   openid: '',
   token: '',
-  page: 1,    // 用于礼物请求时所用的page 
-  index: 0,     // 用于礼物数组中下标记录
-  gift: [],
-  collect: [],
-  sex: 0,
+  page: 0,    // 用于礼物请求时所用的page：代表当前礼物所处的页数
+  collect: null,
+  sex: 0,   // 记录礼物信息，0代表男性，1代表女性
 
   onLoad: async function () {
-    const openid = wx.getStorageSync('openid');
-    const userinfo = wx.getStorageSync('userinfo');
-    const token = wx.getStorageSync('token');
 
+    // 显示提示信息
     showToast({
       title: '右滑表示喜欢，左滑表示不喜欢',
       icon: 'none',
       duration: 3000,
+      mask: true,
     });
 
-    this.openid = openid;
-    this.token = token;
-    this.page = 1;
-    this.index = 0;
+    // 获取openid与token及userinfo并保存
+    const openid = wx.getStorageSync('openid');
+    const userinfo = wx.getStorageSync('userinfo');
+    const token = wx.getStorageSync('token');
+    this.openid = openid ?? '';
+    this.token = token ?? '';
     this.sex = Number(userinfo?.sex ?? 0);
     
+    // 请求与保存礼物信息，请求与检查收藏信息
     await this.getGiftInfo();
     await this.getCollectInfo();
     await this.checkCollectSession();
+
   },
 
   onHide: function () {
-    if(this.collect)
+    if(this.collect !== null)
       wx.setStorageSync('collect', this.collect);
   },
 
   onUnload: function () {
-    if(this.collect)
+    if(this.collect !== null)
       wx.setStorageSync('collect', this.collect);
   },
 
@@ -73,7 +81,7 @@ Page({
     };
   },
 
-  // 获取礼物信息方法
+  // 获取与设置礼物信息方法
   async getGiftInfo() {
 
     try {
@@ -82,24 +90,35 @@ Page({
       const {data} = await request({
         url: `/gift/gift/getGift/${this.openid}/${this.page}`,
         method: 'GET',
-        data: {},
         header: {
           'content-type': 'application/x-www-form-urlencoded',
         }
       });
 
-      if(data?.success === null) {
+      // 检测请求是否成功
+      if(data.success === null) {
+
+        // 更新page值
         this.page = this.page + 1;
 
         // 提取礼物信息并更新页面内容
-        const gift = data?.data?.['giftList:'];
+        let gift = data.data?.['giftList:'];
+        let {gift_list, gift_index} = this.data;
         // 存入gift数组
-        this.gift = [...this.gift, ...gift];
-
-        let gift_info = gift[this.index];
-        gift_info['is_collect'] = false;
+        gift_list = [...gift_list, ...gift];
+        // 添加是否已收藏属性
+        gift_list.forEach(v => v.is_collect = false);
+        // 保存礼物数据
         this.setData({
-          gift_info,
+          gift_list,
+          gift: gift_list[gift_index],
+        });
+
+      } else {
+        hideToast();
+        showToast({
+          title: '',
+          icon: 'error',
         });
       }
 
@@ -109,33 +128,30 @@ Page({
 
   },
 
-  // 获取用户当前收藏信息
+  // 获取与设置用户当前收藏信息
   async getCollectInfo() {
-
-    const openid = this.openid;
 
     try {
 
-      const res = await request({
-        url: `/gift/collection/select/${openid}`,
+      const {data} = await request({
+        url: `/gift/collection/select/${this.openid}`,
         method: 'GET',
         header: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
   
-      const collect = res?.data?.data?.['collections:'];
+      const collect = data.data?.['collections:'];
       if(collect) {
-        const collect_id = collect?.map(v => v.id);
-
+        const collect_id = collect.map(v => v.id);
         this.collect = collect_id;
         wx.setStorageSync('collect', collect_id);
       } else {
         wx.setStorageSync('collect', []);
       }
 
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
     }
 
   },
@@ -143,74 +159,73 @@ Page({
   // 更新收藏信息
   async checkCollectSession() {
 
-    const gift = this.data.gift_info;
-    if(this.collect.includes(gift.id)) {
-      gift.is_collect = true;
-      this.setData({
-        gift_info: gift,
-      });
-    }
+    const {gift_list} = this.data;
+    gift_list.forEach(v => v.is_collect = this.collect.includes(v.id));
+    this.setData({
+      gift_list,
+    });
     
   },
 
   // 用户点击收藏响应
-  async handleCollect() {
+  async handleCollectGift() {
 
     // 更新至data对象
-    const {gift_info} = this.data;
-    gift_info.is_collect = !gift_info.is_collect;
+    let {gift_list, gift_index} = this.data;
+    gift_list[gift_index].is_collect = !gift_list[gift_index].is_collect;
     this.setData({
-      gift_info,
+      gift_list,
     });
 
     // 请求更新数据
-    if(gift_info.is_collect) {
+    let gift = gift_list[gift_index];
+    if(gift.is_collect) {  // 添加收藏
 
       const res = await request({
-        url: `/gift/collection/add/${this.openid}/${gift_info.id}`,
+        url: `/gift/collection/add/${this.openid}/${gift.id}`,
         method: 'GET',
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
       
-      if(res?.data?.success) {
-        await showToast({
-          title: '收藏成功',
+      if(res.data.success) {
+        showToast({
+          title: '添加收藏成功',
           icon: 'success',
         });
       } else {
-        await showToast({
-          title: '收藏失败\n请稍后再试',
+        showToast({
+          title: '添加收藏失败',
           icon: 'error',
         });
       }
 
-    } else {
+    } else {  // 取消收藏
 
       const res = await request({
-        url: `/gift/collection/delete/${this.openid}/${gift_info.id}`,
+        url: `/gift/collection/delete/${this.openid}/${gift.id}`,
         method: 'GET',
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
       
-      if(res?.data?.success) {
-        await showToast({
+      if(res.data.success) {
+        showToast({
           title: '取消收藏成功',
           icon: 'success',
         });
       } else {
-        await showToast({
-          title: '取消收藏失败\n请稍后再试',
+        showToast({
+          title: '取消收藏失败',
           icon: 'error',
         });
       }
 
     }
     
-  },
+  },//
 
   // 处理左滑右滑
   cx: -1,
@@ -293,7 +308,7 @@ Page({
       console.log(res);
     }
 
-  },
+  },//
 
   // 预览图片效果
   handlePreviewImage(e) {
@@ -301,6 +316,14 @@ Page({
     wx.previewImage({
       urls: [url],
       current: url,
+    });
+  },//
+
+  // 监视current变化事件
+  handleChangeSwiperItem(e) {
+    this.setData({
+      gift_index: e.detail.current,
+      gift: this.data.gift_list[e.detail.current],
     });
   },
   

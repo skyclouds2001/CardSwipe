@@ -1,13 +1,13 @@
 <!--index.wxml-->
 
-<view class="index" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-id="{{gift_info.id}}">
+<view class="index">
 
   <!-- 标题 -->
   <cu-custom bgColor="bg-gradual-blue" class="bar">
     <view slot="content">礼物评测</view>
   </cu-custom>
 
-  <!-- 图片部分 -->
+  <!-- 图片部分
   <view class="imageBox">
     <view>
       <image src="{{gift_info.url}}" mode="heightFix" lazy-load catchtap="handlePreviewImage" data-url="{{gift_info.url}}"></image>
@@ -15,7 +15,7 @@
     </view>
   </view>
 
-  <!-- 礼物信息部分 -->
+  礼物信息部分
   <view class="giftInfo">
     <view class="name">
       <text>{{gift_info.title}}</text>
@@ -28,6 +28,30 @@
     </view>
     <view class="detail">
       <navigator class="cu-btn round line-blue" url="../info/info?id={{gift_info.id}}"	hover-stop-propagation data-giftid="{{gift_info.id}}">详情</navigator>
+    </view>
+  </view> -->
+
+  <swiper class="card-swiper round-dot" indicator-dots circular autoplay interval="5000" duration="500" bindchange="handleChangeSwiperItem" indicator-color="#8799a3" indicator-active-color="#0081ff" current="0" easing-function="easeInOutCubic">
+    <swiper-item wx:for="{{gift_list}}" wx:key="id" class="{{gift_index === index ? 'cur' : ''}}" item-id="{{index}}">
+      <view class="swiper-item">
+        <image src="{{item.url}}" mode="aspectFill"></image>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 礼物信息部分 -->
+  <view class="gift-info">
+    <view class="title">
+      <text>{{gift.title}}</text>
+    </view>
+    <view class="price">
+      <text>{{gift.price ? '￥' + gift.price : '价格未知'}}</text>
+    </view>
+    <view class="content">
+      <text>{{gift.des ? gift.des : ''}}</text>    
+    </view>
+    <view class="detail">
+      <navigator class="cu-btn round line-blue" url="../info/info?id={{gift.id}}"	hover-stop-propagation data-giftid="{{gift.id}}">详情</navigator>
     </view>
   </view>
 
