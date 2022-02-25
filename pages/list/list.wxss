@@ -12,7 +12,7 @@
   background-color: var(--theme-color-blue);
 }
 
-.list > .choice, .list > .main_content {
+.list > .choice {
   position: relative;
 }
 
@@ -38,8 +38,8 @@
   justify-content: space-between;
   align-items: center;
 
-  margin: 50rpx 50rpx;
-  padding: 25rpx 25rpx;
+  margin: 50rpx 50rpx 100rpx;
+  padding: 50rpx;
 
   background-color: rgba(255, 255, 255, 0.75);
   border-radius: 25rpx;
@@ -141,7 +141,7 @@
 
   overflow: scroll;
 
-  z-index: 9;
+  z-index: 99;
 
   transition: all 1000ms ease 0ms;
 }
@@ -189,13 +189,15 @@
   width: calc(100% - 50rpx);
   height: auto;
 
-  margin: 50rpx 25rpx 0rpx;
+  margin: 50rpx 25rpx;
   padding: 0rpx 0rpx 50rpx;
 
   border-radius: 25rpx;
   background-color: white;
   box-shadow: 0rpx 0rpx 15rpx #ccc;
   overflow: hidden;
+
+  z-index: -9;
 }
 
 .gift_item {
@@ -222,8 +224,6 @@
 
   height: 100%;
 
-  position: relative;
-
   font-size: 30rpx;
 
   transition: all 500ms ease 0ms;
@@ -237,6 +237,7 @@
 
 .gift_item > .gift_index > view > image {
   width: 60rpx;
+  position: static;
 }
 
 .gift_item > .gift_title {
@@ -258,12 +259,14 @@
   overflow: hidden;
   background-color: white;
 
+  position: relative;
+
   height: 100%;
 
   flex: 2;
 }
 
-.gift_item > .gift_img::after {
+.gift_item > .gift_img > image::after {
   content: '';
 
   position: absolute;

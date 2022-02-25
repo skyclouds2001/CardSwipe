@@ -20,6 +20,17 @@
     <!-- 下部性别爱好选择 -->
     <view class="sex_interest">
 
+      <!-- 爱好 -->
+      <view class="habbit" bindtap="handleSelect">
+        <view class="habbit_content" mark:type="{{1}}">
+          <text decode>爱好&nbsp;&nbsp;&nbsp;</text>
+          <text class="arrow-down"></text>
+        </view>
+        <view class="choose_habbit {{isHabbitHide ? 'hide' : 'show'}}">
+          <view class="{{index === chooseHabit ? 'select' : ''}}" wx:for="{{habitChoice}}" wx:key="*this" data-id="{{index}}">{{item}}</view>
+        </view>
+      </view>
+
       <!-- 性别 -->
       <view class="sex" bindtap="handleSelect">
         <view class="sex_content" mark:type="{{0}}">
@@ -29,17 +40,6 @@
         <view class="choose_sex {{isSexHide ? 'hide' : 'show'}}">
           <view class="{{1 === chooseSex ? 'select' : ''}}" data-id="{{true}}">girl</view>
           <view class="{{0 === chooseSex ? 'select' : ''}}" data-id="{{false}}">boy</view>
-        </view>
-      </view>
-
-      <!-- 爱好 -->
-      <view class="habbit" bindtap="handleSelect">
-        <view class="habbit_content" mark:type="{{1}}">
-          <text decode>爱好&nbsp;&nbsp;&nbsp;</text>
-          <text class="arrow-down"></text>
-        </view>
-        <view class="choose_habbit {{isHabbitHide ? 'hide' : 'show'}}">
-          <view class="{{index === chooseHabit ? 'select' : ''}}" wx:for="{{habitChoice}}" wx:key="*this" data-id="{{index}}">{{item}}</view>
         </view>
       </view>
       
