@@ -118,10 +118,14 @@ page {
 .giftInfo > view {
   width: 100%;
   height: auto;
+  margin: 10rpx 0rpx;
+  padding: 0rpx;
+  box-sizing: border-box;
 }
 
 .title_price {
   flex-grow: 1;
+  flex-shrink: 0;
 
   display: flex;
   justify-content: space-between;
@@ -157,6 +161,7 @@ page {
 
 .tag {
   flex-grow: 1;
+  flex-shrink: 0;
 
   display: flex;
   justify-content: center;
@@ -165,6 +170,7 @@ page {
 
 .like {
   flex-grow: 2;
+  flex-shrink: 0;
 
   display: flex;
   flex-direction: column;
@@ -173,7 +179,8 @@ page {
 }
 
 .number {
-  flex: 1;
+  flex-grow: 1;
+  flex-shrink: 0;
 
   display: flex;
   justify-content: space-between;
@@ -252,6 +259,7 @@ page {
 
 .path {
   flex-grow: 1;
+  flex-shrink: 0;
 
   display: flex;
   justify-content: center;
@@ -265,7 +273,11 @@ page {
 
 .content {
   flex-grow: 2;
+  flex-shrink: 1;
 
   text-align: center;
   line-height: 1.5em;
+  letter-spacing: 0.1em;
+
+  overflow: scroll;
 }

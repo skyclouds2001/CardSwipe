@@ -10,7 +10,7 @@
 
   <!-- 上部礼物图片部分 -->
   <view class="imageBox">
-    <image src="https://edu-1014.oss-cn-beijing.aliyuncs.com/2021/01/16/7071f928f39f46639b99e17d34fb5acatmp_e115d8559230ea21194d9abdfefd2ca441ae7441781edeb0.jpg" mode="heightFix" class="giftImage" bindtap="handlePreviewImage"></image>
+    <image src="{{gift_info.url}}" mode="heightFix" class="giftImage" bindtap="handlePreviewImage"></image>
     <view class="icon_star" bindtap="handleCollect">
       <view class="cuIcon-{{gift_info.is_collect ? 'favorfill collect' : 'favor'}}"></view>
     </view>
@@ -36,7 +36,7 @@
           <view>{{gift_info.boylike ? gift_info.boylike : 0}}</view>
         </view>
         <view class="cu-progress round striped active progress">
-          <view class="boy-progress" style="width: {{gift_info.boyprogress + '%'}}">{{gift_info.boyprogress}}%</view>
+          <view class="boy-progress" style="width: {{gift_info.boyprogress + '%'}}"></view>
         </view>
       </view>
       <view class="girl number">
@@ -45,7 +45,7 @@
           <view>{{gift_info.girllike ? gift_info.girllike : 0}}</view>
         </view>
         <view class="cu-progress round striped active progress">
-          <view class="girl-progress" style="width: {{gift_info.girlprogress + '%'}}">{{gift_info.girlprogress}}%</view>
+          <view class="girl-progress" style="width: {{gift_info.girlprogress + '%'}}"></view>
         </view>
       </view>
     </view>
