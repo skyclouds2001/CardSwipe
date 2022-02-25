@@ -171,14 +171,13 @@ Page({
   async handleCollectGift() {
 
     // 更新至data对象
-    let {gift_list, gift_index} = this.data;
+    let {gift_list, gift_index, gift} = this.data;
     gift_list[gift_index].is_collect = !gift_list[gift_index].is_collect;
     this.setData({
       gift_list,
     });
 
     // 请求更新数据
-    let gift = gift_list[gift_index];
     if(gift.is_collect) {  // 添加收藏
 
       const res = await request({
@@ -225,76 +224,36 @@ Page({
 
     }
     
-  },//
-
-  // 处理左滑右滑
-  cx: -1,
-  cy: -1,
-  async handleTouchStart(e) {
-    let x = e.changedTouches[0].clientX;
-    let y = e.changedTouches[0].clientY;
-    this.cx = x;
-    this.cy = y;
   },
-  async handleTouchEnd(e) {
-    let x = e.changedTouches[0].clientX;
-    let y = e.changedTouches[0].clientY;
-    let cx = this.cx;
-    let cy = this.cy;
-    this.cx = -1;
-    this.cy = -1;
 
-    if (Math.abs(x - cx) > 50 && Math.abs(y - cy) < 50) {
-      // 左滑：不喜欢 刷新礼物
-      // 右滑：喜欢 刷新礼物
-      
-      // 自增礼物下标
-      this.index = this.index + 1;
+  // 预览图片效果
+  handlePreviewImage(e) {
+    const {url} = e.currentTarget.dataset;
+    wx.previewImage({
+      urls: [url],
+      current: url,
+    });
+  },
 
-      // 检测礼物下标是否超出范围：若超出重新请求数据
-      if(this.index === this.gift.length) {
-        // 页数自增
-        this.page = this.page + 1;
-        // 获取礼物信息
-        await this.getGiftInfo();
-      }
+  // 监视current变化事件：更新gift数据，判断是否主动收藏
+  async handleChangeSwiperItem(e) {
+    const current = e.detail.current;
+    const preview = this.data.gift_index;
+    const reason = e.detail.source.trim();
+    const id = this.data.gift.id;
+    const SIZE = this.data.gift_list.length;
+    
+    this.setData({
+      gift_index: current,
+      gift: this.data.gift_list[current],
+    });
 
-      // 获取礼物信息并添加收藏属性，随后设置进data
-      const gift = this.gift[this.index];
-      if(!gift.hasOwnProperty('is_collect')) {
-        gift['is_collect'] = this.collect.includes(gift.id);
-      }
-      this.setData({
-        gift_info: gift,
-      });
-    }
-
-    if(cx - x > 50 && Math.abs(y - cy) < 50) {
-      // 左滑：不喜欢 删除该礼物
-
-      // 提取礼物id
-      const {id} = e.currentTarget.dataset;
-      // 查找该礼物对应下标
-      const index = this.gift.findIndex(v => v.id === id);
-      // 删除该礼物
-      this.gift.splice(index, 1);
-
-      showToast({
-        title: '已选择不喜欢该商品',
-        icon: 'none',
-      });
-    }
-
-    if(x - cx > 50 && Math.abs(y - cy) < 50) {
-
-      // 右滑：喜欢
+    if(reason === 'touch' && (current > preview || current === 0 && preview === SIZE - 1)) {
       showToast({
         title: '已选择喜欢该商品',
         icon: 'none',
+        duration: 1000,
       });
-
-      const {id} = e.currentTarget.dataset;
-      // 提交喜欢信息
       const res = await request({
         url: `/gift/gift/${this.sex ? 'girl' : 'boy'}like/${id}`,
         method: 'PUT',
@@ -306,25 +265,13 @@ Page({
         },
       });
       console.log(res);
+    } else if (reason === 'touch' && (current < preview || preview === 0 && current === 1)) {
+      showToast({
+        title: '已选择不喜欢该商品',
+        icon: 'none',
+        duration: 1000,
+      });
     }
-
-  },//
-
-  // 预览图片效果
-  handlePreviewImage(e) {
-    const {url} = e.currentTarget.dataset;
-    wx.previewImage({
-      urls: [url],
-      current: url,
-    });
-  },//
-
-  // 监视current变化事件
-  handleChangeSwiperItem(e) {
-    this.setData({
-      gift_index: e.detail.current,
-      gift: this.data.gift_list[e.detail.current],
-    });
   },
   
 });

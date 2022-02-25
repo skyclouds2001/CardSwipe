@@ -31,25 +31,33 @@
     </view>
   </view> -->
 
-  <swiper class="card-swiper round-dot" indicator-dots circular autoplay interval="5000" duration="500" bindchange="handleChangeSwiperItem" indicator-color="#8799a3" indicator-active-color="#0081ff" current="0" easing-function="easeInOutCubic">
-    <swiper-item wx:for="{{gift_list}}" wx:key="id" class="{{gift_index === index ? 'cur' : ''}}" item-id="{{index}}">
-      <view class="swiper-item">
-        <image src="{{item.url}}" mode="aspectFill"></image>
+  <swiper class="card-swiper round-dot swiper" indicator-dots circular autoplay interval="10000" duration="500" bindchange="handleChangeSwiperItem" indicator-color="#8799a3" indicator-active-color="#0081ff" current="{{gift_index}}" easing-function="easeInOutCubic">
+    <swiper-item wx:for="{{gift_list}}" wx:key="id" class="swiper-item {{gift_index === index ? 'cur' : ''}}" item-id="{{index}}">
+      <view class="swiper-item item">
+        <image src="{{item.url}}" mode="aspectFill" catchlongpress="handlePreviewImage" data-url="{{item.url}}"></image>
+        <view class="title">{{item.title}}</view>
+        <view class="like-number">
+          <view class="cu-capsule round">
+            <view class="cu-tag bg-blue ">
+              <text class="cuIcon-likefill"></text>
+            </view>
+            <view class="cu-tag line-blue">{{item.boylike}}</view>
+          </view>
+          <view class="cu-capsule round">
+            <view class="cu-tag bg-pink ">
+              <text class="cuIcon-likefill"></text>
+            </view>
+            <view class="cu-tag line-pink">{{item.girllike}}</view>
+          </view>
+        </view>
+        <view class="like {{item.is_collect ? 'select cuIcon-favorfill' : 'cuIcon-favor'}}" catchtap="handleCollectGift"></view>
       </view>
     </swiper-item>
   </swiper>
 
   <!-- 礼物信息部分 -->
   <view class="gift-info">
-    <view class="title">
-      <text>{{gift.title}}</text>
-    </view>
-    <view class="price">
-      <text>{{gift.price ? '￥' + gift.price : '价格未知'}}</text>
-    </view>
-    <view class="content">
-      <text>{{gift.des ? gift.des : ''}}</text>    
-    </view>
+    <view class="content">{{gift.des}}</view>
     <view class="detail">
       <navigator class="cu-btn round line-blue" url="../info/info?id={{gift.id}}"	hover-stop-propagation data-giftid="{{gift.id}}">详情</navigator>
     </view>
