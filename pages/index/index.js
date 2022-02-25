@@ -248,7 +248,7 @@ Page({
       gift: this.data.gift_list[current],
     });
 
-    if(reason === 'touch' && (current > preview || current === 0 && preview === SIZE - 1)) {
+    if(reason === 'touch' && (current < preview || preview === 0 && current === 1)) {
       showToast({
         title: '已选择喜欢该商品',
         icon: 'none',
@@ -265,7 +265,7 @@ Page({
         },
       });
       console.log(res);
-    } else if (reason === 'touch' && (current < preview || preview === 0 && current === 1)) {
+    } else if (reason === 'touch' && (current > preview || current === 0 && preview === SIZE - 1)) {
       showToast({
         title: '已选择不喜欢该商品',
         icon: 'none',
