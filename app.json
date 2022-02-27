@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/logs/logs",
     "pages/welcome/welcome",
     "pages/index/index",
     "pages/info/info",
@@ -9,9 +8,9 @@
     "pages/mine/mine",
     "pages/collect/collect",
     "pages/add/add",
-    "pages/problem/problem"
+    "pages/problem/problem",
+    "pages/logs/logs"
   ],
-  "entryPagePath": "pages/welcome/welcome",
 
   "window": {
     "backgroundColor": "#ddd",
