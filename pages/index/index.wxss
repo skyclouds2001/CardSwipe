@@ -36,61 +36,6 @@ page {
   clip-path: circle(40% at right 50%);
 }
 
-/* 上部图片及配套内容
-.imageBox {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  height: auto;
-  margin: 25rpx 0rpx;
-
-  background-color: transparent;
-}
-
-.imageBox > view {
-  position: relative;
-
-  width: auto;
-  height: 100%;
-
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.imageBox > view > image {
-  width: auto;
-  height: 100%;
-
-  border-radius: 10rpx;
-  box-shadow: 0rpx 0rpx 10rpx #ccc;
-}
-
-.icon_star {
-  position: absolute;
-  bottom: 1rpx;
-  right: 1rpx;
-
-  font-size: 48rpx;
-  line-height: 60rpx;
-  text-align: center;
-
-  width: 60rpx;
-  height: 60rpx;
-
-  display: block;
-
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-  box-shadow: 0rpx 0rpx 10rpx #999;
-}
-
-.collect {
-  color: rgb(247, 199, 211);
-} */
-
 /* 下部礼物信息部分 */
 .gift-info {
   display: flex;
@@ -223,34 +168,32 @@ page {
 }
 
 .item > .like {
-  width: 100%;
-  height: calc(100% - 4em);
-
   position: absolute;
-  top: 0;
-  left: 0;
-
-  color: var(--blue);
-}
-.item > .like.select {
-  color: var(--pink);
-}
-.item > .like::before {
-  position: absolute;
-  right: 10rpx;
-  bottom: 10rpx;
+  right: 15rpx;
+  bottom: 15rpx;
 
   font-size: 50rpx;
-  line-height: 1.5em;
+  line-height: 1.25em;
   text-align: center;
+  color: var(--blue);
 
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.25em;
+  height: 1.25em;
 
   background-color: rgba(245, 245, 245, 0.75);
   border-radius: 50%;
   box-shadow: 5rpx 5rpx 15rpx #999;
   backdrop-filter: blur(5rpx);
+
+  transition: all 125ms ease 0ms;
+}
+.item > .like.select {
+  color: var(--pink);
+}
+.item > .like:active {
+  right: 10rpx;
+  bottom: 10rpx;
+  box-shadow: 0rpx 0rpx 10rpx #999;
 }
 
 /* 解决cu-custom出现的bug */
