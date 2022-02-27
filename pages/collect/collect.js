@@ -1,6 +1,5 @@
 // pages/collect/collect.js
 
-import { get } from 'request';
 import {request} from '../../lib/request.js';
 import regeneratorRuntime from '../../lib/runtime.js';
 import {showToast} from '../../utils/promise.js';
