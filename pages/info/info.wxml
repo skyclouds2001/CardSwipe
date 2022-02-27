@@ -10,7 +10,7 @@
 
   <!-- 上部礼物图片部分 -->
   <view class="imageBox">
-    <image src="{{gift_info.url}}" mode="heightFix" class="giftImage" bindlongpress="handlePreviewImage" show-menu-by-longpress></image>
+    <image src="{{gift_info.url}}" mode="heightFix" class="giftImage" show-menu-by-longpress></image>
     <view class="icon_star" bindtap="handleCollectGift">
       <view class="cuIcon-{{gift_info.is_collect ? 'favorfill collect' : 'favor'}}"></view>
     </view>

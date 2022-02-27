@@ -132,13 +132,4 @@ Page({
     
   },
 
-  // 预览图片效果
-  handlePreviewImage() {
-    const url = this.data.gift.url;
-    wx.previewImage({
-      urls: [url],
-      current: url,
-    });
-  },
-
 });
