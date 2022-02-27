@@ -10,9 +10,9 @@
 
   <!-- 上部礼物图片部分 -->
   <view class="imageBox">
-    <image src="{{gift_info.url}}" mode="heightFix" class="giftImage" show-menu-by-longpress></image>
+    <image src="{{gift.url}}" mode="heightFix" class="giftImage" show-menu-by-longpress></image>
     <view class="icon_star" bindtap="handleCollectGift">
-      <view class="cuIcon-{{gift_info.is_collect ? 'favorfill collect' : 'favor'}}"></view>
+      <view class="cuIcon-{{gift.is_collect ? 'favorfill collect' : 'favor'}}"></view>
     </view>
   </view>
 
@@ -21,43 +21,43 @@
 
     <!-- 礼物名称及价格 -->
     <view class="title_price">
-      <view class="title">{{gift_info.title}}</view>
-      <view class="price">{{gift_info.price ? '￥' + gift_info.price : '暂无价格'}}</view>
+      <view class="title">{{gift.title}}</view>
+      <view class="price">{{gift.price ? '￥' + gift.price : '暂无价格'}}</view>
     </view>
 
     <!-- 礼物标签 -->
-    <view class="tag">{{gift_info.tag ? gift_info.tag : '暂无标签'}}</view>
+    <view class="tag">{{gift.tag ? gift.tag : '暂无标签'}}</view>
 
     <!-- 礼物喜爱人数 -->
     <view class="like">
       <view class="boy number">
         <view class="data">
           <view>boy</view>
-          <view>{{gift_info.boylike ? gift_info.boylike : 0}}</view>
+          <view>{{gift.boylike ? gift.boylike : 0}}</view>
         </view>
         <view class="cu-progress round striped active progress">
-          <view class="boy-progress" style="width: {{gift_info.boyprogress + '%'}}"></view>
+          <view class="boy-progress" style="width: {{gift.boyprogress + '%'}}"></view>
         </view>
       </view>
       <view class="girl number">
         <view class="data">
           <view>girl</view>
-          <view>{{gift_info.girllike ? gift_info.girllike : 0}}</view>
+          <view>{{gift.girllike ? gift.girllike : 0}}</view>
         </view>
         <view class="cu-progress round striped active progress">
-          <view class="girl-progress" style="width: {{gift_info.girlprogress + '%'}}"></view>
+          <view class="girl-progress" style="width: {{gift.girlprogress + '%'}}"></view>
         </view>
       </view>
     </view>
 
     <!-- 礼物路径 -->
     <view class="path">
-      <text>{{gift_info.buyurl ? gift_info.buyurl : '暂无购买链接'}}</text>
+      <text>{{gift.buyurl ? gift.buyurl : '暂无购买链接'}}</text>
     </view>
 
     <!-- 礼物文案 -->
     <view class="content">
-      <view>{{gift_info.des}}</view>
+      <view>{{gift.des}}</view>
     </view>
 
   </view>
