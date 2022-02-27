@@ -1,8 +1,11 @@
 // pages/collect/collect.js
 
+import { get } from 'request';
 import {request} from '../../lib/request.js';
 import regeneratorRuntime from '../../lib/runtime.js';
 import {showToast} from '../../utils/promise.js';
+
+const app = getApp();
 
 Page({
 
@@ -29,7 +32,7 @@ Page({
         },
       });
   
-      const collect = res?.data?.data?.['collections:'] ?? [];
+      const collect = res.data?.data?.['collections:'] ?? [];
 
       // 添加is_on_delete属性
       if(collect)
@@ -105,18 +108,21 @@ Page({
         },
       });
 
-      if(res.data.success) {
+      if(res.data?.success) {
 
+        showToast({
+          title: '删除成功',
+          icon: 'success',
+        });
+        
         gift_data.splice(index, 1);
+        app.globalData.collect = app.globalData.collect.filter(v !== id);
 
       } else {
-
-        await showToast({
+        showToast({
           title: '删除失败',
           icon: 'error',
-          mask: true,
         });
-
       }
 
     } catch (err) {

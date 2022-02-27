@@ -7,6 +7,8 @@ import {
   showToast
 } from '../../utils/promise.js';
 
+const app = getApp();
+
 Page({
 
   data: {
@@ -20,7 +22,6 @@ Page({
   openid: '',
   token: '',
   page: 0,    // 用于礼物请求时所用的page：代表当前礼物所处的页数
-  collect: null,
   sex: 0,   // 记录礼物信息，0代表男性，1代表女性
 
   onLoad: async function () {
@@ -46,16 +47,6 @@ Page({
     await this.getCollectInfo();
     await this.checkCollectSession();
 
-  },
-
-  onHide: function () {
-    if(this.collect !== null)
-      wx.setStorageSync('collect', this.collect);
-  },
-
-  onUnload: function () {
-    if(this.collect !== null)
-      wx.setStorageSync('collect', this.collect);
   },
 
   onShareAppMessage: function () {
@@ -144,10 +135,9 @@ Page({
       const collect = data.data?.['collections:'];
       if(collect) {
         const collect_id = collect.map(v => v.id);
-        this.collect = collect_id;
-        wx.setStorageSync('collect', collect_id);
+        app.globalData.collect = collect_id;
       } else {
-        wx.setStorageSync('collect', []);
+        app.globalData.collect = [];
       }
 
     } catch (err) {
@@ -160,7 +150,7 @@ Page({
   async checkCollectSession() {
 
     const {gift_list} = this.data;
-    gift_list.forEach(v => v.is_collect = this.collect.includes(v.id));
+    gift_list.forEach(v => v.is_collect = app.globalData.collect.includes(v.id));
     this.setData({
       gift_list,
     });
@@ -172,14 +162,11 @@ Page({
 
     // 更新至data对象
     let {gift_list, gift_index, gift} = this.data;
-    gift_list[gift_index].is_collect = !gift_list[gift_index].is_collect;
-    this.setData({
-      gift_list,
-    });
 
     // 请求更新数据
-    if(gift.is_collect) {  // 添加收藏
+    if(!gift.is_collect) {  // 添加收藏
 
+      // 请求添加收藏
       const res = await request({
         url: `/gift/collection/add/${this.openid}/${gift.id}`,
         method: 'GET',
@@ -188,12 +175,21 @@ Page({
         },
       });
       
-      if(res.data.success) {
+      if(res.data?.success) {  // 请求成功
+        // 显示请求成功信息
         showToast({
           title: '添加收藏成功',
           icon: 'success',
         });
-      } else {
+        // 更新至page.data
+        gift_list[gift_index].is_collect = true;
+        this.setData({
+          gift_list,
+        });
+        // 更新至app.globalData
+        app.globalData.collect.push(gift.id);
+      } else {  // 请求失败
+        // 显示错误提示信息
         showToast({
           title: '添加收藏失败',
           icon: 'error',
@@ -210,11 +206,16 @@ Page({
         },
       });
       
-      if(res.data.success) {
+      if(res.data?.success) {
         showToast({
           title: '取消收藏成功',
           icon: 'success',
         });
+        gift_list[gift_index].is_collect = false;
+        this.setData({
+          gift_list,
+        });
+        app.globalData.collect.filter(v => v !== gift.id);
       } else {
         showToast({
           title: '取消收藏失败',
@@ -235,7 +236,7 @@ Page({
     });
   },
 
-  // 监视current变化事件：更新gift数据，判断是否主动收藏
+  // 监视current变化事件：更新gift数据，判断是否主动喜欢
   async handleChangeSwiperItem(e) {
     const current = e.detail.current;
     const preview = this.data.gift_index;
@@ -248,7 +249,7 @@ Page({
       gift: this.data.gift_list[current],
     });
 
-    if(reason === 'touch' && (current < preview || preview === 0 && current === 1)) {
+    if(reason === 'touch' && (current < preview && current !== 0 && preview !== SIZE - 1 || preview === 0 && current === SIZE - 1)) {
       showToast({
         title: '已选择喜欢该商品',
         icon: 'none',
@@ -265,7 +266,7 @@ Page({
         },
       });
       console.log(res);
-    } else if (reason === 'touch' && (current > preview || current === 0 && preview === SIZE - 1)) {
+    } else if (reason === 'touch' && (current > preview && preview !== 0 && current !== SIZE - 1 || current === 0 && preview === SIZE - 1)) {
       showToast({
         title: '已选择不喜欢该商品',
         icon: 'none',

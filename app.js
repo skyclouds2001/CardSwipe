@@ -54,6 +54,8 @@ App({
       width: 86,
     },
     CustomBar: 60,
+    // 收藏的礼物id
+    collect: [],
   },
 
   // 版本号比较代码：来源微信开发文档
