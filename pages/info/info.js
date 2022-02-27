@@ -16,8 +16,6 @@ Page({
   onLoad: async function (options) {
     // 提取礼物id
     const {id} = options;
-    // 获取礼物收藏信息
-    const collect = app.globalData.collect;
 
     try {
 
@@ -35,12 +33,12 @@ Page({
 
         const {gift} = data.data;
 
-        gift.is_collect = collect.includes(parseInt(id));
+        gift.is_collect = app.globalData.collect.includes(parseInt(id));
         gift.boyprogress = (gift.boylike / ((gift.boylike + gift.girllike) / (gift.progress / 100)) * 100).toFixed(0);
         gift.girlprogress = (gift.girllike / ((gift.boylike + gift.girllike) / (gift.progress / 100)) * 100).toFixed(0);
 
         this.setData({
-          gift: data.data.gift,
+          gift,
         });
 
       } else {
