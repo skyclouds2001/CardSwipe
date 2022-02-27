@@ -26,14 +26,6 @@ Page({
 
   onLoad: async function () {
 
-    // 显示提示信息
-    showToast({
-      title: '右滑表示喜欢，左滑表示不喜欢',
-      icon: 'none',
-      duration: 3000,
-      mask: true,
-    });
-
     // 获取openid与token及userinfo并保存
     const openid = wx.getStorageSync('openid');
     const userinfo = wx.getStorageSync('userinfo');
@@ -47,6 +39,15 @@ Page({
     await this.getCollectInfo();
     await this.checkCollectSession();
 
+  },
+
+  onShow: function () {
+    showToast({
+      title: '右滑表示喜欢，左滑表示不喜欢',
+      icon: 'none',
+      duration: 3000,
+      mask: true,
+    });
   },
 
   onShareAppMessage: function () {
@@ -255,17 +256,17 @@ Page({
         icon: 'none',
         duration: 1000,
       });
-      const res = await request({
+      await request({
         url: `/gift/gift/${this.sex ? 'girl' : 'boy'}like/${id}`,
         method: 'PUT',
         header: {
           "Content-Type": "application/x-www-form-urlencoded",
+          "token": `${this.token}`,
         },
         data: {
           token: this.token,
         },
       });
-      console.log(res);
     } else if (reason === 'touch' && (current > preview && preview !== 0 && current !== SIZE - 1 || current === 0 && preview === SIZE - 1)) {
       showToast({
         title: '已选择不喜欢该商品',
