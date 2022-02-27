@@ -22,5 +22,6 @@
   "bugs": {
     "url": "https://github.com/skyclouds2001/cardSwipe/issues"
   },
-  "homepage": "https://github.com/skyclouds2001/cardSwipe#readme"
+  "homepage": "https://github.com/skyclouds2001/cardSwipe#readme",
+  "private": true
 }
