@@ -239,11 +239,11 @@ Page({
 
   // 监视current变化事件：更新gift数据，判断是否主动喜欢
   async handleChangeSwiperItem(e) {
-    const current = e.detail.current;
-    const preview = this.data.gift_index;
-    const reason = e.detail.source.trim();
-    const id = this.data.gift.id;
-    const SIZE = this.data.gift_list.length;
+    const current = e.detail.current;  // current变化后礼物index值
+    const preview = this.data.gift_index;  // current变化前礼物index值
+    const reason = e.detail.source.trim(); // current变化原因
+    const id = this.data.gift.id;  // current变化前礼物id
+    const SIZE = this.data.gift_list.length;  // 礼物列表长度
     
     this.setData({
       gift_index: current,

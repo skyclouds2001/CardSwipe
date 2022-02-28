@@ -7,31 +7,7 @@
     <view slot="content">礼物评测</view>
   </cu-custom>
 
-  <!-- 图片部分
-  <view class="imageBox">
-    <view>
-      <image src="{{gift_info.url}}" mode="heightFix" lazy-load catchtap="handlePreviewImage" data-url="{{gift_info.url}}"></image>
-      <view class="icon_star cuIcon-{{gift_info.is_collect ? 'favorfill collect': 'favor'}}" catchtap="handleCollect"></view>
-    </view>
-  </view>
-
-  礼物信息部分
-  <view class="giftInfo">
-    <view class="name">
-      <text>{{gift_info.title}}</text>
-    </view>
-    <view class="price">
-      <text>{{gift_info.price ? '￥' + gift_info.price : '价格未知'}}</text>
-    </view>
-    <view class="content">
-      <text>{{gift_info.des ? gift_info.des : ''}}</text>    
-    </view>
-    <view class="detail">
-      <navigator class="cu-btn round line-blue" url="../info/info?id={{gift_info.id}}"	hover-stop-propagation data-giftid="{{gift_info.id}}">详情</navigator>
-    </view>
-  </view> -->
-
-  <swiper class="card-swiper round-dot swiper" indicator-dots circular autoplay interval="10000" duration="500" bindchange="handleChangeSwiperItem" indicator-color="#8799a3" indicator-active-color="#0081ff" current="{{gift_index}}" easing-function="easeInOutCubic">
+  <swiper class="card-swiper round-dot swiper" indicator-dots circular autoplay interval="10000" duration="500" bindchange="handleChangeSwiperItem" indicator-color="#8799a3" indicator-active-color="#0081ff" current="0" easing-function="easeInOutCubic">
     <swiper-item wx:for="{{gift_list}}" wx:key="id" class="swiper-item {{gift_index === index ? 'cur' : ''}}" item-id="{{index}}">
       <view class="swiper-item item">
         <image src="{{item.url}}" mode="aspectFill" catchlongpress="handlePreviewImage" data-url="{{item.url}}"></image>
