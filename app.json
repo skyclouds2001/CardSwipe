@@ -11,6 +11,7 @@
     "pages/problem/problem",
     "pages/logs/logs"
   ],
+  "entryPagePath": "pages/welcome/welcome",
 
   "window": {
     "backgroundColor": "#ddd",
