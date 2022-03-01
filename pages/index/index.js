@@ -46,7 +46,6 @@ Page({
       title: '右滑表示喜欢，左滑表示不喜欢',
       icon: 'none',
       duration: 3000,
-      mask: true,
     });
   },
 
