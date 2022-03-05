@@ -88,7 +88,7 @@ Page({
 
     // 存储礼物信息同时进行排序
     this.giftRankAll = res.data.data?.['gift_rank:'].sort((a, b) => {
-      return (b.boylike ?? 0 + b.girllike ?? 0) - (a.boylike ?? 0 + a.girllike ?? 0)}
+      return (b?.boylike ?? 0 + b?.girllike ?? 0) - (a?.boylike ?? 0 + a?.girllike ?? 0)}
     );
   },
 
