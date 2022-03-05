@@ -20,7 +20,7 @@ export const showToast = ({
   title = '提示',
   icon = 'success',
   duration = 1500,
-  mask = true,
+  mask = false,
 }) => {
   return new Promise((resolve, reject) => {
     wx.showToast({
