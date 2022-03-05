@@ -1,209 +1,263 @@
-/**index.wxss**/
+/* pages/welcome/welcome.wxss */
 
-/* 页面整体设置 */
-page {
-  display: block;
-
+.welcome {
   width: 100vw;
   height: 100vh;
 
-  font-size: 30rpx;
+  position: relative;
 }
 
-.index {
-  background-color: var(--theme-color-blue);
+/* 背景部分 */
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 0;
+
+  width: 100%;
+  height: 100%;
+}
+.bgBox {
+  width: 50vw;
+  height: 100vh;
+}
+
+/* 内容区整体设置 */
+.content {
+  z-index: 10;
 
   width: 100%;
   height: 100%;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.index::before {
   position: absolute;
   top: 0;
   left: 0;
 
-  content: '';
-
-  background-color: var(--theme-color-pink);
-
-  width: 100%;
-  height: 100%;
-
-  clip-path: circle(40% at right 50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-/* 下部礼物信息部分 */
-.gift-info {
+/* 内容区之一 */
+.content_1 {
+  position: relative;
+
+  padding-bottom: 50rpx;
+}
+.content_1 .text text {
+  line-height: 50rpx;
+  font-size: 30rpx;
+}
+.content_1 .icon_love_black {
+  position: absolute;
+  left: -125rpx;
+  top: -125rpx;
+
+  height: 25rpx;
+}
+.content_1 .icon_love_black image {
+  height: 150rpx;
+
+  transform: rotate(-15deg);
+}
+
+/* 内容区之二 */
+.content_2 {
+  position: relative;
+
+  width: 100%;
+  height: 75%;
+
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+}
 
-  width: calc(100% - 100rpx);
-  height: 300rpx;
+.content_2 .text_or {
+  font-size: 100rpx;
+}
+
+.content_2 .choose_sex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content_2 .choose_sex view {
+  width: 250rpx;
+  height: 125rpx;
   margin: 50rpx;
-  padding: 50rpx;
-
-  background-color: rgba(255, 255, 255, 0.75);
-  border-radius: 25rpx;
-  backdrop-filter: blur(15rpx);
-  box-shadow: 5rpx 5rpx 15rpx #ccc;
-
-  box-sizing: border-box;
-
-  flex-grow: 3;
-  flex-shrink: 0;
-}
-
-.gift-info > view {
-  width: 100%;
-  height: auto;
-}
-
-.content {
-  flex-grow: 75%;
-  flex-shrink: 0;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  overflow: scroll;
-
-  text-align: left;
-  line-height: 1.25em;
-}
-
-.detail {
-  flex-grow: 25%;
-  flex-shrink: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.detail > navigator {
-  width: 10em;
-  height: 2em;
-  max-height: 100%;
-
-  font-size: 30rpx;
-  line-height: 2.5em;
-  text-align: center;
   font-weight: bold;
+  font-size: 40rpx;
+  letter-spacing: 1rpx;
+  color: #eee;
 
-  border-radius: 25rpx;
+  border-radius: 25rpx/12.5rpx;
+  box-shadow: 5rpx 5rpx 10rpx #999, 0rpx 0rpx 10rpx #eee;
+
+  transition: all 125ms ease 0ms;
 
   position: relative;
   top: 0;
   left: 0;
+  box-shadow: 5rpx 5rpx 10rpx #999;
+}
+.content_2 .choose_sex view:active {
+  top: 5rpx;
+  left: 5rpx;
+  box-shadow: 0rpx 0rpx 10rpx #999;
 }
 
-/* swiper */
-.swiper {
-  width: 100%;
-  height: 600rpx !important;
-
-  flex-grow: 2;
-  flex-shrink: 0;
+.content_2 .choose_sex .girl {
+  background-color: rgb(230, 118, 118);
 }
 
-.swiper-item {
-  width: 100%;
-  height: 100%;
+.content_2 .choose_sex .boy {
+  background-color: rgb(82, 153, 201);
 }
 
-.item {
-  width: 100%;
-  height: 100%;
+.content_2 .choice_img {
+  width: 75%;
 
-  position: relative;
-
-  overflow: hidden;
-  background-color: white;
   border-radius: 25rpx;
+  box-shadow: 0rpx 0rpx 5rpx #999;
+}
 
+.content_2 .icon_love_pink {
+  position: absolute;
+  top: -45rpx;
+  left: 15rpx;
+
+  height: 150rpx;
+
+  transform: rotate(-20deg);
+}
+
+/* 内容区之三 */
+/* 总体 */
+.content_3 {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 固定窗口文字部分 */
+.content_3 .info {
+  position: fixed;
+  top: 25rpx;
+
+  width: 75vw;
+  height: 75rpx;
+
+  background-color: rgb(248, 248, 248);
+  border-radius: 10rpx;
+  box-shadow: 0rpx 0rpx 5rpx #ccc;
+
+  display: flex;
   justify-content: center;
   align-items: center;
 
   font-size: 40rpx;
+  font-weight: 500;
 }
 
-.item > image {
-  width: 100%;
-  height: calc(100% - 4em);
-
-  pointer-events: auto;
-}
-
-.item > .title {
-  width: 100%;
-  height: 2em;
-  padding: 0rpx 50rpx;
-
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  letter-spacing: 2rpx;
-  font-weight: bold;
-  line-height: 2em;
+/* 提示文字部分 */
+.content_3 .text {
   text-align: center;
+  font-size: 28rpx;
+  line-height: 1.5em;
+  letter-spacing: 2.5rpx;
+
+  width: 75vw;
+  margin-top: 100rpx;
 }
 
-.item > .like-number {
-  width: 100%;
-  height: 2em;
-  margin: 0;
-  padding: 0% 20%;
+/* 标签部分 */
+.content_3 .tag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  align-content: center;
+
+  width: 75vw;
+  margin-top: 25rpx;
+}
+.content_3 .tag view {
+  background-color: transparent;
+
+  width: 5em;
+  margin: 2vw 8vw;
+  border: 5rpx solid #d248eb;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+
+  font-size: 30rpx;
+  line-height: 2em;
+  color: #d248eb;
+  font-weight: bold;
+  letter-spacing: 1.5rpx;
+
+  border-radius: 25rpx/1em;
+  backdrop-filter: saturate(75%);
+
+  transition: all 250ms ease;
+}
+.content_3 .tag .select {
+  color: #f0a2fd;
+  border: 5rpx solid #f0a2fd;
 }
 
-.item > .like {
-  position: absolute;
-  right: 15rpx;
-  bottom: 15rpx;
+/* 输入框部分 */
+.input input {
+  background-color: white;
 
-  font-size: 50rpx;
-  line-height: 1.25em;
+  margin-top: 20rpx;
+  padding: 0rpx 15rpx;
+  height: 2em;
+  width: 15em;
+
+  border-radius: 10rpx;
+  box-shadow: 2.5rpx 2.5rpx 5rpx #ccc inset, -2.5rpx -2.5rpx 5rpx #fff inset;
+
+  line-height: 2em;
+
+  transition: all 125ms ease;
+}
+.placeForInput {
   text-align: center;
-  color: var(--blue);
-
-  width: 1.25em;
-  height: 1.25em;
-
-  background-color: rgba(245, 245, 245, 0.75);
-  border-radius: 50%;
-  box-shadow: 5rpx 5rpx 15rpx #999;
-  backdrop-filter: blur(5rpx);
-
-  transition: all 125ms ease 0ms;
-}
-.item > .like.select {
-  color: var(--pink);
-}
-.item > .like:active {
-  right: 10rpx;
-  bottom: 10rpx;
-  box-shadow: 0rpx 0rpx 10rpx #999;
+  line-height: 2em;
 }
 
-/* 解决cu-custom出现的bug */
-.cu-custom .cu-bar {
+/* submit部分 */
+.submit {
+  margin-top: 25rpx;
+
+  font-size: 30rpx;
+  font-weight: bold;
+
+  transition: all 125ms ease;
+
+  position: relative;
+  top: 0;
   left: 0;
-  right: 0;
-}
 
-.bar {
-  color: white;
-  font-weight: 500;
-  letter-spacing: 2.5rpx;
+  box-shadow: 10rpx 10rpx 15rpx var(--grayShadow);
+}
+.submit:active {
+  top: 5rpx;
+  left: 5rpx;
+
+  box-shadow: 5rpx 5rpx 15rpx var(--grayShadow);
 }

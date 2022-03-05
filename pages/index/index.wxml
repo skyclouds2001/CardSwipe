@@ -1,42 +1,86 @@
-<!--index.wxml-->
+<!--pages/welcome/welcome.wxml-->
 
-<view class="index">
+<view class="welcome">
 
-  <!-- 标题 -->
-  <cu-custom bgColor="bg-gradual-blue" class="bar">
-    <view slot="content">礼物评测</view>
-  </cu-custom>
+  <!-- 背景部分 -->
+  <view class="background">
+    <view class="bgBox" style="background-color: rgb(255, 238, 238);"></view>
+    <view class="bgBox" style="background-color: rgb(182, 212, 232);"></view>
+  </view>
 
-  <swiper class="card-swiper round-dot swiper" indicator-dots circular autoplay interval="10000" duration="500" bindchange="handleChangeSwiperItem" indicator-color="#8799a3" indicator-active-color="#0081ff" current="0" easing-function="easeInOutCubic">
-    <swiper-item wx:for="{{gift_list}}" wx:key="id" class="swiper-item {{gift_index === index ? 'cur' : ''}}" item-id="{{index}}">
-      <view class="swiper-item item">
-        <image src="{{item.url}}" mode="aspectFill" catchlongpress="handlePreviewImage" data-url="{{item.url}}"></image>
-        <view class="title">{{item.title}}</view>
-        <view class="like-number">
-          <view class="cu-capsule round">
-            <view class="cu-tag bg-blue ">
-              <text class="cuIcon-likefill"></text>
-            </view>
-            <view class="cu-tag line-blue">{{item.boylike}}</view>
-          </view>
-          <view class="cu-capsule round">
-            <view class="cu-tag bg-pink ">
-              <text class="cuIcon-likefill"></text>
-            </view>
-            <view class="cu-tag line-pink">{{item.girllike}}</view>
-          </view>
-        </view>
-        <view class="like {{item.is_collect ? 'select cuIcon-favorfill' : 'cuIcon-favor'}}" catchtap="handleCollectGift"></view>
+  <!-- 内容区部分 -->
+  <view class="content">
+
+    <!-- 页面之一 -->
+    <view class="content_1" wx:if="{{STATE === 1}}">
+
+      <!-- 文字主题部分 -->
+      <view class="text">
+        <text>
+          很高兴与你在“从心礼选”相遇~<br/>
+          让我们一起开始一段愉快的旅程吧！<br/>
+          为了让您的体验更佳<br/>
+          请允许我们更好的了解你<br/>
+        </text>
       </view>
-    </swiper-item>
-  </swiper>
 
-  <!-- 礼物信息部分 -->
-  <view class="gift-info">
-    <view class="content">{{gift.des}}</view>
-    <view class="detail">
-      <navigator class="cu-btn round line-blue" url="../info/info?id={{gift.id}}"	hover-stop-propagation data-giftid="{{gift.id}}">详情</navigator>
+      <!-- 图标部分 -->
+      <view class="icon_love_black"><image src="../../icons/aixin.png" mode="heightFix"></image></view>
+      
     </view>
+
+    <!-- 页面之二 -->
+    <view class="content_2" wx:elif="{{STATE === 2}}">
+
+      <!-- or文字部分 -->
+      <view class="text_or">or</view>
+
+      <!-- 选择性别部分 -->
+      <view class="choose_sex">
+        <view class="girl" data-sex="1" bindtap="handleChooseSex">girl</view>
+        <view class="boy" data-sex="0" bindtap="handleChooseSex">boy</view>
+      </view>
+
+      <!-- 图片部分 -->
+      <image class="choice_img" mode="widthFix" src="../../images/boy-girl.png"></image>
+
+      <!-- 图标部分 -->
+      <image class="icon_love_pink" src="../../icons/aixin_click.png" mode="heightFix"></image>
+
+    </view>
+
+    <!-- 页面之三 -->
+    <view class="content_3" wx:elif="{{STATE === 3}}">
+
+      <!-- 上部固定窗口 -->
+      <view class="info">
+        让我们更好的了解你~
+      </view>
+
+      <!-- 提示文字部分 -->
+      <view class="text">
+        请选择您的兴趣爱好，这将有助于我们为您提供更精确的推荐
+      </view>
+
+      <!-- 标签部分 -->
+      <view class="tag">
+        <view wx:for="{{tag}}" wx:key="name" data-name="{{item.name}}" class="{{item.is_selected ? 'select' : ''}}" bindtap="handleChooseTag">{{item.name}}</view>
+      </view>
+
+      <!-- 输入框部分 -->
+      <view class="input">
+        <input type="text" value="" placeholder="输入" placeholder-class="placeForInput" cursor-spacing="25"/>
+      </view>
+
+      <!-- submit部分 -->
+      <view class="submit cu-btn bg-gray round shadow" bindtap="handleSubmit">
+        <view>确定</view>
+      </view>
+
+    </view>
+
   </view>
 
 </view>
+
+

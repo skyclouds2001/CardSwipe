@@ -1,278 +1,127 @@
-// index.js
+// pages/welcome/welcome.js
 
 import {request} from '../../lib/request.js';
-import regeneratorRuntime from '../../lib/runtime.js';
-import {
-  hideToast,
-  showToast
-} from '../../utils/promise.js';
-
-const app = getApp();
+import regeneratorRuntime, { async } from '../../lib/runtime.js';
+import {showToast} from '../../utils/promise.js';
 
 Page({
-
+  
   data: {
-    // 礼物信息
-    gift_list: [],
-    // 礼物当前下标
-    gift_index: 0,
-    // 当前礼物
-    gift: {},
+    // 标记页面进度所处的状态，将整个页面分为页面1、页面2、页面3
+    STATE: 0,
+
+    // 页面3渲染用标签名数组
+    tag: [],
   },
-  openid: '',
-  token: '',
-  page: 0,    // 用于礼物请求时所用的page：代表当前礼物所处的页数
-  sex: 0,   // 记录礼物信息，0代表男性，1代表女性
+  // 记录玩家性别，0为男性，1为女性；默认为男性
+  sex: 0,
 
-  onLoad: async function () {
+  onLoad: function () {
 
-    // 获取openid与token及userinfo并保存
-    const openid = wx.getStorageSync('openid');
+    // 通过userinfo内有无sex属性判断是否需经过welcome页
     const userinfo = wx.getStorageSync('userinfo');
-    const token = wx.getStorageSync('token');
-    this.openid = openid ?? '';
-    this.token = token ?? '';
-    this.sex = Number(userinfo?.sex ?? 0);
-    
-    // 请求与保存礼物信息，请求与检查收藏信息
-    await this.getGiftInfo();
-    await this.getCollectInfo();
-    await this.checkCollectSession();
+
+    if(userinfo?.sex) {
+
+      // 跳转至首页
+      wx.switchTab({
+        url: '../../pages/judge/judge',
+      });
+
+    } else {
+
+      // 设置初始页面
+      this.setData({
+        STATE: 1,
+      });
+
+      // 设置页面1至页面2的跳转，延迟时间3s
+      setTimeout(() => {
+        this.setData({
+          STATE: 2,
+        });
+      }, 3000);
+
+      // 初始化标签
+      this.initTag();
+
+    }
 
   },
 
-  onShow: function () {
-    showToast({
-      title: '右滑表示喜欢，左滑表示不喜欢',
-      icon: 'none',
-      duration: 3000,
+  // 选择与记录性别
+  handleChooseSex(e) {
+    const {sex} = e.currentTarget.dataset;
+    this.setData({
+      STATE: 3
+    });
+    this.sex = sex;
+  },
+
+  // 选中标签
+  handleChooseTag(e) {
+    const {name} = e.currentTarget.dataset;
+    
+    const tag = this.data.tag;
+    tag.forEach(v => v.name === name.trim() && v.name !== '……' ? v.is_selected = !v.is_selected : '');
+
+    this.setData({
+      tag,
     });
   },
 
-  onShareAppMessage: function () {
-    return {
-      title: '从心礼选',
-      query: '../../pages/index/index',
-      imageUrl: 'https://edu-1014.oss-cn-beijing.aliyuncs.com/2022/02/08/8c1e0e85b4c341639e93d34d7f1a5306share-img.jpg',
-    };
-  },
+  // 提交按钮：提交信息；更新记录使用者性别；移入存储
+  async handleSubmit() {
+    // 获取选择的标签
+    let selectedTag = [];
+    this.data.tag.forEach(v => v.is_selected ? selectedTag.push(v.name) : '');
 
-  onAddToFavorites: function () {
-    return {
-      title: '从心礼选',
-      imageUrl: 'https://edu-1014.oss-cn-beijing.aliyuncs.com/2022/02/08/8c1e0e85b4c341639e93d34d7f1a5306share-img.jpg',
-      query: '../../pages/index/index',
-    };
-  },
-
-  onShareTimeline: function () {
-    return {
-      title: '从心礼选',
-      query: '../../pages/index/index',
-    };
-  },
-
-  // 获取与设置礼物信息方法
-  async getGiftInfo() {
+    // 获取openid
+    const openid = wx.getStorageSync('openid');
 
     try {
-
-      // 请求获取礼物信息
-      const {data} = await request({
-        url: `/gift/gift/getGift/${this.openid}/${this.page}`,
-        method: 'GET',
+      // 提交信息
+      await request({
+        url: '/gift/user/addTag',
+        method: 'POST',
+        data: {
+          openid,
+          sex: this.sex === 0 ? '男' : '女',
+          tags: selectedTag
+        },
         header: {
-          'content-type': 'application/x-www-form-urlencoded',
+          'content-type': 'application/json'
         }
       });
 
-      // 检测请求是否成功
-      if(data.success === null) {
-
-        // 更新page值
-        this.page = this.page + 1;
-
-        // 提取礼物信息并更新页面内容
-        let gift = data.data?.['giftList:'];
-        let {gift_list, gift_index} = this.data;
-        // 存入gift数组
-        gift_list = [...gift_list, ...gift];
-        // 添加是否已收藏属性
-        gift_list.forEach(v => v.is_collect = false);
-        // 保存礼物数据
-        this.setData({
-          gift_list,
-          gift: gift_list[gift_index],
-        });
-
-      } else {
-        hideToast();
-        showToast({
-          title: '',
-          icon: 'error',
-        });
-      }
-
+      // 记录性别：更新至存储
+      const userinfo = wx.getStorageSync('userinfo') || {};
+      userinfo.sex = this.sex;
+      wx.setStorageSync('userinfo', userinfo);
     } catch (err) {
       console.log(err);
     }
 
+    // 返回首页
+    wx.switchTab({
+      url: '/pages/judge/judge',
+    });
   },
 
-  // 获取与设置用户当前收藏信息
-  async getCollectInfo() {
+  initTag() {
+    let tag = [];
+    const tag_name = ['运动', '读书', '旅行', '美食', '收藏', '艺术', '桌游', '网游','智力游戏', '学习', '美丽|帅气', '独处', '影视剧', '追星', '睡觉', '……'];
 
-    try {
-
-      const {data} = await request({
-        url: `/gift/collection/select/${this.openid}`,
-        method: 'GET',
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+    for (const v of tag_name) {
+      tag.push({
+        name: v,
+        is_selected: false,
       });
-  
-      const collect = data.data?.['collections:'];
-      if(collect) {
-        const collect_id = collect.map(v => v.id);
-        app.globalData.collect = collect_id;
-      } else {
-        app.globalData.collect = [];
-      }
-
-    } catch (err) {
-      console.log(err);
     }
 
-  },
-
-  // 更新收藏信息
-  async checkCollectSession() {
-
-    const {gift_list} = this.data;
-    gift_list.forEach(v => v.is_collect = app.globalData.collect.includes(v.id));
     this.setData({
-      gift_list,
-    });
-    
-  },
-
-  // 用户点击收藏响应
-  async handleCollectGift() {
-
-    // 更新至data对象
-    let {gift_list, gift_index, gift} = this.data;
-
-    // 请求更新数据
-    if(!gift.is_collect) {  // 添加收藏
-
-      // 请求添加收藏
-      const res = await request({
-        url: `/gift/collection/add/${this.openid}/${gift.id}`,
-        method: 'GET',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-      
-      if(res.data?.success) {  // 请求成功
-        // 显示请求成功信息
-        showToast({
-          title: '添加收藏成功',
-          icon: 'success',
-        });
-        // 更新至page.data
-        gift_list[gift_index].is_collect = true;
-        this.setData({
-          gift_list,
-        });
-        // 更新至app.globalData
-        app.globalData.collect.push(gift.id);
-      } else {  // 请求失败
-        // 显示错误提示信息
-        showToast({
-          title: '添加收藏失败',
-          icon: 'error',
-        });
-      }
-
-    } else {  // 取消收藏
-
-      const res = await request({
-        url: `/gift/collection/delete/${this.openid}/${gift.id}`,
-        method: 'GET',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-      
-      if(res.data?.success) {
-        showToast({
-          title: '取消收藏成功',
-          icon: 'success',
-        });
-        gift_list[gift_index].is_collect = false;
-        this.setData({
-          gift_list,
-        });
-        app.globalData.collect.filter(v => v !== gift.id);
-      } else {
-        showToast({
-          title: '取消收藏失败',
-          icon: 'error',
-        });
-      }
-
-    }
-    
-  },
-
-  // 预览图片效果
-  handlePreviewImage(e) {
-    const {url} = e.currentTarget.dataset;
-    wx.previewImage({
-      urls: [url],
-      current: url,
+      tag,
     });
   },
 
-  // 监视current变化事件：更新gift数据，判断是否主动喜欢
-  async handleChangeSwiperItem(e) {
-    const current = e.detail.current;  // current变化后礼物index值
-    const preview = this.data.gift_index;  // current变化前礼物index值
-    const reason = e.detail.source.trim(); // current变化原因
-    const id = this.data.gift.id;  // current变化前礼物id
-    const SIZE = this.data.gift_list.length;  // 礼物列表长度
-    
-    this.setData({
-      gift_index: current,
-      gift: this.data.gift_list[current],
-    });
-
-    if(reason === 'touch' && (current < preview && current !== 0 && preview !== SIZE - 1 || preview === 0 && current === SIZE - 1)) {
-      showToast({
-        title: '已选择喜欢该商品',
-        icon: 'none',
-        duration: 1000,
-      });
-      await request({
-        url: `/gift/gift/${this.sex ? 'girl' : 'boy'}like/${id}`,
-        method: 'PUT',
-        header: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "token": `${this.token}`,
-        },
-        data: {
-          token: this.token,
-        },
-      });
-    } else if (reason === 'touch' && (current > preview && preview !== 0 && current !== SIZE - 1 || current === 0 && preview === SIZE - 1)) {
-      showToast({
-        title: '已选择不喜欢该商品',
-        icon: 'none',
-        duration: 1000,
-      });
-    }
-  },
-  
 });

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/welcome/welcome",
     "pages/index/index",
+    "pages/judge/judge",
     "pages/info/info",
     "pages/list/list",
     "pages/recommend/recommend",
@@ -11,7 +11,6 @@
     "pages/problem/problem",
     "pages/logs/logs"
   ],
-  "entryPagePath": "pages/welcome/welcome",
 
   "window": {
     "backgroundColor": "#ddd",
@@ -30,7 +29,7 @@
 
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/judge/judge",
         "text": "首页",
         "iconPath": "icons/home.png",
         "selectedIconPath": "icons/home_click.png"
