@@ -11,9 +11,9 @@ Page({
 
   data: {
     // 头像链接
-    imgurl: '',
+    imgurl: '../../images/defaultImg.jpg',
     // 昵称
-    nickname: '',
+    nickname: 'Unknown',
     // 标记活跃的项
     isActive: -1,
     // 标记是否显示登录提示框
