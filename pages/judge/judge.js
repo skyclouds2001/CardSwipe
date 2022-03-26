@@ -21,7 +21,7 @@ Page({
   },
   openid: '',
   token: '',
-  page: 0,    // 用于礼物请求时所用的page：代表当前礼物所处的页数
+  page: 1,    // 用于礼物请求时所用的page：代表当前礼物所处的页数
   sex: 0,   // 记录礼物信息，0代表男性，1代表女性
 
   onLoad: async function () {
@@ -114,7 +114,7 @@ Page({
       }
 
     } catch (err) {
-      console.log(err);
+      console.info(err);
     }
 
   },
@@ -141,7 +141,7 @@ Page({
       }
 
     } catch (err) {
-      console.log(err);
+      console.info(err);
     }
 
   },
@@ -160,6 +160,12 @@ Page({
   // 用户点击收藏响应
   async handleCollectGift() {
 
+    // 显示加载信息
+    wx.showLoading({
+      title: '操作中...',
+      mask: true,
+    });
+
     // 更新至data对象
     let {gift_list, gift_index, gift} = this.data;
 
@@ -174,6 +180,9 @@ Page({
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
+
+      // 关闭加载信息
+      wx.hideLoading();
       
       if(res.data?.success) {  // 请求成功
         // 显示请求成功信息
@@ -205,6 +214,9 @@ Page({
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
+
+      // 关闭加载信息
+      wx.hideLoading();
       
       if(res.data?.success) {
         showToast({
