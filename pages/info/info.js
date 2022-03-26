@@ -50,6 +50,11 @@ Page({
 
     } catch (err) {
       console.log(err);
+
+      await showToast({
+        title: '网络异常\n请稍后再试',
+        icon: 'error',
+      });
     }
 
     // 获取openid
