@@ -67,6 +67,8 @@
 
   font-size: 32rpx;
   font-weight: 500;
+
+  transition: 500ms all ease-in-out 0s;
 }
 
 .tag > .name {
@@ -129,13 +131,11 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
-  align-content: center;
+  align-content: flex-start;
 
   position: relative;
-
-  background-color: #f8f7f7;
 }
 
 .gift-item {
@@ -151,7 +151,7 @@
 
   overflow: hidden;
   border-radius: 50rpx;
-  box-shadow: 10rpx 10rpx 30rpx #bbbbbb, -10rpx -10rpx 30rpx #ffffff;
+  box-shadow: 0rpx 0rpx 25rpx #999;
 
   font-size: 26rpx;
 
