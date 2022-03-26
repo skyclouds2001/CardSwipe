@@ -18,23 +18,27 @@ App({
     });
     
     // 换取openid和token
-    const {code} = await login({
-      timeout: 10000,
-    });
-    const {data} = await request({
-      url: '/login/wx',
-      method: 'POST',
-      data: {
-        code,
-      },
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    });
-    if(data?.data?.user) {
-      const {token, openid} = data.data.user;
-      wx.setStorageSync('token', token);
-      wx.setStorageSync('openid', openid);
+    try {
+      const {code} = await login({
+        timeout: 10000,
+      });
+      const {data} = await request({
+        url: '/login/wx',
+        method: 'POST',
+        data: {
+          code,
+        },
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+      if(data?.data?.user) {
+        const {token, openid} = data.data.user;
+        wx.setStorageSync('token', token);
+        wx.setStorageSync('openid', openid);
+      }
+    } catch (error) {
+      console.info(error);
     }
   },
 
