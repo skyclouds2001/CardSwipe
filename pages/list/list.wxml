@@ -59,7 +59,7 @@
         </view>
       </view>
       <view class="gift_title">{{item.title}}</view>
-      <view class="gift_love_num cuIcon-likefill">{{item.boylike + item.girllike}}</view>
+      <view class="gift_love_num cuIcon-likefill">{{item.boylike ? item.boylike : 0 + item.girllike ? item.girllike : 0}}</view>
       <view class="gift_img">
         <image mode="aspectFill" src="{{item.url}}" lazy-load show-menu-by-longpress></image>
       </view>

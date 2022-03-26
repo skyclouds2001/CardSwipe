@@ -109,13 +109,18 @@ Page({
   },
 
   // 身份情况选择
-  handleOnChooseSituation (e) {
+  async handleOnChooseSituation (e) {
+    
     const {id} = e.target.dataset;
     let {chooseSituation} = this.data;
     chooseSituation = id ?? 0;
     this.setData({
       chooseSituation,
     });
+
+    await this.getGiftList();
+    await this.setGiftList();
+    
   },
 
   // 下拉框响应方法
