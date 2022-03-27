@@ -3,6 +3,9 @@
 .problem {
   width: auto;
   height: auto;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: white;
 }
 
 /* 下部表单部分 */
@@ -30,6 +33,7 @@
 .problem_button button {
   background-color: rgb(107,168,209);
   border-radius: 25rpx;
+  box-shadow: 5rpx 5rpx 15rpx 0rpx #ccc;
 
   height: 3em;
   width: 12em;
@@ -44,7 +48,7 @@
   transition: all 250ms ease 0s;
 }
 .problem_button button:active {
-  box-shadow: 0rpx 0rpx 10rpx 5rpx #ccc;
+  box-shadow: 0rpx 0rpx 5rpx 0rpx #ccc;
 }
 
 /* textarea placeholder样式 */
