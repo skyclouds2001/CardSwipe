@@ -13,18 +13,18 @@
     "miniprogram": {
       "list": [
         {
-          "name": "welcome",
-          "pathName": "pages/welcome/welcome",
+          "name": "judge",
+          "pathName": "pages/judge/judge",
           "query": "",
-          "launchMode": "default",
-          "scene": null
+          "scene": null,
+          "launchMode": "default"
         },
         {
           "name": "info",
           "pathName": "pages/info/info",
           "query": "id=99374",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "list",
