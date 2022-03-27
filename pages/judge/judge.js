@@ -18,6 +18,7 @@ Page({
     gift_index: 0,
     // 当前礼物
     gift: {},
+    current: 0,
   },
   openid: '',
   token: '',
@@ -259,6 +260,7 @@ Page({
     this.setData({
       gift_index: current,
       gift: this.data.gift_list[current],
+      current: this.data.current>current?current+2:current,
     });
 
     if(reason === 'touch' && (current < preview && current !== 0 && preview !== SIZE - 1 || preview === 0 && current === SIZE - 1)) {
