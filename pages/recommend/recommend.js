@@ -31,6 +31,18 @@ Page({
     });
   },
 
+  onHide: function () {
+    // 切页重置：STATE重置为false即重置至首页；tag 重置为未选择状态
+    const {tag} = this.data;
+    tag.forEach(v => v.is_selected = false);
+    setTimeout(() => {
+      this.setData({
+        STATE: false,
+        tag,
+      });
+    }, 500);
+  },
+
   // 提交标签
   async handleSubmit() {
     // 提取标签
