@@ -189,15 +189,10 @@
   width: calc(100% - 50rpx);
   height: auto;
 
-  margin: 50rpx 25rpx;
+  margin: 0rpx 25rpx;
   padding: 0rpx 0rpx 50rpx;
 
-  border-radius: 25rpx;
-  background-color: white;
-  box-shadow: 0rpx 0rpx 15rpx #ccc;
   overflow: hidden;
-
-  z-index: -9;
 }
 
 .gift_item {
@@ -207,12 +202,14 @@
 
   overflow: hidden;
 
-  height: 300rpx;
-  margin: 0rpx 0rpx 0rpx 25rpx;
+  height: 250rpx;
+  margin: 25rpx 0rpx;
 
-  border-bottom: 1rpx solid #ccc;
+  background-color: white;
+  border-radius: 15rpx;
+  box-shadow: 5rpx 5rpx 15rpx #ccc;
 
-  transition: all 500ms ease 0ms;
+  transition: all 250ms ease 0ms;
 }
 
 .gift_item > view {
@@ -222,7 +219,8 @@
 
   flex: 1;
 
-  height: 100%;
+  height: 300rpx;
+  width: auto;
 
   font-size: 30rpx;
 
@@ -233,11 +231,12 @@
   color: #999;
   font-size: 40rpx;
   font-weight: bold;
+
+  flex-grow: 1;
 }
 
 .gift_item > .gift_index > view > image {
   width: 60rpx;
-  position: static;
 }
 
 .gift_item > .gift_title {
@@ -245,6 +244,17 @@
   letter-spacing: 0.1em;
   overflow: hidden;
   text-overflow: ellipsis;
+  word-break: keep-all;
+  word-wrap: break-word;
+  line-height: 300rpx;
+  text-align: left;
+  vertical-align: center;
+
+  display: inline-block;
+
+  flex-grow: 2;
+  flex-shrink: 0;
+  flex-basis: content;
 
   color: rgb(75, 180, 255);
 }
@@ -253,6 +263,8 @@
   font-size: 35rpx;
   font-weight: bold;
   color: rgb(255, 89, 89);
+
+  flex-grow: 1;
 }
 
 .gift_item > .gift_img {
@@ -263,7 +275,7 @@
 
   height: 100%;
 
-  flex: 2;
+  flex-grow: 2;
 }
 
 .gift_item > .gift_img > image::after {
@@ -283,7 +295,7 @@
   height: 100%;
   width: 100%;
 
-  transition: all 1000ms ease 0ms;
+  transition: all 250ms ease 0ms;
 }
 
 /* 更改图标颜色 */
@@ -293,6 +305,6 @@
 
 /* 点击活跃状态样式设置 */
 .gift_item:active > .gift_img > image {
-  width: 125%;
-  height: 125%;
+  width: 105%;
+  height: 105%;
 }
