@@ -65,8 +65,8 @@ Page({
     const {chooseSituation, chooseSex, chooseHabit, habitChoice} = this.data;
     const openid = this.openid;
     // 提取tags各参数值
-    const situation = ["热恋期", "追求ing", "普通朋友"][chooseSituation];
-    const sex = chooseSex === 0 ? '男' : (chooseSex === 1 ? '女' : '男');
+    const situation = ["热恋期", "初恋期", "追求期"][chooseSituation];
+    const sex = chooseSex === 1 ? '女' : '男';
     const choice = chooseHabit >= 0 ? habitChoice[chooseHabit] : null;
 
     // 请求礼物信息
@@ -77,6 +77,7 @@ Page({
         openid,
         sex,
         tags: [
+          sex,
           situation,
           choice ?? '',
         ],
@@ -93,17 +94,18 @@ Page({
   },
 
   // 加载礼物
-  async setGiftList () {
+  // 参数symbol ：标记是否需重置giftInfo，当点击下拉框刷新时重置
+  async setGiftList (flag = false) {
     // 获取礼物下标
     const start = this.giftNumber;
     const end = (this.giftNumber + 6) <= 50 ? (this.giftNumber + 6) : 50;
 
     // 提取礼物信息
-    const giftInfo = [...this.data.giftInfo, ...this.giftRankAll?.slice(start, end)];
+    const giftInfo = [...(flag ? [] : this.data.giftInfo), ...this.giftRankAll?.slice(start, end)];
 
     // 更新礼物信息并记录现在已渲染的礼物数量
     this.setData({
-      giftInfo
+      giftInfo,
     });
     this.giftNumber = end;
   },
@@ -118,8 +120,8 @@ Page({
       chooseSituation,
     });
 
-    await this.getGiftList();
-    await this.setGiftList();
+    await this.getGiftList(true);
+    await this.setGiftList(true);
     
   },
 
@@ -192,8 +194,8 @@ Page({
       });
 
       // 更新礼物信息
-      await this.getGiftList();
-      await this.setGiftList();
+      await this.getGiftList(true);
+      await this.setGiftList(true);
 
     } else if(typeof id === 'number') {
 
@@ -210,8 +212,8 @@ Page({
         chooseHabit: id,
       });
 
-      await this.getGiftList();
-      await this.setGiftList();
+      await this.getGiftList(true);
+      await this.setGiftList(true);
 
     }
 
