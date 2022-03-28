@@ -202,3 +202,12 @@ page {
   font-weight: 500;
   letter-spacing: 2.5rpx;
 }
+
+/* 覆盖colorui库的样式 */
+.card-swiper .fix-colorui {
+	width: 750rpx !important;
+	box-sizing: border-box;
+  padding: 50rpx;
+  overflow: initial;
+  left: 0px;
+}

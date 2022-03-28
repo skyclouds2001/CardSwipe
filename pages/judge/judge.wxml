@@ -9,7 +9,7 @@
 
   <swiper class="card-swiper swiper" duration="0" display-multiple-items="1" bindchange="handleChangeSwiperItem" current="{{current}}" easing-function="easeInOutCubic" previous-margin="0rpx" next-margin="0rpx">
     <block wx:for="{{gift_list}}" wx:key="id">
-      <swiper-item class="swiper-item {{gift_index === index ? 'cur' : ''}}" item-id="{{index}}">
+      <swiper-item class="fix-colorui swiper-item {{gift_index === index ? 'cur' : ''}}" item-id="{{index}}">
         <view class="swiper-item item">
           <image src="{{item.url}}" mode="aspectFill" catchlongpress="handlePreviewImage" data-url="{{item.url}}"></image>
           <view class="title">{{item.title}}</view>
