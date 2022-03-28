@@ -24,6 +24,7 @@ Page({
   token: '',
   page: 1,    // 用于礼物请求时所用的page：代表当前礼物所处的页数
   sex: 0,   // 记录礼物信息，0代表男性，1代表女性
+  GIFT_SIZE: 10,
 
   onLoad: async function () {
 
@@ -38,7 +39,6 @@ Page({
     // 请求与保存礼物信息，请求与检查收藏信息
     await this.getGiftInfo();
     await this.getCollectInfo();
-    await this.checkCollectSession();
 
   },
 
@@ -50,29 +50,6 @@ Page({
     });
   },
 
-  onShareAppMessage: function () {
-    return {
-      title: '从心礼选',
-      query: '../../pages/index/index',
-      imageUrl: 'https://edu-1014.oss-cn-beijing.aliyuncs.com/2022/02/08/8c1e0e85b4c341639e93d34d7f1a5306share-img.jpg',
-    };
-  },
-
-  onAddToFavorites: function () {
-    return {
-      title: '从心礼选',
-      imageUrl: 'https://edu-1014.oss-cn-beijing.aliyuncs.com/2022/02/08/8c1e0e85b4c341639e93d34d7f1a5306share-img.jpg',
-      query: '../../pages/index/index',
-    };
-  },
-
-  onShareTimeline: function () {
-    return {
-      title: '从心礼选',
-      query: '../../pages/index/index',
-    };
-  },
-
   // 获取与设置礼物信息方法
   async getGiftInfo() {
 
@@ -80,7 +57,7 @@ Page({
 
       // 请求获取礼物信息
       const {data} = await request({
-        url: `/gift/gift/getGift/${this.openid}/${this.page}`,
+        url: `/gift/gift/getRandomGifts/${this.GIFT_SIZE}`,
         method: 'GET',
         header: {
           'content-type': 'application/x-www-form-urlencoded',
@@ -88,18 +65,18 @@ Page({
       });
 
       // 检测请求是否成功
-      if(data.success === null) {
+      if(data.success) {
 
         // 更新page值
         this.page = this.page + 1;
 
         // 提取礼物信息并更新页面内容
-        let gift = data.data?.['giftList:'];
+        let gift = data.data.randomGifts;
         let {gift_list, gift_index} = this.data;
         // 存入gift数组
         gift_list = [...gift_list, ...gift];
         // 添加是否已收藏属性
-        gift_list.forEach(v => v.is_collect = false);
+        gift_list.forEach(v => v.is_collect = app.globalData.collect.includes(v.id));
         // 保存礼物数据
         this.setData({
           gift_list,
@@ -109,8 +86,9 @@ Page({
       } else {
         hideToast();
         showToast({
-          title: '',
+          title: '网络异常！',
           icon: 'error',
+          mask: true,
         });
       }
 
@@ -145,17 +123,6 @@ Page({
       console.info(err);
     }
 
-  },
-
-  // 更新收藏信息
-  async checkCollectSession() {
-
-    const {gift_list} = this.data;
-    gift_list.forEach(v => v.is_collect = app.globalData.collect.includes(v.id));
-    this.setData({
-      gift_list,
-    });
-    
   },
 
   // 用户点击收藏响应
@@ -260,7 +227,7 @@ Page({
     this.setData({
       gift_index: current,
       gift: this.data.gift_list[current],
-      current: this.data.current>current?current+2:current,
+      current: this.data.current > current ? current + 2 : current,
     });
 
     if(reason === 'touch' && (current < preview && current !== 0 && preview !== SIZE - 1 || preview === 0 && current === SIZE - 1)) {
