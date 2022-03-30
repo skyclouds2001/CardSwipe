@@ -1,7 +1,6 @@
 // pages/recommend/recommend.js
 
-import {request} from '../../lib/request.js';
-import regeneratorRuntime from '../../lib/runtime.js';
+import { request } from '../../lib/request.js';
 import { showToast } from '../../utils/promise.js';
 
 Page({
@@ -29,9 +28,11 @@ Page({
     this.setData({
       STATE: false,
     });
+
   },
 
   onHide: function () {
+
     // 切页重置：STATE重置为false即重置至首页；tag 重置为未选择状态
     const {tag} = this.data;
     tag.forEach(v => v.is_selected = false);
@@ -41,6 +42,7 @@ Page({
         tag,
       });
     }, 500);
+
   },
 
   // 提交标签

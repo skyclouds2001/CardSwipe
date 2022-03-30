@@ -1,7 +1,6 @@
 // pages/info/info.js
 
-import {request} from '../../lib/request.js';
-import regeneratorRuntime from '../../lib/runtime.js';
+import { request } from '../../lib/request.js';
 import { showToast } from '../../utils/promise.js';
 
 const app = getApp();

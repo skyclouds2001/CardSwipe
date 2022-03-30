@@ -1,7 +1,6 @@
 // pages/add/add.js
 
 import {request} from '../../lib/request.js';
-import regeneratorRuntime from '../../lib/runtime.js';
 import {showToast, chooseMedia, showModal, uploadFile} from '../../utils/promise.js';
 
 Page({

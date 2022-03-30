@@ -1,11 +1,6 @@
 // pages/mine/mine.js
 
-import {request} from '../../lib/request.js';
-import regeneratorRuntime from '../../lib/runtime.js';
-import {
-  showModal,
-  getUserProfile,
-} from '../../utils/promise.js';
+import { getUserProfile } from '../../utils/promise.js';
 
 Page({
 

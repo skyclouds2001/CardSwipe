@@ -1,8 +1,7 @@
 // pages/problem/problem.js
 
-import {request} from '../../lib/request.js';
-import regeneratorRuntime from '../../lib/runtime.js';
-import {showToast} from '../../utils/promise.js';
+import { request } from '../../lib/request.js';
+import { showToast } from '../../utils/promise.js';
 
 Page({
   // 提交问题

@@ -1,8 +1,6 @@
 // pages/list/list.js
 
-import {request} from '../../lib/request.js';
-import regeneratorRuntime from '../../lib/runtime.js';
-import {} from '../../utils/promise.js';
+import { request } from '../../lib/request.js';
 
 Page({
 

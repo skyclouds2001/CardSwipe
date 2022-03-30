@@ -1,7 +1,6 @@
 // index.js
 
-import {request} from '../../lib/request.js';
-import regeneratorRuntime from '../../lib/runtime.js';
+import { request } from '../../lib/request.js';
 import {
   hideToast,
   showToast,
