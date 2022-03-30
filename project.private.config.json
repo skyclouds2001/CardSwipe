@@ -16,15 +16,15 @@
           "name": "judge",
           "pathName": "pages/judge/judge",
           "query": "",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "info",
           "pathName": "pages/info/info",
-          "query": "id=99374",
-          "launchMode": "default",
-          "scene": null
+          "query": "id=99240",
+          "scene": null,
+          "launchMode": "default"
         },
         {
           "name": "list",
