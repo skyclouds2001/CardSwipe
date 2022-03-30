@@ -1,8 +1,7 @@
 // app.js
 
-import regeneratorRuntime, { async } from './lib/runtime.js';
-import {request} from './lib/request.js';
-import {login} from './utils/promise.js';
+import { request } from './lib/request.js';
+import { login } from './utils/promise.js';
 
 App({
 
