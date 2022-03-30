@@ -16,7 +16,7 @@ Page({
 
   onLoad: function () {
 
-    // 通过userinfo内有无sex属性判断是否需经过welcome页
+    // 通过userinfo内有无sex属性判断是否已访问过welcome页
     const userinfo = wx.getStorageSync('userinfo');
 
     if(userinfo?.sex) {
@@ -40,9 +40,6 @@ Page({
         });
       }, 3000);
 
-      // 初始化标签
-      this.initTag();
-
     }
 
   },
@@ -50,10 +47,13 @@ Page({
   // 选择与记录性别
   handleChooseSex(e) {
     const {sex} = e.currentTarget.dataset;
-    this.setData({
-      STATE: 3
-    });
     this.sex = sex;
+    
+    this.initTag().then(() => {
+      this.setData({
+        STATE: 3
+      });
+    });
   },
 
   // 选中标签
@@ -106,9 +106,9 @@ Page({
     });
   },
 
-  initTag() {
+  async initTag() {
     let tag = [];
-    const tag_name = ['运动', '读书', '旅行', '美食', '收藏', '艺术', '桌游', '网游','智力游戏', '学习', '美丽|帅气', '独处', '影视剧', '追星', '睡觉', '……'];
+    const tag_name = ['运动', '读书', '旅行', '美食', '收藏', '艺术', '桌游', '网游','智力游戏', '学习', this.sex === 1 ? '美丽' : '帅气', '独处', '影视剧', '追星', '睡觉', '……'];
 
     for (const v of tag_name) {
       tag.push({
