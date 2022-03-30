@@ -14,6 +14,10 @@ Page({
   openid: '',
 
   onLoad: async function (options) {
+    // 获取openid
+    const openid = wx.getStorageSync('openid');
+    this.openid = openid;
+
     // 提取礼物id
     const {id} = options;
 
@@ -21,45 +25,39 @@ Page({
 
       // 请求获取礼物信息
       const {data} = await request({
-        url: '/gift/gift/getGiftById/' + id,
+        url: `/gift/gift/getGiftById/${id}`,
         method: 'GET',
         header: {
-          'content-type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
 
-      // 请求成功则设置礼物信息；否则弹出提示信息
-      if(data.success) {
-
-        const {gift} = data.data;
-
-        gift.is_collect = app.globalData.collect.includes(parseInt(id));
-        gift.boyprogress = (gift.boylike / ((gift.boylike + gift.girllike) / (gift.progress / 100)) * 100).toFixed(0);
-        gift.girlprogress = (gift.girllike / ((gift.boylike + gift.girllike) / (gift.progress / 100)) * 100).toFixed(0);
-
-        this.setData({
-          gift,
-        });
-
-      } else {
-        await showToast({
-          title: '网络异常\n请稍后再试',
-          icon: 'error',
-        });
+      // 请求失败抛出异常交由外部try-catch块处理
+      if(!data.success) {
+        throw new Error('网络异常');
       }
 
-    } catch (err) {
-      console.log(err);
+      // 请求成功则处理并设置礼物信息
+      const {gift} = data.data;
 
-      await showToast({
-        title: '网络异常\n请稍后再试',
+      // 设置收藏信息
+      gift['is_collect'] = app.globalData.collect.includes(parseInt(id));
+
+      // TODO：后续男女购买比例优化
+      gift.boyprogress = (gift.boylike / ((gift.boylike + gift.girllike) / (gift.progress / 100)) * 100).toFixed(0);
+      gift.girlprogress = (gift.girllike / ((gift.boylike + gift.girllike) / (gift.progress / 100)) * 100).toFixed(0);
+
+      this.setData({
+        gift,
+      });
+
+    } catch (err) {
+      console.info(err);
+      showToast({
+        title: '网络异常',
         icon: 'error',
       });
     }
-
-    // 获取openid
-    const openid = wx.getStorageSync('openid');
-    this.openid = openid;
 
   },
 
@@ -79,7 +77,7 @@ Page({
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      });
+      }).catch(err => console.info(err));
       
       if(res.data?.success) {  // 请求成功
 
@@ -88,11 +86,13 @@ Page({
           title: '添加收藏成功',
           icon: 'success',
         });
+
         // 更新至page.data
         gift.is_collect = true;
         this.setData({
           gift,
         });
+
         // 更新至app.globalData
         app.globalData.collect.push(gift.id);
 
@@ -112,7 +112,7 @@ Page({
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-      });
+      }).catch(err => console.info(err));
       
       if(res.data?.success) {
         showToast({
@@ -133,6 +133,16 @@ Page({
 
     }
     
+  },
+
+  // 复制剪切板链接
+  handleCopyClipboard (e) {
+    const {gift} = this.data;
+    if(gift.buyurl) {
+      wx.setClipboardData({
+        data: gift.buyurl,
+      });
+    }
   },
 
 });

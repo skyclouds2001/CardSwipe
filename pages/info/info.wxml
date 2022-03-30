@@ -11,7 +11,7 @@
   <!-- 上部礼物图片部分 -->
   <view class="imageBox">
     <image src="{{gift.url}}" mode="heightFix" class="giftImage" show-menu-by-longpress></image>
-    <view class="icon_star" bindtap="handleCollectGift">
+    <view class="icon-star" bindtap="handleCollectGift">
       <view class="cuIcon-{{gift.is_collect ? 'favorfill collect' : 'favor'}}"></view>
     </view>
   </view>
@@ -36,7 +36,7 @@
           <view>{{gift.boylike ? gift.boylike : 0}}</view>
         </view>
         <view class="cu-progress round striped active progress">
-          <view class="boy-progress" style="width: {{gift.boyprogress + '%'}}"></view>
+          <view class="boy-progress" style="width: {{(gift.boyprogress ? 1 : gift.boyprogress) + '%'}}"></view>
         </view>
       </view>
       <view class="girl number">
@@ -45,13 +45,13 @@
           <view>{{gift.girllike ? gift.girllike : 0}}</view>
         </view>
         <view class="cu-progress round striped active progress">
-          <view class="girl-progress" style="width: {{gift.girlprogress + '%'}}"></view>
+          <view class="girl-progress" style="width: {{(gift.girlprogress ? 1 : gift.girlprogress) + '%'}}"></view>
         </view>
       </view>
     </view>
 
     <!-- 礼物路径 -->
-    <view class="path">
+    <view class="path" bindtap="handleCopyClipboard">
       <text>{{gift.buyurl ? gift.buyurl : '暂无购买链接'}}</text>
     </view>
 

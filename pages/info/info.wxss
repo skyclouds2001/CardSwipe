@@ -1,17 +1,12 @@
 /* pages/info/info.wxss */
 
-page {
-  display: block;
-
-  width: 100vw;
-  height: 100vh;
-
+:root {
   font-size: 28rpx;
 }
 
 .info {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: auto;
 
   overflow: hidden;
 }
@@ -25,7 +20,8 @@ page {
   background-color: var(--theme-color-pink);
 
   width: 100%;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
 
   clip-path: circle(40% at right 50%);
 
@@ -39,14 +35,11 @@ page {
   content: '';
 
   width: 100%;
-  height: 100%;
+  height: auto;
+  min-height: 100%;
 
   z-index: -2;
   background-color: var(--theme-color-blue);
-}
-
-.info > view {
-  z-index: 9;
 }
 
 /* 上部礼物图片部分 */
@@ -70,10 +63,10 @@ page {
   height: 75%;
 
   border-radius: 25rpx;
-  box-shadow: 0rpx 0rpx 25rpx #ccc;
+  box-shadow: 12.5rpx 12.5rpx 25rpx #ccc;
 }
 
-.imageBox .icon_star {
+.imageBox .icon-star {
   position: absolute;
   right: 20rpx;
   bottom: 10rpx;
@@ -84,12 +77,14 @@ page {
 
   width: 1.25em;
   height: 1.25em;
-  text-align: center;
-  line-height: 1.25em;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   border-radius: 50%;
   background-color: #fff;
-  box-shadow: 0rpx 0rpx 10rpx #ccc;
+  box-shadow: 5rpx 5rpx 10rpx #ccc;
 }
 .collect {
   color: rgb(247, 199, 211);
@@ -100,8 +95,9 @@ page {
   font-size: 30rpx;
 
   width: calc(100vw - 50rpx);
-  height: calc(50vh - 50rpx);
-  margin: 25rpx;
+  height: auto;
+  min-height: calc(50vh - 100rpx);
+  margin: 50rpx 25rpx;
   padding: 25rpx;
   
   box-sizing: border-box;
@@ -113,19 +109,15 @@ page {
 
   border-radius: 25rpx;
   background-color: whitesmoke;
-  box-shadow: 0rpx 0rpx 10rpx #999;
-}
-.giftInfo > view {
-  width: 100%;
-  height: auto;
-  margin: 10rpx 0rpx;
-  padding: 0rpx;
-  box-sizing: border-box;
+  box-shadow: 5rpx 5rpx 10rpx #999;
 }
 
 .title_price {
   flex-grow: 1;
   flex-shrink: 0;
+
+  width: 100%;
+  margin: 10rpx 0rpx;
 
   display: flex;
   justify-content: space-between;
@@ -163,14 +155,27 @@ page {
   flex-grow: 1;
   flex-shrink: 0;
 
+  
+  width: 100%;
+  margin: 10rpx 0rpx;
+  height: 2em;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  overflow: hidden;
+
+  line-height: 2em;
+  text-overflow: ellipsis;
 }
 
 .like {
   flex-grow: 2;
   flex-shrink: 0;
+
+  width: 100%;
+  margin: 10rpx 0rpx;
 
   display: flex;
   flex-direction: column;
@@ -260,6 +265,9 @@ page {
 .path {
   flex-grow: 1;
   flex-shrink: 0;
+  
+  width: 100%;
+  margin: 10rpx 0rpx;
 
   display: flex;
   justify-content: center;
@@ -273,9 +281,14 @@ page {
 
 .content {
   flex-grow: 2;
-  flex-shrink: 1;
+  flex-shrink: 0;
+  
+  width: 100%;
+  margin: 10rpx 0rpx;
+  padding: 10rpx;
 
-  text-align: center;
+  text-align: left;
+  text-indent: 2em;
   line-height: 1.5em;
   letter-spacing: 0.1em;
 
