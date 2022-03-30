@@ -4,7 +4,7 @@ import {request} from '../../lib/request.js';
 import regeneratorRuntime from '../../lib/runtime.js';
 import {
   hideToast,
-  showToast
+  showToast,
 } from '../../utils/promise.js';
 
 const app = getApp();
@@ -36,9 +36,18 @@ Page({
     this.token = token ?? '';
     this.sex = Number(userinfo?.sex ?? 0);
     
-    // 请求与保存礼物信息，请求与检查收藏信息
-    await this.getGiftInfo();
-    await this.getCollectInfo();
+    // 请求与保存礼物信息，请求与保存收藏信息
+    Promise.allSettled([
+      this.getGiftInfo(),
+      this.getCollectInfo(),
+    ]).then(() => { // 更新礼物的收藏信息
+      const {gift_list} = this.data;
+      const collect = app.globalData.collect;
+      gift_list.forEach(v => v.is_collect = collect.includes(v.id ?? -1));
+      this.setData({
+        gift_list,
+      });
+    });
 
   },
 
@@ -75,8 +84,6 @@ Page({
         let {gift_list, gift_index} = this.data;
         // 存入gift数组
         gift_list = [...gift_list, ...gift];
-        // 添加是否已收藏属性
-        gift_list.forEach(v => v.is_collect = app.globalData.collect.includes(v.id));
         // 保存礼物数据
         this.setData({
           gift_list,
@@ -216,7 +223,7 @@ Page({
     });
   },
 
-  // 监视current变化事件：更新gift数据，判断是否主动喜欢
+  // TODO: 监视current变化事件：更新gift数据，判断是否主动喜欢
   async handleChangeSwiperItem(e) {
     const current = e.detail.current;  // current变化后礼物index值
     const preview = this.data.gift_index;  // current变化前礼物index值

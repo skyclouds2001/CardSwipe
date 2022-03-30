@@ -7,6 +7,7 @@
     <view slot="content">礼物评测</view>
   </cu-custom>
 
+  <!-- 轮播图部分 -->
   <swiper class="card-swiper swiper" duration="0" display-multiple-items="1" bindchange="handleChangeSwiperItem" current="{{current}}" easing-function="easeInOutCubic" previous-margin="0rpx" next-margin="0rpx">
     <block wx:for="{{gift_list}}" wx:key="id">
       <swiper-item class="fix-colorui swiper-item {{gift_index === index ? 'cur' : ''}}" item-id="{{index}}">
@@ -35,7 +36,9 @@
 
   <!-- 礼物信息部分 -->
   <view class="gift-info">
-    <view class="content">{{gift.des}}</view>
+    <view class="content">
+      <text>{{gift.des}}</text>
+    </view>
     <view class="detail">
       <navigator class="cu-btn round line-blue" url="../info/info?id={{gift.id}}"	hover-stop-propagation data-giftid="{{gift.id}}">详情</navigator>
     </view>
