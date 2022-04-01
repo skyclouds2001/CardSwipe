@@ -22,7 +22,7 @@
 
       <!-- 爱好 -->
       <view class="habbit" bindtap="handleSelect">
-        <view class="habbit_content" mark:type="{{1}}">
+        <view class="habbit-content" mark:type="{{1}}">
           <text decode>爱好&nbsp;&nbsp;&nbsp;</text>
           <text class="arrow-down"></text>
         </view>
@@ -33,7 +33,7 @@
 
       <!-- 性别 -->
       <view class="sex" bindtap="handleSelect">
-        <view class="sex_content" mark:type="{{0}}">
+        <view class="sex-content" mark:type="{{0}}">
           <text decode>性别&nbsp;&nbsp;&nbsp;</text>
           <text class="arrow-down"></text>
         </view>
@@ -43,6 +43,11 @@
         </view>
       </view>
       
+    </view>
+
+    <!-- 确认按钮 -->
+    <view class="confirm">
+      <button class="bg-green cu-btn round shadow lg" bindtap="handleConfirm">确认</button>
     </view>
 
   </view>

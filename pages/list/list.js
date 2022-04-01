@@ -58,7 +58,7 @@ Page({
     const choice = chooseHabit >= 0 ? habitChoice[chooseHabit] : null;
 
     // 请求礼物信息
-    const res = await request({
+    const {data} = await request({
       url: '/gift/gift/getTopByTag',
       method: 'POST',
       data: {
@@ -73,17 +73,21 @@ Page({
       header: {
         'Content-Type': 'application/json',
       },
-    });
+    }).catch(err => console.info(err));
 
     // 存储礼物信息同时进行排序
-    this.giftRankAll = res.data.data?.['gift_rank:'].sort((a, b) => {
-      return (b.boylike ?? 0 + b.girllike ?? 0) - (a.boylike ?? 0 + a.girllike ?? 0)}
+    this.giftRankAll = data.data?.['gift_rank:'].filter(v => Boolean(v)).sort((a, b) => {
+      return (b?.boylike ?? 0 + b?.girllike ?? 0) - (a?.boylike ?? 0 + a?.girllike ?? 0)}
     );
   },
 
   // 加载礼物
-  // 参数symbol ：标记是否需重置giftInfo，当点击下拉框刷新时重置
+  // 参数flag ：标记是否需重置giftInfo，当点击下拉框刷新时重置
   async setGiftList (flag = false) {
+    if(flag) {
+      this.giftNumber = 0;
+    }
+
     // 获取礼物下标
     const start = this.giftNumber;
     const end = (this.giftNumber + 6) <= 50 ? (this.giftNumber + 6) : 50;
@@ -107,15 +111,12 @@ Page({
     this.setData({
       chooseSituation,
     });
-
-    await this.getGiftList(true);
-    await this.setGiftList(true);
     
   },
 
   // 下拉框响应方法
   async handleSelect (e) {
-    const CONTINUE_TIME = 3000;
+    const CONTINUE_TIME = 5000;
 
     /*** 代表点击的是性别与爱好按钮：type是0代表性别，type是1代表爱好 ***/
     // * 处理下拉框显示与否
@@ -181,10 +182,6 @@ Page({
         chooseSex: id ? 1 : 0,
       });
 
-      // 更新礼物信息
-      await this.getGiftList(true);
-      await this.setGiftList(true);
-
     } else if(typeof id === 'number') {
 
       this.timekeeper !== null ? clearTimeout(this.timekeeper) : null;
@@ -200,11 +197,14 @@ Page({
         chooseHabit: id,
       });
 
-      await this.getGiftList(true);
-      await this.setGiftList(true);
-
     }
 
+  },
+
+  // 更新礼物信息
+  async handleConfirm() {
+    await this.getGiftList(true).catch(err => console.info(err));
+    await this.setGiftList(true).catch(err => console.info(err));
   },
 
 });

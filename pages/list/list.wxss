@@ -38,7 +38,7 @@
   justify-content: space-between;
   align-items: center;
 
-  margin: 50rpx 50rpx 100rpx;
+  margin: 50rpx;
   padding: 50rpx;
 
   background-color: rgba(255, 255, 255, 0.75);
@@ -95,7 +95,7 @@
   left: 0;
 }
 
-.sex_content, .habbit_content {
+.sex-content, .habbit-content {
   width: 150rpx;
   height: 75rpx;
 
@@ -112,13 +112,13 @@
 
   transition: all 125ms ease 0ms;
 }
-.sex_content:active, .habbit_content:active {
+.sex-content:active, .habbit-content:active {
   top: 2.5rpx;
   left: 2.5rpx;
   box-shadow: 2.5rpx 2.5rpx 7.5rpx rgb(194, 189, 189);
 }
 
-.sex_content > text, .habbit_content > text {
+.sex-content > text, .habbit-content > text {
   display: inline-block;
 }
 
@@ -207,7 +207,7 @@
 
   background-color: white;
   border-radius: 15rpx;
-  box-shadow: 5rpx 5rpx 15rpx #ccc;
+  border: 1rpx solid var(--blueLight);
 
   transition: all 250ms ease 0ms;
 }
