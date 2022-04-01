@@ -203,8 +203,12 @@ Page({
 
   // 更新礼物信息
   async handleConfirm() {
+    wx.showLoading({
+      title: '加载中',
+    });
     await this.getGiftList(true).catch(err => console.info(err));
     await this.setGiftList(true).catch(err => console.info(err));
+    wx.hideLoading();
   },
 
 });

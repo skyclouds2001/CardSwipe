@@ -47,7 +47,7 @@
 
     <!-- 确认按钮 -->
     <view class="confirm">
-      <button class="bg-green cu-btn round shadow lg" bindtap="handleConfirm">确认</button>
+      <button class="bg-green cu-btn round shadow lg" bindtap="handleConfirm">刷新</button>
     </view>
 
   </view>
