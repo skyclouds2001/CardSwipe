@@ -8,6 +8,11 @@
     <view class="bgBox" style="background-color: rgb(182, 212, 232);"></view>
   </view>
 
+  <!-- 标题 -->
+  <cu-custom bgColor="bg-gradual-blue" class="bar">
+    <view slot="content">礼物评测</view>
+  </cu-custom>
+
   <!-- 内容区部分 -->
   <view class="content">
 
