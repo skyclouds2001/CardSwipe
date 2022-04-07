@@ -1,6 +1,7 @@
 // pages/list/list.js
 
 import { request } from '../../lib/request.js';
+import { showToast } from '../../utils/promise.js';
 
 Page({
 
@@ -57,32 +58,41 @@ Page({
     const sex = chooseSex === 1 ? '女' : '男';
     const choice = chooseHabit >= 0 ? habitChoice[chooseHabit] : null;
 
-    // 请求礼物信息
-    const {data} = await request({
-      url: '/gift/gift/getTopByTag',
-      method: 'POST',
-      data: {
-        openid,
-        sex,
-        tags: [
-          sex,
-          situation,
-          choice ?? '',
-        ],
-      },
-      header: {
-        'Content-Type': 'application/json',
-      },
-    }).catch(err => console.info(err));
+    try {
 
-    // 存储礼物信息同时进行排序
-    this.giftRankAll = data.data?.['gift_rank:'].filter(v => Boolean(v)).sort((a, b) => {
-      return (b?.boylike ?? 0 + b?.girllike ?? 0) - (a?.boylike ?? 0 + a?.girllike ?? 0)}
-    );
+      // 请求礼物信息
+      const {data} = await request({
+        url: '/gift/gift/getTopByTag',
+        method: 'POST',
+        data: {
+          openid,
+          sex,
+          tags: [
+            sex,
+            situation,
+            choice ?? '',
+          ],
+        },
+        header: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // 存储礼物信息同时进行排序
+      this.giftRankAll = data.data?.['gift_rank:'].filter(v => v).sort((a, b) => (b?.boylike ?? 0 + b?.girllike ?? 0) - (a?.boylike ?? 0 + a?.girllike ?? 0));
+
+    } catch (err) {
+      console.info(err);
+      showToast({
+        title: '网络异常',
+        icon: 'error',
+      });
+    }
+    
   },
 
   // 加载礼物
-  // 参数flag ：标记是否需重置giftInfo，当点击下拉框刷新时重置
+  // 参数flag ：标记是否需重置giftInfo，当点击下拉框刷新时重置（传true）
   async setGiftList (flag = false) {
     if(flag) {
       this.giftNumber = 0;

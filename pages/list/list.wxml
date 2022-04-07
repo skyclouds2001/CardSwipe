@@ -66,7 +66,7 @@
       <view class="gift-title">{{item.title}}</view>
       <view class="gift-love-num cuIcon-likefill">{{item.boylike ? item.boylike : 0 + item.girllike ? item.girllike : 0}}</view>
       <view class="gift-img">
-        <image mode="aspectFill" src="{{item.url}}" lazy-load show-menu-by-longpress></image>
+        <image mode="aspectFill" src="{{item.url ? item.url : './../../images/gift.png'}}" lazy-load show-menu-by-longpress></image>
       </view>
 
     </navigator>
