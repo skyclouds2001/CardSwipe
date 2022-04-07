@@ -79,8 +79,12 @@
   font-size: 40rpx;
 }
 
+/* 标记选中的标签 */
 .select {
-  color: #ffa9c6;
+  color: #f76696;
+}
+.select > view {
+  text-shadow: 0 0 2.5rpx rgb(136, 136, 136);
 }
 
 /* 按钮部分 */
@@ -191,7 +195,7 @@
   z-index: 9999;
 }
 
-.gift-item > .style {
+.gift-item > .gift-img-style {
   position: absolute;
   left: 0;
   top: 0;
@@ -202,8 +206,10 @@
   border-radius: 25rpx;
 
   z-index: 9;
+
+  transition: all 500ms ease 0ms;
 }
-.gift-item > .style::before {
+.gift-item > .gift-img-style::before {
   content: '';
 
   position: absolute;
@@ -222,7 +228,7 @@
 
   z-index: 999;
 }
-.gift-item > .style::after {
+.gift-item > .gift-img-style::after {
   content: '';
 
   position: absolute;
@@ -249,6 +255,6 @@
   color: var(--red);
 }
 
-.gift-item:active > .style {
+.gift-item:active > .gift-img-style {
   background-color: rgba(255, 255, 255, 0.01);
 }

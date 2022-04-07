@@ -83,7 +83,7 @@ Page({
       // 跳转礼物信息页 & 提取记录礼物信息
       setTimeout(() => {
         this.setData({
-          gift: data.data['gift_rank:'].filter(v => Boolean(v.url)),
+          gift: data.data['gift_rank:'].filter(v => v?.url),
           STATE: true,
         });
       }, 1500);
