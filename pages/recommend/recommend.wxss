@@ -152,7 +152,7 @@
   overflow: hidden;
   border-radius: 25rpx;
 
-  font-size: 26rpx;
+  font-size: 30rpx;
 
   transition: all 125ms ease 0ms;
 }
@@ -169,19 +169,18 @@
 .gift-item > .gift-title {
   position: absolute;
   left: 10%;
-  bottom: 0.75em;
+  bottom: 0;
 
   display: block;
 
   width: 80%;
-  height: 1.25em;
+  height: 2em;
 
   overflow: hidden;
 
-  color: #555;
-  text-shadow: 0rpx 0rpx 2.5rpx #eee;
+  color: #333;
   text-overflow: ellipsis;
-  line-height: 1.25em;
+  line-height: 2em;
   letter-spacing: 1rpx;
   word-break: keep-all;
   text-align: center;
@@ -200,7 +199,7 @@
   width: 100%;
   height: 100%;
 
-  border-radius: 50rpx;
+  border-radius: 25rpx;
 
   z-index: 9;
 }
@@ -212,12 +211,14 @@
   left: 0;
 
   width: 100%;
-  height: 2.25em;
+  height: 2em;
 
   background-color: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(5rpx);
  
-  box-shadow: 0rpx 0rpx 0.5em 0rpx rgba(255, 255, 255, 0.5);
+  box-shadow: 0rpx 0rpx 0.5em 0rpx rgba(255, 255, 255, 0.50);
+  border-bottom-left-radius: 25rpx;
+  border-bottom-right-radius: 25rpx;
 
   z-index: 999;
 }
@@ -231,8 +232,9 @@
   width: 100%;
   height: 100%;
 
-
   box-shadow: 0rpx 0rpx 20rpx 5rpx rgba(204, 204, 204, 0.50) inset;
+  border-bottom-left-radius: 25rpx;
+  border-bottom-right-radius: 25rpx;
 
   z-index: 99;
 }

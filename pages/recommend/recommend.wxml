@@ -36,7 +36,7 @@
 
     <view class="main-content">
 
-      <navigator class="gift-item" wx:for="{{gift}}" wx:key="id" data-id="{{item.id}}" catchtap="handleJump" wx:if="{{item.url}}" url="../../pages/info/info?id={{item.id}}">
+      <navigator class="gift-item" wx:for="{{gift}}" wx:key="id" data-id="{{item.id}}" catchtap="handleJump" url="../../pages/info/info?id={{item.id}}">
         <image class="gift-img" mode="aspectFill" src="{{item.url}}" lazy-load></image>
         <view class="gift-title">{{item.title}}</view>
         <view class="style"></view>

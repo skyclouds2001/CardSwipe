@@ -12,7 +12,6 @@ Page({
   },
   openid: '',
 
-  
   onLoad: function () {
 
     // 加载标签
@@ -60,7 +59,7 @@ Page({
     const openid = this.openid;
 
     // 提交信息并获取礼物列表
-    const res = await request({
+    const {data} = await request({
       url: '/gift/gift/getTopByTag',
       method: 'POST',
       data: {
@@ -73,7 +72,7 @@ Page({
       },
     });
 
-    if(res.data.data['gift_rank:']) {
+    if(data.data?.['gift_rank:']) {
       
       // 提交成功提示
       showToast({
@@ -83,9 +82,8 @@ Page({
 
       // 跳转礼物信息页 & 提取记录礼物信息
       setTimeout(() => {
-        const gift = res.data.data['gift_rank:'];
         this.setData({
-          gift,
+          gift: data.data['gift_rank:'].filter(v => Boolean(v.url)),
           STATE: true,
         });
       }, 1500);
