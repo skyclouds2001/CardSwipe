@@ -19,10 +19,10 @@ Page({
     });
 
     try {
-      const openid = wx.getStorageSync('openid') || '';
+      const openid = wx.getStorageSync('openid') ?? '';
       this.openid = openid;
 
-      const res = await request({
+      const {data} = await request({
         url: `/gift/collection/select/${openid}`,
         method: 'GET',
         header: {
@@ -30,23 +30,28 @@ Page({
         },
       });
   
-      const collect = res.data?.data?.['collections:'] ?? [];
+      const collect = data?.data?.['collections:'] ?? [];
 
+      const TITLE_LENGTH = 25;
       // 添加is_on_delete属性
       if(collect)
-        collect.map(v => v['is_on_delete'] = false);
+        collect.forEach(v => {
+          v.title = Array.from(v.title.trim()).length > TITLE_LENGTH ? v.title.trim().substr(0, TITLE_LENGTH) + '...' : v.title.trim();
+          v.tag = v.tag?.trim()?.replaceAll(/、|，/g, ' ') ?? '暂无标签';
+          v['is_on_delete'] = false;
+        });
 
       this.setData({
         gift_data: collect,
       });
     } catch (err) {
-      console.log(err);
+      console.info(err);
     }
 
     wx.hideLoading();
   },
 
-  // 处理左滑及恢复事件：显示收藏按钮
+  // 处理左滑及右滑事件：显示收藏按钮
   cx: -1,
   cy: -1,
   handleTouchStart(e) {
@@ -106,8 +111,8 @@ Page({
         },
       });
 
+      wx.hideLoading();
       if(res.data?.success) {
-
         showToast({
           title: '删除成功',
           icon: 'success',
@@ -115,7 +120,6 @@ Page({
         
         gift_data.splice(index, 1);
         app.globalData.collect = app.globalData.collect.filter(v !== id);
-
       } else {
         showToast({
           title: '删除失败',
@@ -124,14 +128,12 @@ Page({
       }
 
     } catch (err) {
-      console.log(err);
+      console.info(err);
     }
 
     this.setData({
       gift_data,
     });
-    
-    wx.hideLoading();
   },
 
   // 项目点击事件：未显示删除按钮跳转至详情页面，显示删除按钮隐藏删除按钮

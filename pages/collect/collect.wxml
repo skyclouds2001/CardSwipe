@@ -12,16 +12,16 @@
   <view class="content">
     
     <!-- 列表部分 -->
-    <view class="content_list">
-      <view class="content_list_item" wx:for="{{gift_data}}" wx:key="id" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-index="{{index}}" bindtap="handleCollectionInfo" data-id="{{item.id}}">
+    <view class="content-list">
+      <view class="content-list-item" wx:for="{{gift_data}}" wx:key="id" bindtouchstart="handleTouchStart" bindtouchend="handleTouchEnd" data-index="{{index}}" bindtap="handleCollectionInfo" data-id="{{item.id}}">
         <view class="{{item.is_on_delete ? 'delete' : ''}}">
-          <view class="content_item_id">{{item.id}}</view>
-          <view class="content_item_name">{{item.title}}</view>
-          <view class="content_item_tag">{{item.tag ? item.tag : '暂无标签'}}</view>
-          <view class="content_item_img">
-            <image src="{{item.url}}" mode="heightFix"></image>
+          <view class="content-item-id">{{item.id}}</view>
+          <view class="content-item-title">{{item.title}}</view>
+          <view class="content-item-tag">{{item.tag}}</view>
+          <view class="content-item-img">
+            <image src="{{item.url}}" mode="heightFix" lazy-load></image>
           </view>
-          <view class="content_item_delete" catchtap="handleDeleteCollection" data-index="{{index}}" data-id="{{item.id}}">删除</view>
+          <view class="content-item-delete" catchtap="handleDeleteCollection" data-index="{{index}}" data-id="{{item.id}}">删除</view>
         </view>
       </view>
     </view>

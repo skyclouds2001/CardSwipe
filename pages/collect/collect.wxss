@@ -7,27 +7,25 @@
   background-color: whitesmoke;
 }
 
-.content_list {
+.content-list {
   width: auto;
   height: 100%;
   padding: 50rpx 25rpx;
 }
 
 /* 礼物列表内容部分 */
-.content_list_item {
+.content-list-item {
   display: flex;
   justify-content: center;
   align-items: center;
 
-  height: 300rpx;
+  height: 275rpx;
   width: 100%;
   margin: 50rpx 0rpx;
 
   font-size: 32rpx;
 
   position: relative;
-
-  box-sizing: border-box;
 
   overflow: hidden;
 
@@ -38,12 +36,10 @@
   transition: all 500ms ease 0ms;
 }
 
-.content_list_item > view {
-  position: absolute;
+.content-list-item > view {
+  position: relative;
   left: 0;
   top: 0;
-
-  box-sizing: border-box;
 
   width: 100%;
   height: 100%;
@@ -53,13 +49,14 @@
   align-items: center;
 
   transition: all 125ms ease 0ms;
-  transition: top,left 500ms ease 0ms;
+  transition: top, left 500ms ease 0ms;
 }
 
-.content_list_item > view > view {
+.content-list-item > view > view {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
   height: 100%;
   padding: 0rpx 25rpx;
@@ -67,31 +64,40 @@
   overflow: hidden;
 }
 
-.content_item_id {
+.content-item-id {
   flex: 2;
-
-  margin-left: 25rpx;
 }
 
-.content_item_name {
-  flex: 4;
+.content-item-title {
+  flex: 5;
+
+  padding: 10rpx 25rpx !important;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
-.content_item_tag {
-  flex: 4;
+.content-item-tag {
+  flex: 5;
+
+  padding: 10rpx 25rpx !important;
 }
 
-.content_item_img {
+.content-item-img {
   flex: 7;
 
   padding: 0rpx !important;
 }
 
-.content_item_img > image {
+.content-item-img > image {
   height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
-.content_item_delete {
+.content-item-delete {
   position: absolute;
   z-index: 9;
   top: 0;
@@ -109,12 +115,12 @@
 }
 
 /* 滑动显示删除按钮 */
-.content_list_item > .delete {
+.content-list-item > .delete {
   top: 0;
   left: -150rpx;
 }
 
 /* 活跃状态样式 */
-.content_list_item:active {
-  box-shadow: 5rpx 5rpx 25rpx #b3b3b3, -5rpx -5rpx 25rpx #ffffff;
+.content-list-item:active {
+  box-shadow: 10rpx 10rpx 25rpx #b3b3b3, -10rpx -10rpx 25rpx #ffffff;
 }
