@@ -42,9 +42,11 @@ Page({
     ]).then(() => { // 更新礼物的收藏信息
       const {gift_list} = this.data;
       const collect = app.globalData.collect;
-      gift_list.forEach(v => v.is_collect = collect.includes(v.id ?? -1));
       this.setData({
-        gift_list,
+        gift_list : gift_list.filter(v => v !== null && v !== undefined).map(v => {
+          v.is_collect = collect.includes(v.id ?? -1);
+          return v;
+        }),
       });
     });
 

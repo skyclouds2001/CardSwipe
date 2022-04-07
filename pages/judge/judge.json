@@ -1,5 +1,8 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "card-swipe": "/components/cardSwipe/cardSwipe",
+    "card": "/components/card/card"
+  },
 
   "navigationBarTitleText": "礼物评测",
   "navigationStyle": "custom"
