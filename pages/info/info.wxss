@@ -1,6 +1,6 @@
 /* pages/info/info.wxss */
 
-:root {
+page {
   font-size: 28rpx;
 }
 
@@ -8,7 +8,10 @@
   width: 100vw;
   height: auto;
 
-  overflow: hidden;
+  margin: 0rpx;
+  padding: 0rpx 0rpx 25rpx;
+
+  position: relative;
 }
 .info::before {
   position: absolute;
@@ -97,7 +100,7 @@
   width: calc(100vw - 50rpx);
   height: auto;
   min-height: calc(50vh - 100rpx);
-  margin: 50rpx 25rpx;
+  margin: 25rpx;
   padding: 25rpx;
   
   box-sizing: border-box;
@@ -112,22 +115,12 @@
   box-shadow: 5rpx 5rpx 10rpx #999;
 }
 
-.title_price {
-  flex-grow: 1;
-  flex-shrink: 0;
-
-  width: 100%;
-  margin: 10rpx 0rpx;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .title {
-  flex-grow: 3;
+  flex-grow: 2;
+  flex-shrink: 0;
+  flex-basis: content;
 
-  padding-right: 5rpx;
+  margin: 10rpx 0rpx;
 
   font-weight: bold;
   font-size: 40rpx;
@@ -140,21 +133,21 @@
 
 .price {
   flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: content;
 
-  padding-left: 5rpx;
+  margin: 10rpx 0rpx;
 
   color: var(--red);
   text-align: center;
   font-weight: bold;
-  font-size: 30rpx;
-  word-break: break-all;
-  overflow-wrap: break-word;
+  font-size: 32rpx;
 }
 
 .tag {
   flex-grow: 1;
   flex-shrink: 0;
-
+  flex-basis: content;
   
   width: 100%;
   margin: 10rpx 0rpx;
@@ -173,6 +166,7 @@
 .like {
   flex-grow: 2;
   flex-shrink: 0;
+  flex-basis: content;
 
   width: 100%;
   margin: 10rpx 0rpx;
@@ -192,6 +186,9 @@
   align-items: center;
 
   width: 100%;
+  height: auto;
+  margin: 0rpx;
+  padding: 10rpx 0rpx;
 }
 
 .number > view:first-child {
@@ -265,7 +262,8 @@
 .path {
   flex-grow: 1;
   flex-shrink: 0;
-  
+  flex-basis: content;
+
   width: 100%;
   margin: 10rpx 0rpx;
 
@@ -277,18 +275,20 @@
   text-overflow: ellipsis;
   overflow-wrap: break-word;
   word-break: break-all;
+  font-style: italic;
+  letter-spacing: 0.1em;
 }
 
 .content {
   flex-grow: 2;
   flex-shrink: 0;
+  flex-basis: content;
   
   width: 100%;
   margin: 10rpx 0rpx;
   padding: 10rpx;
 
   text-align: left;
-  text-indent: 2em;
   line-height: 1.5em;
   letter-spacing: 0.1em;
 

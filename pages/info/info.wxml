@@ -19,11 +19,11 @@
   <!-- 下部礼物信息部分 -->
   <view class="giftInfo">
 
-    <!-- 礼物名称及价格 -->
-    <view class="title_price">
-      <view class="title">{{gift.title}}</view>
-      <view class="price">{{gift.price ? '￥' + gift.price : '暂无价格'}}</view>
-    </view>
+    <!-- 礼物名称 -->
+    <view class="title">{{gift.title}}</view>
+    
+    <!-- 礼物价格 -->
+    <view class="price">{{gift.price ? '￥' + gift.price : '暂无价格'}}</view>
 
     <!-- 礼物标签 -->
     <view class="tag">{{gift.tag ? gift.tag : '暂无标签'}}</view>

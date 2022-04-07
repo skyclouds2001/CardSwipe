@@ -42,6 +42,11 @@ Page({
       // 设置收藏信息
       gift['is_collect'] = app.globalData.collect.includes(parseInt(id));
 
+      // 去除标签分隔符，以空格替代
+      gift.tag = gift.tag.replaceAll(/、|，/g, ' ');
+      // 设置默认礼物图片
+      gift.url = gift.url ?? './../../images/gift.png';
+
       // TODO：后续男女购买比例优化
       gift.boyprogress = (gift.boylike / ((gift.boylike + gift.girllike) / (gift.progress / 100)) * 100).toFixed(0);
       gift.girlprogress = (gift.girllike / ((gift.boylike + gift.girllike) / (gift.progress / 100)) * 100).toFixed(0);
