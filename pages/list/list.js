@@ -209,6 +209,11 @@ Page({
     await this.getGiftList(true).catch(err => console.info(err));
     await this.setGiftList(true).catch(err => console.info(err));
     wx.hideLoading();
+
+    this.setData({
+      isHabbitHide: true,
+      isSexHide: true,
+    });
   },
 
 });

@@ -44,7 +44,7 @@
   background-color: rgba(255, 255, 255, 0.75);
   border-radius: 25rpx;
   box-shadow: 0rpx 0rpx 15rpx #ccc;
-  backdrop-filter: blur(5rpx);
+  backdrop-filter: blur(10rpx);
 }
 
 .choice > view {
@@ -70,7 +70,7 @@
 .identity > view {
   color: white;
 
-  background-color: rgb(142, 139, 139);
+  background-color: rgb(194, 192, 192);
   border-radius: 25rpx;
   box-shadow: 5rpx 5rpx 7.5rpx rgb(194, 189, 189);
 
@@ -103,7 +103,7 @@
   font-weight: 500;
 
   border-radius: 25rpx;
-  background-color: rgb(160, 199, 226);
+  background-color: rgb(133, 196, 241);
   box-shadow: 5rpx 5rpx 7.5rpx rgb(194, 189, 189);
 
   position: relative;
@@ -123,7 +123,7 @@
 }
 
 /* 性别选择下拉框 爱好下拉框 */
-.choose_sex, .choose_habbit {
+.choose-sex, .choose-habbit {
   position: absolute;
   top: 75rpx;
   left: 0rpx;
@@ -150,10 +150,10 @@
 .show {
   visibility: visible;
 }
-.show.choose_sex {
+.show.choose-sex {
   height: 150rpx;
 }
-.show.choose_habbit {
+.show.choose-habbit {
   height: 450rpx;
 }
 .hide {
@@ -162,7 +162,7 @@
 }
 
 /* 下拉框项目样式 */
-.choose_sex > view, .choose_habbit > view {
+.choose-sex > view, .choose-habbit > view {
   width: 150rpx;
   height: 75rpx;
 
@@ -184,6 +184,11 @@
   color: whitesmoke;
 }
 
+/* 按钮 */
+.confirm-button {
+  background-color: #67cf75;
+}
+
 /* 下部礼物信息部分 */
 .main_content {
   width: calc(100% - 50rpx);
@@ -195,7 +200,7 @@
   overflow: hidden;
 }
 
-.gift_item {
+.gift-item {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -207,12 +212,11 @@
 
   background-color: white;
   border-radius: 15rpx;
-  border: 1rpx solid var(--blueLight);
 
   transition: all 250ms ease 0ms;
 }
 
-.gift_item > view {
+.gift-item > view {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -227,7 +231,7 @@
   transition: all 500ms ease 0ms;
 }
 
-.gift_item > .gift_index {
+.gift-item > .gift-index {
   color: #999;
   font-size: 40rpx;
   font-weight: bold;
@@ -235,11 +239,11 @@
   flex-grow: 1;
 }
 
-.gift_item > .gift_index > view > image {
+.gift-item > .gift-index > view > image {
   width: 60rpx;
 }
 
-.gift_item > .gift_title {
+.gift-item > .gift-title {
   font-weight: 500;
   letter-spacing: 0.1em;
   overflow: hidden;
@@ -259,7 +263,7 @@
   color: rgb(75, 180, 255);
 }
 
-.gift_item > .gift_love_num {
+.gift-item > .gift-love-num {
   font-size: 35rpx;
   font-weight: bold;
   color: rgb(255, 89, 89);
@@ -267,7 +271,7 @@
   flex-grow: 1;
 }
 
-.gift_item > .gift_img {
+.gift-item > .gift-img {
   overflow: hidden;
   background-color: white;
 
@@ -278,7 +282,7 @@
   flex-grow: 2;
 }
 
-.gift_item > .gift_img > image::after {
+.gift-item > .gift-img > image::after {
   content: '';
 
   position: absolute;
@@ -291,7 +295,7 @@
   box-shadow: 0rpx 0rpx 50rpx #ccc inset;
 }
 
-.gift_item > .gift_img > image {
+.gift-item > .gift-img > image {
   height: 100%;
   width: 100%;
 
@@ -299,12 +303,12 @@
 }
 
 /* 更改图标颜色 */
-.gift_item > .cuIcon-likefill::before {
+.gift-item > .cuIcon-likefill::before {
   color: rgb(255, 89, 89);
 }
 
 /* 点击活跃状态样式设置 */
-.gift_item:active > .gift_img > image {
+.gift-item:active > .gift-img > image {
   width: 105%;
   height: 105%;
 }
