@@ -4,6 +4,17 @@ import { request } from '../../lib/request.js';
 import { showToast } from '../../utils/promise.js';
 
 Page({
+  data: {
+    textareaIsFocus: false,
+  },
+
+  // 文本框样式切换
+  handleChangeTextarea(e) {
+    this.setData({
+      textareaIsFocus: e.type === 'focus',
+    });
+  },
+
   // 提交问题
   async submitProblem(e) {
     const {problem_content} = e.detail.value;
@@ -42,11 +53,12 @@ Page({
       // const {data} = res;
       // if(data.success) {
 
-      await showToast({
+      showToast({
         title: '提交成功！',
         icon: 'success',
       });
       
+      // 1.5s 后切换至mine页面
       setTimeout(() => {
         wx.switchTab({
           url: '../../pages/mine/mine',

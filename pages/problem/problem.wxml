@@ -10,10 +10,10 @@
 
   <!-- 下部提交部分 -->
   <form class="form" bindsubmit="submitProblem">
-    <view class="problem_text">
-      <textarea name="problem_content" value="" placeholder="请输入问题描述，我们在收到问题后，会尽快解决~" placeholder-class="textarea-placeholder ph" maxlength="1000" auto-focus hold-keyboard confirm-hold></textarea>
+    <view class="problem-text">
+      <textarea class="{{textareaIsFocus ? 'textarea-focus' : ''}}" name="problem_content" value="" placeholder="请输入问题描述，我们在收到问题后，会尽快解决~" placeholder-class="textarea-placeholder" maxlength="250" focus bindfocus="handleChangeTextarea" bindblur="handleChangeTextarea"></textarea>
     </view>
-    <view class="problem_button">
+    <view class="problem-button">
       <button form-type="submit">提交</button>
     </view>
   </form>
