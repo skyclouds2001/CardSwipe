@@ -24,7 +24,7 @@ Page({
       const userinfo = wx.getStorageSync('userinfo');
 
       // 存在则直接设置数据|不存在则请求用户信息童叟预先设置默认值
-      if(userinfo?.nickName && userinfo?.avatarUrl) {
+      if(typeof userinfo === 'object') {
         this.setData({
           nickname: userinfo.nickName,
           imgurl: userinfo.avatarUrl
