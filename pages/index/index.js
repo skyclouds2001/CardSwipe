@@ -16,10 +16,10 @@ Page({
 
   onLoad: function () {
 
-    // 通过userinfo内有无sex属性判断是否已访问过welcome页
-    const userinfo = wx.getStorageSync('userinfo');
+    // 通过有无gender判断是否已访问过welcome页
+    const gender = wx.getStorageSync('gender');
 
-    if(userinfo?.sex) {
+    if(gender !== '') {
 
       // 跳转至首页
       wx.switchTab({
@@ -93,11 +93,9 @@ Page({
       });
 
       // 记录性别：更新至存储
-      const userinfo = wx.getStorageSync('userinfo') || {};
-      userinfo.sex = this.sex;
-      wx.setStorageSync('userinfo', userinfo);
+      wx.setStorageSync('gender', this.sex);
     } catch (err) {
-      console.log(err);
+      console.info(err);
     }
 
     // 返回首页
@@ -106,6 +104,7 @@ Page({
     });
   },
 
+  // 初始化标签方法
   async initTag() {
     let tag = [];
     const tag_name = ['运动', '读书', '旅行', '美食', '收藏', '艺术', '桌游', '网游','智力游戏', '学习', this.sex === 1 ? '美丽' : '帅气', '独处', '影视剧', '追星', '睡觉', '……'];
