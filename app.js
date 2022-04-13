@@ -21,7 +21,7 @@ App({
       const {code} = await login({
         timeout: 10000,
       });
-      const {data} = await request({
+      const {data: res} = await request({
         url: '/login/wx',
         method: 'POST',
         data: {
@@ -31,18 +31,20 @@ App({
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
-      if(data?.data?.user) {
-        const {token, openid} = data.data.user;
+      if(res?.data?.user) {
+        const {token, openid} = res.data.user;
         wx.setStorageSync('token', token);
         wx.setStorageSync('openid', openid);
+      } else {
+        throw new Error('无法登录');
       }
     } catch (error) {
-      console.info(error);
+      console.error(error);
     }
   },
 
   onUnhandledRejection: function (e) {
-    console.info(e.reason);
+    console.error(e.reason);
   },
 
   globalData: {
