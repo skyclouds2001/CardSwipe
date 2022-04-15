@@ -2,8 +2,6 @@
 
 /* 页面整体设置 */
 page {
-  display: block;
-
   width: 100vw;
   height: 100vh;
 
