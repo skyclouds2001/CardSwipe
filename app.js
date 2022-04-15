@@ -1,7 +1,18 @@
-// app.js
+/**
+ * @file CardSwipe
+ * @author CSY<skyclouds2001@163.com>
+ * @license MIT
+ * @copyright 15th Jan 2022
+ * @version 1.1.0
+ */
 
 import { request } from './lib/request.js';
-import { login } from './utils/promise.js';
+import { login, showToast } from './utils/promise.js';
+
+/**
+ * @typedef Gift
+ * @type {Object}
+ */
 
 App({
 
@@ -36,19 +47,28 @@ App({
         wx.setStorageSync('token', token);
         wx.setStorageSync('openid', openid);
       } else {
-        throw new Error('无法登录');
+        throw new Error('登录失败');
       }
     } catch (error) {
       console.error(error);
+      showToast({
+        title: error,
+        icon: 'error',
+        mask: true,
+        duration: 2500,
+      });
     }
+    
   },
 
   onUnhandledRejection: function (e) {
     console.error(e.reason);
   },
 
+  /**
+   * @global
+   */
   globalData: {
-    // 设置系统样式默认回退值：以应对数据未加载好问题
     StatusBar: 20,
     Custom: {
       bottom: 56,
@@ -59,34 +79,10 @@ App({
       width: 86,
     },
     CustomBar: 60,
-    // 收藏的礼物id
+    /**
+     * @type {Array<Gift>} - 收藏的礼物
+     */
     collect: [],
   },
-
-  // 版本号比较代码：来源微信开发文档
-  compareVersion(v1, v2) {
-    v1 = v1.split('.');
-    v2 = v2.split('.');
-    const len = Math.max(v1.length, v2.length);
-  
-    while (v1.length < len) {
-      v1.push('0');
-    }
-    while (v2.length < len) {
-      v2.push('0');
-    }
-  
-    for (let i = 0; i < len; i++) {
-      const num1 = parseInt(v1[i]);
-      const num2 = parseInt(v2[i]);
-  
-      if (num1 > num2) {
-        return 1;
-      } else if (num1 < num2) {
-        return -1;
-      }
-    }
-    return 0;
-  },  
 
 });
