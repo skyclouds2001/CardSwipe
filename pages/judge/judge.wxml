@@ -9,29 +9,27 @@
 
   <!-- 轮播图部分 -->
   <swiper class="card-swiper swiper" bindanimationfinish="handleAnimationFinish" duration="100" display-multiple-items="1" model:current="{{gift_index}}" easing-function="easeInOutCubic" previous-margin="0rpx" next-margin="0rpx">
-    <block wx:for="{{gift_list}}" wx:key="id">
-      <swiper-item class="fix-colorui swiper-item {{gift_index === index ? 'cur' : ''}}" item-id="{{index}}">
-        <view class="swiper-item item">
-          <image src="{{item.url}}" mode="aspectFill" catchlongpress="handlePreviewImage" data-url="{{item.url}}"></image>
-          <view class="title">{{item.title}}</view>
-          <view class="like-number">
-            <view class="cu-capsule round">
-              <view class="cu-tag bg-blue ">
-                <text class="cuIcon-likefill"></text>
-              </view>
-              <view class="cu-tag line-blue">{{item.boylike}}</view>
+    <swiper-item wx:for="{{gift_list}}" wx:key="id" class="fix-colorui swiper-item {{gift_index === index ? 'cur' : ''}}" item-id="{{index}}">
+      <view class="swiper-item item">
+        <image src="{{item.url}}" mode="aspectFill" catchlongpress="handlePreviewImage" data-url="{{item.url}}"></image>
+        <view class="title">{{item.title}}</view>
+        <view class="like-number">
+          <view class="cu-capsule round">
+            <view class="cu-tag bg-blue ">
+              <text class="cuIcon-likefill"></text>
             </view>
-            <view class="cu-capsule round">
-              <view class="cu-tag bg-pink ">
-                <text class="cuIcon-likefill"></text>
-              </view>
-              <view class="cu-tag line-pink">{{item.girllike}}</view>
-            </view>
+            <view class="cu-tag line-blue">{{item.boylike}}</view>
           </view>
-          <view class="like {{item.is_collect ? 'select cuIcon-favorfill' : 'cuIcon-favor'}}" catchtap="handleCollectGift"></view>
+          <view class="cu-capsule round">
+            <view class="cu-tag bg-pink ">
+              <text class="cuIcon-likefill"></text>
+            </view>
+            <view class="cu-tag line-pink">{{item.girllike}}</view>
+          </view>
         </view>
-      </swiper-item>
-    </block>
+        <view class="like {{item.is_collect ? 'select cuIcon-favorfill' : 'cuIcon-favor'}}" catchtap="handleCollectGift"></view>
+      </view>
+    </swiper-item>
   </swiper>
 
   <!-- 礼物信息部分 -->

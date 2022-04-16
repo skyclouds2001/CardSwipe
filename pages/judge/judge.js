@@ -329,6 +329,7 @@ Page({
 
     if(this.DEFAULT_SWIPER_GIFT_NUMBER >= list.length) {
       const gift = await this.getGiftInfo();
+      const {gift_list: list} = this.data;
       for(let i = 0; i < gift.length; ++i) {
         list.push(gift[i]);
         list.unshift(gift[i]);
@@ -390,5 +391,5 @@ Page({
       icon: 'none',
     });
   },
-  
+
 });
