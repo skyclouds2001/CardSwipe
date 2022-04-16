@@ -140,7 +140,7 @@ Page({
   },
 
   // 复制剪切板链接
-  handleCopyClipboard (e) {
+  handleCopyClipboard () {
     const {gift} = this.data;
     if(gift.buyurl) {
       wx.setClipboardData({
