@@ -1,0 +1,27 @@
+{
+  "name": "cardswipe",
+  "version": "1.1.0",
+  "description": "从心礼选",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "npm run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skyclouds2001/cardSwipe.git"
+  },
+  "keywords": [
+    "cardswipe",
+    "wexin",
+    "miniprograme"
+  ],
+  "author": "CSY",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skyclouds2001/cardSwipe/issues"
+  },
+  "homepage": "https://github.com/skyclouds2001/cardSwipe#readme"
+}

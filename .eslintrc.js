@@ -13,7 +13,7 @@ module.exports = {
     modules: true,
   },
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     sourceType: 'module',
   },
   globals: {
@@ -26,6 +26,6 @@ module.exports = {
     requirePlugin: true,
     requireMiniProgram: true,
   },
-  // extends: 'eslint:recommended',
+  extends: 'eslint:recommended',
   rules: {},
 }
