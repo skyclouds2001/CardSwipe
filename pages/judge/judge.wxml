@@ -8,7 +8,7 @@
   </cu-custom>
 
   <!-- 轮播图部分 -->
-  <swiper class="card-swiper swiper" bindtransition="handleTransition" duration="0" display-multiple-items="1" model:current="{{gift_index}}" easing-function="easeInOutCubic" previous-margin="0rpx" next-margin="0rpx">
+  <swiper class="card-swiper swiper" bindanimationfinish="handleAnimationFinish" duration="100" display-multiple-items="1" current="{{gift_index}}" easing-function="easeInOutCubic" previous-margin="0rpx" next-margin="0rpx">
     <block wx:for="{{gift_list}}" wx:key="id">
       <swiper-item class="fix-colorui swiper-item {{gift_index === index ? 'cur' : ''}}" item-id="{{index}}">
         <view class="swiper-item item">

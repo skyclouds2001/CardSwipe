@@ -69,14 +69,12 @@ Page({
   DEFAULT_REQUEST_GIFT_SIZE: 10,
 
   /**
-   * @type {Array<Gift>} 礼物信息池
+   * @constant
+   * @type {number} 轮播图中最少的礼物数量
+   * @default
+   * @readonly
    */
-  gift: [],
-
-  /**
-   * @type {Array<number>} 收藏礼物信息池
-   */
-  collect: [],
+  DEFAULT_SWIPER_GIFT_NUMBER: 5,
 
   onLoad: function () {
 
@@ -87,6 +85,8 @@ Page({
     this.openid = openid;
     this.token = token;
     this.gender = Number(gender);
+    let gift = [];
+    let collect = [];
 
     // 并行获取礼物信息及用户收藏信息
     Promise.allSettled([
@@ -94,33 +94,31 @@ Page({
       this.getCollectInfo(),
     ]).then(([giftS, collectS]) => {
       // 保存礼物及收藏信息
-      app.globalData.collect = (this.collect = collectS.value);
-      this.gift = giftS.value;
-      this.gift.forEach(v => v.is_collect = this.collect.includes(v.id));
+      app.globalData.collect = (collect = collectS.value);
+      gift = giftS.value;
+      gift.forEach(v => v.is_collect = collect.includes(v.id));
     }).then(() => {
       // 初始化礼物信息
       let giftList = [];
-      giftList.push(this.gift[0]);
-      for(let i = 1; i < this.gift.length; ++i) {
-        giftList.push(this.gift[i]);
-        giftList.unshift(this.gift[i]);
+      giftList.push(gift[0]);
+      for(let i = 1; i < gift.length; ++i) {
+        giftList.push(gift[i]);
+        giftList.unshift(gift[i]);
       }
       this.setData({
         gift_list: giftList,
         gift_index: ~~(giftList.length / 2),
         gift: giftList[~~(giftList.length / 2)],
       });
+      this.previous = ~~(giftList.length / 2);
     }).catch(error => {
-      console.error(error);
+      console.log(error);
       showToast({
         title: '网络异常',
         icon: 'error',
         mask: true,
       });
     });
-
-    // 绑定滑动回调函数
-    this.thro = this.throttle(this.handleTransitionSys, 100);
 
   },
 
@@ -140,7 +138,7 @@ Page({
    * @description 获取礼物信息
    * @returns {Promise<Array<Gift>>} 返回给定数量的随机的礼物
    */
-  async getGiftInfo() {
+  async getGiftInfo () {
 
     try {
       // 请求获取礼物信息
@@ -161,7 +159,7 @@ Page({
       }
 
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
 
   },
@@ -172,7 +170,7 @@ Page({
    * @description 获取用户的收藏信息
    * @returns {Promise<Array<Number>>} 用户的收藏id
    */
-  async getCollectInfo() {
+  async getCollectInfo () {
 
     try {
       const {data: res} = await request({
@@ -184,7 +182,7 @@ Page({
       });
       return res.data?.['collections:']?.filter(v => v?.id)?.map(v => v.id) ?? [];
     } catch (error) {
-      console.error(error);
+      console.log(error);
       return Promise.reject();
     }
 
@@ -196,7 +194,7 @@ Page({
    * @description 用户点击收藏的响应
    * @returns {void}
    */
-  async handleCollectGift() {
+  async handleCollectGift () {
 
     // 显示加载信息
     wx.showLoading({
@@ -235,11 +233,8 @@ Page({
             gift_list,
             gift: gift_item,
           });
-          // 更新至page对象
-          this.gift.forEach(v => v.id === gift_item.id ? v.is_collect = true : '');
-          this.collect.push(gift_item.id)
           // 更新至app.globalData
-          app.globalData.collect = this.collect;
+          app.globalData.collect.push(gift_item.id);
         } else {  // 请求失败
           // 显示错误提示信息
           showToast({
@@ -273,11 +268,8 @@ Page({
             gift_list,
             gift: gift_item,
           });
-          // 更新至page对象
-          this.gift.forEach(v => v.id === gift_item.id ? v.is_collect = false : '');
-          this.collect.filter(v => v !== gift_item.id);
           // 更新至app.globalData
-          app.globalData.collect = this.collect;
+          app.globalData.collect.filter(v => v !== gift_item.id);
         } else {
           showToast({
             title: '取消收藏失败',
@@ -287,7 +279,7 @@ Page({
 
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
     
   },
@@ -295,9 +287,10 @@ Page({
   /**
    * @function
    * @description 预览图片效果
+   * @param {Event} e
    * @returns {void}
    */
-  handlePreviewImage(e) {
+  handlePreviewImage (e) {
     const {url} = e.currentTarget.dataset;
     wx.previewImage({
       urls: [url],
@@ -307,50 +300,95 @@ Page({
 
   /**
    * @function
+   * @async
    * @description 处理轮播图滑动方法
    * @param {Event} e
    * @returns {void}
    */
-  handleTransition(e) {
-    (this.thro)(e);
+  async handleAnimationFinish (e) {
+    const {current: cur} = e.detail;
+    const {previous: pre} = this;
+    let {gift_list: list, gift_index: index, gift} = this.data;
+
+    if(pre > cur) {
+      list.splice(cur + 1, 2);
+      index = cur;
+      this.handleLike(gift.id);
+    } else if (pre < cur) {
+      list.splice(pre - 1, 2);
+      index = cur - 2;
+      this.handleDislike(gift.id);
+    }
+
+    this.setData({
+      gift_list: list,
+      gift_index: index,
+      gift: list[index],
+    });
+    this.previous = index;
+
+    if(this.DEFAULT_SWIPER_GIFT_NUMBER >= list.length) {
+      const gift = await this.getGiftInfo();
+      for(let i = 0; i < gift.length; ++i) {
+        list.push(gift[i]);
+        list.unshift(gift[i]);
+      }
+      this.setData({
+        gift_list: list,
+        gift_index: ~~(list.length / 2),
+        gift: list[~~(list.length / 2)],
+      });
+      this.previous = ~~(list.length / 2);
+    }
+
   },
 
   /**
+   * @type {number}
+   * @description 标记当前礼物的下标
+   */
+  previous: 0,
+
+  /**
    * @function
-   * @description  真正处理轮播图滑动的方法
-   * @param {Event} e
+   * @async
+   * @description 处理喜欢礼物
+   * @param {number} id - 礼物id
    * @returns {void}
    */
-  handleTransitionSys(e) {
-    console.log(e);
+  async handleLike (id) {
+    showToast({
+      title: `您已选择喜欢礼物${id}`,
+      icon: 'none',
+    });
+
+    const {gender} = this;
+    try {
+      await request({
+        url: `/gift/gift/${gender === 0 ? 'boy' : 'girl'}like/${id}`,
+        method: 'PUT',
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "token": this.token,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   /**
    * @function
-   * @description 节流
-   * @param {Function} func - 期望执行节流的目标函数，默认为空函数
-   * @param {Number} wait - 期望执行节流的时间间隔，默认是100ms
-   * @returns {Function} 返回一个具体执行节流的函数，使用该函数实现给定时间间隔内执行期望的操作
+   * @async
+   * @description 处理不喜欢礼物
+   * @param {number} id - 礼物id
+   * @returns {void}
    */
-  throttle(func = () => {}, wait = 100) {
-    var timeout = null;
-
-    return function () {
-      var _this = this;
-      var args = arguments;
-      if(!timeout) {
-        timeout = setTimeout(() => {
-          timeout = null;
-          func.apply(_this, args);
-        }, wait);
-      }
-    };
-
+  async handleDislike (id) {
+    showToast({
+      title: `您已选择不喜欢礼物${id}`,
+      icon: 'none',
+    });
   },
-
-  /**
-   * @type {Function} throttle函数返回值函数
-   */
-  thro: null,
   
 });

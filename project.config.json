@@ -5,6 +5,14 @@
       {
         "value": ".eslintrc.js",
         "type": "file"
+      },
+      {
+        "value": "package.json",
+        "type": "file"
+      },
+      {
+        "value": "node_modules",
+        "type": "folder"
       }
     ],
     "include": []
