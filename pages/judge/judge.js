@@ -358,7 +358,7 @@ Page({
    */
   async handleLike (id) {
     showToast({
-      title: `您已选择喜欢礼物${id}`,
+      title: `您已选择喜欢id为${id}礼物`,
       icon: 'none',
     });
 
@@ -386,7 +386,7 @@ Page({
    */
   async handleDislike (id) {
     showToast({
-      title: `您已选择不喜欢礼物${id}`,
+      title: `您已选择不喜欢id为${id}礼物`,
       icon: 'none',
     });
   },
