@@ -10,49 +10,59 @@ import { showToast } from '../../utils/promise.js';
  */
 const app = getApp();
 
+/**
+ * @typedef Gift
+ * @type {Object}
+ * @property {Number} id - 礼物id
+ * @property {String} title - 礼物名称
+ * @property {String} tag - 礼物标签
+ * @property {String} url - 礼物图片链接
+ * @property {Number} boylike - 礼物男性喜爱人数
+ * @property {Number} girllike - 礼物女性喜爱人数
+ * @property {Number} price - 礼物价格
+ * @property {String} des - 礼物描述
+ * @property {Number} progress - 礼物喜爱人数比例
+ */
+
 Page({
 
-  /**
-   * @typedef Gift
-   * @type {Object}
-   * @property {Number} id - 礼物id
-   * @property {String} title - 礼物名称
-   * @property {String} tag - 礼物标签
-   * @property {String} url - 礼物图片链接
-   * @property {Number} boylike - 礼物男性喜爱人数
-   * @property {Number} girllike - 礼物女性喜爱人数
-   * @property {Number} price - 礼物价格
-   * @property {String} des - 礼物描述
-   * @property {Number} progress - 礼物喜爱人数比例
-   */
-
   data: {
-    // 轮播图礼物信息
+
+    /**
+     * @type {Array<Gift>} 轮播图礼物信息
+     */
     gift_list: [],
-    // 礼物当前下标
+
+    /**
+     * @type {number} 礼物当前下标
+     */
     gift_index: 0,
-    // 当前礼物
+
+    /**
+     * @type {Gift} 当前礼物
+     */
     gift: {},
+
   },
 
   /**
-   * @type {String} openid
+   * @type {string} openid
    */
   openid: '',
 
   /**
-   * @type {String} token
+   * @type {string} token
    */
   token: '',
 
   /**
-   * @type {Number} 性别信息，0代表男性，1代表女性
+   * @type {number} 性别信息，0代表男性，1代表女性
    */
   gender: 0,
 
   /**
    * @constant
-   * @type {Number} 单次请求的礼物数量
+   * @type {number} 单次请求的礼物数量
    * @default
    * @readonly
    */
@@ -64,7 +74,7 @@ Page({
   gift: [],
 
   /**
-   * @type {Array<Number>} 收藏礼物信息池
+   * @type {Array<number>} 收藏礼物信息池
    */
   collect: [],
 
