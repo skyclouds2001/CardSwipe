@@ -53,7 +53,7 @@
   </view>
 
   <!-- 礼物排行榜 -->
-  <view class="main_content">
+  <view class="main-content">
 
     <navigator class="gift-item" wx:for="{{giftInfo}}" wx:key="giftName" url="../../pages/info/info?id={{item.id}}" hover-class="none" hover-stop-propagation>
 

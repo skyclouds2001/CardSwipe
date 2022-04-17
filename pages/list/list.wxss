@@ -142,8 +142,12 @@
   overflow: scroll;
 
   z-index: 99;
-
-  transition: all 1000ms ease 0ms;
+}
+.choose-sex {
+  transition: all 500ms ease 0ms;
+} 
+.choose-habbit {
+  transition: all 750ms ease 0ms;
 }
 
 /* 下拉框显示及隐藏 */
@@ -174,8 +178,12 @@
   align-items: center;
 
   color: black;
-
-  transition: all 1000ms ease 0ms;
+}
+.choose-sex > view {
+  transition: all 500ms ease 0ms;
+}
+.choose-habbit > view {
+  transition: all 750ms ease 0ms;
 }
 
 /* 记录选中内容 */
@@ -190,7 +198,7 @@
 }
 
 /* 下部礼物信息部分 */
-.main_content {
+.main-content {
   width: calc(100% - 50rpx);
   height: auto;
 
