@@ -28,9 +28,6 @@
           请允许我们更好的了解你<br/>
         </text>
       </view>
-
-      <!-- 图标部分 -->
-      <view class="icon_love_black"><image src="../../icons/aixin.png" mode="heightFix"></image></view>
       
     </view>
 
@@ -48,9 +45,6 @@
 
       <!-- 图片部分 -->
       <image class="choice_img" mode="widthFix" src="../../images/boy-girl.png"></image>
-
-      <!-- 图标部分 -->
-      <image class="icon_love_pink" src="../../icons/aixin_click.png" mode="heightFix"></image>
 
     </view>
 
