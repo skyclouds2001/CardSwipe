@@ -29,52 +29,58 @@ Page({
   data: {
 
     /**
-     * @type {Array<Gift>} 轮播图礼物信息
+     * @type {Array<Gift>}
+     * @description 轮播图礼物信息
      */
     gift_list: [],
 
     /**
-     * @type {number} 礼物当前下标
+     * @type {number}
+     * @description 礼物当前下标
      */
     gift_index: 0,
 
     /**
-     * @type {Gift} 当前礼物
+     * @type {Gift}
+     * @description 当前礼物
      */
     gift: {},
 
   },
 
   /**
-   * @type {string} openid
+   * @type {string}
    */
   openid: '',
 
   /**
-   * @type {string} token
+   * @type {string}
    */
   token: '',
 
   /**
-   * @type {number} 性别信息，0代表男性，1代表女性
+   * @type {number}
+   * @description 性别信息，0代表男性，1代表女性
    */
   gender: 0,
 
   /**
    * @constant
-   * @type {number} 单次请求的礼物数量
    * @default
    * @readonly
+   * @type {number}
+   * @description 单次请求的礼物数量
    */
   DEFAULT_REQUEST_GIFT_SIZE: 10,
 
   /**
    * @constant
-   * @type {number} 轮播图中最少的礼物数量
    * @default
    * @readonly
+   * @type {number}
+   * @description 轮播图中最少的礼物数量（应为奇数）
    */
-  DEFAULT_SWIPER_GIFT_NUMBER: 5,
+  DEFAULT_SWIPER_GIFT_NUMBER: 7,
 
   onLoad: function () {
 
@@ -96,21 +102,33 @@ Page({
       // 保存礼物及收藏信息
       app.globalData.collect = (collect = collectS.value);
       gift = giftS.value;
-      gift.forEach(v => v.is_collect = collect.includes(v.id));
+      // 对礼物进行预处理
+      gift.forEach(v => {
+        v.is_collect = collect.includes(v.id);
+        v.url ??= './../../images/gift.png';
+        v.des ??= '暂无';
+      });
     }).then(() => {
       // 初始化礼物信息
-      let giftList = [];
-      giftList.push(gift[0]);
+      let list = [];
+      list.push(gift[0]);
+      list[0].key = list[0].id;
       for(let i = 1; i < gift.length; ++i) {
-        giftList.push(gift[i]);
-        giftList.unshift(gift[i]);
+        list.push({...gift[i]});
+        list.unshift({...gift[i]});
+        list[0].key = 'p' + gift[i].id;
+        list[list.length - 1].key = 'c' + gift[i].id;
       }
+
+      // 存储礼物信息
+      const len = ~~(list.length / 2);
       this.setData({
-        gift_list: giftList,
-        gift_index: ~~(giftList.length / 2),
-        gift: giftList[~~(giftList.length / 2)],
+        gift_list: list,
+        gift_index: len,
+        gift: list[len],
       });
-      this.previous = ~~(giftList.length / 2);
+      this.previous = len;
+
     }).catch(error => {
       console.log(error);
       showToast({
@@ -135,7 +153,7 @@ Page({
   /**
    * @function
    * @async
-   * @description 获取礼物信息
+   * @description 获取礼物信息，并对返回信息有效性感觉id进行检验
    * @returns {Promise<Array<Gift>>} 返回给定数量的随机的礼物
    */
   async getGiftInfo () {
@@ -312,36 +330,41 @@ Page({
 
     if(pre > cur) {
       list.splice(cur + 1, 2);
-      index = cur;
       this.handleLike(gift.id);
     } else if (pre < cur) {
       list.splice(pre - 1, 2);
-      index = cur - 2;
       this.handleDislike(gift.id);
     }
 
     this.setData({
       gift_list: list,
-      gift_index: index,
-      gift: list[index],
+      gift: list[~~(list.length / 2)],
     });
-    this.previous = index;
+    this.previous = index === -1 ? ~~(list.length / 2) : index;
 
     if(this.DEFAULT_SWIPER_GIFT_NUMBER >= list.length) {
+      const collect = app.globalData.collect;
       const gift = await this.getGiftInfo();
+      gift.forEach(v => {
+        v.is_collect = collect.includes(v.id);
+        v.url ??= './../../images/gift.png';
+        v.des ??= '暂无';
+      });
+
       const {gift_list: list} = this.data;
       for(let i = 0; i < gift.length; ++i) {
         list.push(gift[i]);
         list.unshift(gift[i]);
+        list[0].key = 'p' + list[0].id;
+        list[list.length - 1].key = 'c' + list[list.length - 1].id;
       }
+
       this.setData({
         gift_list: list,
-        gift_index: ~~(list.length / 2),
         gift: list[~~(list.length / 2)],
       });
-      this.previous = ~~(list.length / 2);
+      this.previous = index === -1 ? ~~(list.length / 2) : index;
     }
-
   },
 
   /**
@@ -359,7 +382,7 @@ Page({
    */
   async handleLike (id) {
     showToast({
-      title: `您已选择喜欢id为${id}礼物`,
+      title: `您已选择喜欢该礼物`,
       icon: 'none',
     });
 
@@ -387,7 +410,7 @@ Page({
    */
   async handleDislike (id) {
     showToast({
-      title: `您已选择不喜欢id为${id}礼物`,
+      title: `您已选择不喜欢该礼物`,
       icon: 'none',
     });
   },
