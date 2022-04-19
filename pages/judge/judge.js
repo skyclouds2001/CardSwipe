@@ -91,6 +91,7 @@ Page({
     this.openid = openid;
     this.token = token;
     this.gender = Number(gender);
+    // 声明临时存储礼物与收藏信息的数组
     let gift = [];
     let collect = [];
 
@@ -111,8 +112,8 @@ Page({
     }).then(() => {
       // 初始化礼物信息
       let list = [];
-      list.push(gift[0]);
-      list[0].key = list[0].id;
+      list.push({...gift[0]});
+      list[0].key = String(gift[0].id);
       for(let i = 1; i < gift.length; ++i) {
         list.push({...gift[i]});
         list.unshift({...gift[i]});
@@ -121,13 +122,12 @@ Page({
       }
 
       // 存储礼物信息
-      const len = ~~(list.length / 2);
       this.setData({
         gift_list: list,
-        gift_index: len,
-        gift: list[len],
+        gift_index: ~~(list.length / 2),
+        gift: list[~~(list.length / 2)],
       });
-      this.previous = len;
+      this.previous = ~~(list.length / 2);
 
     }).catch(error => {
       console.log(error);
@@ -326,24 +326,33 @@ Page({
   async handleAnimationFinish (e) {
     const {current: cur} = e.detail;
     const {previous: pre} = this;
-    let {gift_list: list, gift_index: index, gift} = this.data;
+    let {gift_list: list, gift} = this.data;
 
     if(pre > cur) {
-      list.splice(cur + 1, 2);
+      list.splice(cur + 1, (pre - cur) * 2);
       this.handleLike(gift.id);
     } else if (pre < cur) {
-      list.splice(pre - 1, 2);
+      list.splice(cur - (cur - pre) * 2, (cur - pre) * 2);
       this.handleDislike(gift.id);
+    } else {
+      return;
     }
 
     this.setData({
       gift_list: list,
       gift: list[~~(list.length / 2)],
+      gift_index: ~~(list.length / 2),
     });
-    this.previous = index === -1 ? ~~(list.length / 2) : index;
+    this.previous = ~~(list.length / 2);
+    setTimeout(() => {
+      this.setData({
+        gift_index: ~~(list.length / 2),
+      });
+    }, 1000);
 
+    // 礼物数量不足时添加礼物
     if(this.DEFAULT_SWIPER_GIFT_NUMBER >= list.length) {
-      const collect = app.globalData.collect;
+      const {collect} = app.globalData;
       const gift = await this.getGiftInfo();
       gift.forEach(v => {
         v.is_collect = collect.includes(v.id);
@@ -353,23 +362,29 @@ Page({
 
       const {gift_list: list} = this.data;
       for(let i = 0; i < gift.length; ++i) {
-        list.push(gift[i]);
-        list.unshift(gift[i]);
-        list[0].key = 'p' + list[0].id;
-        list[list.length - 1].key = 'c' + list[list.length - 1].id;
+        list.push({...gift[i]});
+        list.unshift({...gift[i]});
+        list[0].key = 'p' + gift[i].id;
+        list[list.length - 1].key = 'c' + gift[i].id;
       }
 
       this.setData({
         gift_list: list,
         gift: list[~~(list.length / 2)],
+        gift_index: ~~(list.length / 2),
       });
-      this.previous = index === -1 ? ~~(list.length / 2) : index;
+      this.previous = ~~(list.length / 2);
+      setTimeout(() => {
+        this.setData({
+          gift_index: ~~(list.length / 2),
+        });
+      }, 1000);
     }
   },
 
   /**
    * @type {number}
-   * @description 标记当前礼物的下标
+   * @description 标记之前礼物的下标
    */
   previous: 0,
 
@@ -413,6 +428,21 @@ Page({
       title: `您已选择不喜欢该礼物`,
       icon: 'none',
     });
+  },
+
+  /**
+   * @description 礼物图片显示失败处理，重置礼物信息为默认图片
+   * @param {Event} e 
+   * @returns {boolean}
+   */
+  handleImageLoadFail(e) {
+    const {id} = e.currentTarget.dataset;
+    const {gift_list} = this.data;
+    gift_list.forEach(v => v.id === id ? v.url = './../../images/gift.png' : '');
+    this.setData({
+      gift_list,
+    });
+    return false;
   },
 
 });

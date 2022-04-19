@@ -12,7 +12,7 @@
     <block wx:for="{{gift_list}}" wx:key="key">
       <swiper-item class="fix-colorui swiper-item {{gift_index === index ? 'cur' : ''}}" item-id="{{item.id}}">
         <view class="swiper-item item">
-          <image src="{{item.url}}" mode="aspectFill" catchlongpress="handlePreviewImage" data-url="{{item.url}}"></image>
+          <image src="{{item.url}}" mode="aspectFill" lazy-load catchlongpress="handlePreviewImage" data-url="{{item.url}}" data-id="{{item.id}}" binderror="handleImageLoadFail"></image>
           <view class="title">{{item.title}}</view>
           <view class="like-number">
             <view class="cu-capsule round">
