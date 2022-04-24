@@ -3,40 +3,100 @@
 import { request } from '../../lib/request.js';
 import { showToast } from '../../utils/promise.js';
 
+/**
+ * @typedef Gift
+ * @type {Object}
+ * @property {Number} id - 礼物id
+ * @property {String} title - 礼物名称
+ * @property {String} tag - 礼物标签
+ * @property {String} url - 礼物图片链接
+ * @property {Number} boylike - 礼物男性喜爱人数
+ * @property {Number} girllike - 礼物女性喜爱人数
+ * @property {Number} price - 礼物价格
+ * @property {String} des - 礼物描述
+ * @property {Number} progress - 礼物喜爱人数比例
+ */
+
 Page({
 
   data: {
-    // 渲染爱好下拉框所用
+    /**
+     * 渲染爱好下拉框所用
+     * @type {string[]}
+     */
     habitChoice: ["运动", "读书", "旅行", "美食", "收藏", "艺术", "桌游", "网游", "智力游戏", "学习", "美丽", "帅气"],
-    // 礼物信息
+
+    /**
+     * 礼物信息
+     * @type {Gift[]}
+     */
     giftInfo: [],
 
-    // 记录选择的身份，仅可单选  默认0   0.1.2
+    /**
+     * 记录选择赠送礼物对象的身份
+     * 仅可单选  默认0   0.1.2
+     * @type {number}
+     */
     chooseSituation: 0,
-    // 记录选择的性别，仅可单选  默认-1 0男性 1女性
+
+    /**
+     * 记录选择的性别
+     * 仅可单选  默认-1 0男性 1女性
+     * @type {number}
+     */
     chooseSex: -1,
-    // 记录选择的爱好，仅可单选  默认-1 下标自0起始
+
+    /**
+     * 记录选择的爱好
+     * 仅可单选  默认-1 下标自0起始
+     * @type {number}
+     */
     chooseHabit: -1,
-    // 是否隐藏habbit下拉框
+
+    /**
+     * 是否隐藏 habbit 下拉框
+     * @type {boolean}
+     */
     isHabbitHide: true,
-    // 是否隐藏sex下拉框
+
+    /**
+     * 是否隐藏 sex 下拉框
+     * @type {boolean}
+     */
     isSexHide: true,
   },
+
+  /**
+   * openid
+   * @type {string}
+   */
   openid: '',
-  // 记录礼物完整信息
+
+  /**
+   * 记录礼物完整信息
+   * @type {Gift}
+   */
   giftRankAll: [],
-  // 记录已加载的礼物数量
+
+  /**
+   * 记录已加载的礼物数量
+   * @type {number}
+   */
   giftNumber: 0,
-  // 保存下拉框开发的计时器
+
+  /**
+   * 保存下拉框恢复的计时器
+   * @type {NodeJS.Timeout}
+   */
   timekeeper: null,
 
   onLoad: async function () {
-    const openid = wx.getStorageSync('openid') ?? '';
-    this.openid = openid;
+    const openid = wx.getStorageSync('openid');
+    this.openid = openid ? openid : '';
 
-    const {sex} = wx.getStorageSync('userinfo') ?? {};
+    const gender = wx.getStorageSync('gender');
     this.setData({
-      chooseSex: sex === 1 ? 1 : 0,
+      chooseSex: gender ? gender : 0,
     });
 
     await this.getGiftList();
@@ -47,12 +107,18 @@ Page({
     if(this.giftNumber !== 50)
       this.setGiftList();
   },
-
-  // 获取礼物
+ 
+  /**
+   * @function
+   * @async
+   * @description 请求获取礼物并保存
+   * @returns {Promise<void>}
+   */
   async getGiftList () {
     // 获取各参数
     const {chooseSituation, chooseSex, chooseHabit, habitChoice} = this.data;
     const openid = this.openid;
+
     // 提取tags各参数值
     const situation = ["热恋期", "初恋期", "追求期"][chooseSituation];
     const sex = chooseSex === 1 ? '女' : '男';
@@ -91,8 +157,13 @@ Page({
     
   },
 
-  // 加载礼物
-  // 参数flag ：标记是否需重置giftInfo，当点击下拉框刷新时重置（传true）
+  /**
+   * @function
+   * @async
+   * @description 加载及处理礼物
+   * @param {boolean} flag 标记是否需重置giftInfo
+   * @returns {Promise<void>}
+   */
   async setGiftList (flag = false) {
     if(flag) {
       this.giftNumber = 0;
@@ -112,7 +183,13 @@ Page({
     this.giftNumber = end;
   },
 
-  // 身份情况选择
+  /**
+   * @function
+   * @async
+   * @description 身份情况选择
+   * @param {Event} e 事件回调函数参数
+   * @returns {Promise<void>}
+   */
   async handleOnChooseSituation (e) {
     
     const {id} = e.target.dataset;
@@ -124,7 +201,13 @@ Page({
     
   },
 
-  // 下拉框响应方法
+  /**
+   * @function
+   * @async
+   * @description 下拉框响应
+   * @param {Event} e 事件回调函数参数
+   * @returns {Promise<void>}
+   */
   async handleSelect (e) {
     const CONTINUE_TIME = 5000;
 
@@ -211,13 +294,24 @@ Page({
 
   },
 
-  // 更新礼物信息
+  /**
+   * @function
+   * @async
+   * @description 更新礼物信息
+   * @returns {Promise<void>}
+   */
   async handleConfirm() {
     wx.showLoading({
       title: '加载中',
     });
-    await this.getGiftList(true).catch(err => console.info(err));
-    await this.setGiftList(true).catch(err => console.info(err));
+
+    try {
+      await this.getGiftList(true);
+      await this.setGiftList(true);
+    } catch (err) {
+      console.log(err);
+    }
+
     wx.hideLoading();
 
     this.setData({
