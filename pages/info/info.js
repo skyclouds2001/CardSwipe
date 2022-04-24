@@ -3,13 +3,35 @@
 import { request } from '../../lib/request.js';
 import { showToast } from '../../utils/promise.js';
 
+/**
+ * @typedef Gift
+ * @type {Object}
+ * @property {Number} id - 礼物id
+ * @property {String} title - 礼物名称
+ * @property {String} tag - 礼物标签
+ * @property {String} url - 礼物图片链接
+ * @property {Number} boylike - 礼物男性喜爱人数
+ * @property {Number} girllike - 礼物女性喜爱人数
+ * @property {Number} price - 礼物价格
+ * @property {String} des - 礼物描述
+ * @property {Number} progress - 礼物喜爱人数比例
+ */
+
 const app = getApp();
 
 Page({
 
   data: {
+    /**
+     * 礼物
+     * @type {Gift}
+     */
     gift: {},
   },
+  /**
+   * openid
+   * @type {openid}
+   */
   openid: '',
 
   onLoad: async function (options) {
@@ -65,7 +87,12 @@ Page({
 
   },
 
-  // 响应收藏
+  /**
+   * @function
+   * @async
+   * @description 响应收藏
+   * @returns {Promise<void>}
+   */
   async handleCollectGift() {
 
     // 提取礼物信息
@@ -139,7 +166,11 @@ Page({
     
   },
 
-  // 复制剪切板链接
+  /**
+   * @function
+   * @description 复制链接至剪切板
+   * @returns {void}
+   */
   handleCopyClipboard () {
     const {gift} = this.data;
     if(gift.buyurl) {
