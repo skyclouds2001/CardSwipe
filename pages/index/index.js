@@ -5,13 +5,23 @@ import { request } from '../../lib/request.js';
 Page({
   
   data: {
-    // 标记页面进度所处的状态，将整个页面分为页面1、页面2、页面3
+    /**
+     * 标记页面进度所处的状态
+     * 整个页面分为页面1、页面2、页面3
+     * @type {number}
+     */
     STATE: 0,
 
-    // 页面3渲染用标签名数组
+    /**
+     * 页面3渲染用标签名数组
+     * @type {string[]}
+     */
     tag: [],
   },
-  // 记录玩家性别，0为男性，1为女性；默认为男性
+  /**
+   * 记录玩家性别，0为男性，1为女性；默认为男性
+   * @type {number}
+   */
   sex: 0,
 
   onLoad: function () {
@@ -44,7 +54,12 @@ Page({
 
   },
 
-  // 选择与记录性别
+  /**
+   * @function
+   * @description选择与记录性别
+   * @param {Event} e 事件回调函数参数
+   * @returns {void}
+   */
   handleChooseSex(e) {
     const {sex} = e.currentTarget.dataset;
     this.sex = sex;
@@ -56,7 +71,12 @@ Page({
     });
   },
 
-  // 选中标签
+  /**
+   * @function
+   * @description 选中标签
+   * @param {Event} e 事件回调函数参数
+   * @returns {void}
+   */
   handleChooseTag(e) {
     const {name} = e.currentTarget.dataset;
     
@@ -68,7 +88,12 @@ Page({
     });
   },
 
-  // 提交按钮：提交信息；更新记录使用者性别；移入存储
+  /**
+   * @function
+   * @async
+   * @description 提交按钮：提交信息；更新记录使用者性别；移入存储
+   * @returns {Promise<void>}
+   */
   async handleSubmit() {
     // 获取选择的标签
     let selectedTag = [];
@@ -104,7 +129,12 @@ Page({
     });
   },
 
-  // 初始化标签方法
+  /**
+   * @function
+   * @async
+   * @description 初始化标签
+   * @returns {Promise<void>}
+   */
   async initTag() {
     let tag = [];
     const tag_name = ['运动', '读书', '旅行', '美食', '收藏', '艺术', '桌游', '网游','智力游戏', '学习', this.sex === 1 ? '美丽' : '帅气', '独处', '影视剧', '追星', '睡觉', '……'];
