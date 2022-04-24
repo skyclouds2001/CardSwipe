@@ -6,7 +6,7 @@ import { request } from '../../lib/request.js';
 import { showToast } from '../../utils/promise.js';
 
 /**
- * @type {App} app
+ * @type {App}
  */
 const app = getApp();
 
