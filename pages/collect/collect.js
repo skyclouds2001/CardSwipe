@@ -3,11 +3,28 @@
 import { request } from '../../lib/request.js';
 import { showToast } from '../../utils/promise.js';
 
+/**
+ * @typedef Gift
+ * @type {Object}
+ * @property {Number} id - 礼物id
+ * @property {String} title - 礼物名称
+ * @property {String} tag - 礼物标签
+ * @property {String} url - 礼物图片链接
+ * @property {Number} boylike - 礼物男性喜爱人数
+ * @property {Number} girllike - 礼物女性喜爱人数
+ * @property {Number} price - 礼物价格
+ * @property {String} des - 礼物描述
+ * @property {Number} progress - 礼物喜爱人数比例
+ */
+
 const app = getApp();
 
 Page({
 
   data: {
+    /**
+     * @type {Gift[]}
+     */
     gift_data: [],
   },
   openid: '',
@@ -51,15 +68,27 @@ Page({
     wx.hideLoading();
   },
 
-  // 处理左滑及右滑事件：显示收藏按钮
+  /** 
+   * 处理左滑及右滑事件：显示收藏按钮
+   */ 
   cx: -1,
   cy: -1,
+  /**
+   * @function
+   * @param {Event} e 事件回调函数参数
+   * @returns {void}
+   */
   handleTouchStart(e) {
     let x = e.changedTouches[0].clientX;
     let y = e.changedTouches[0].clientY;
     this.cx = x;
     this.cy = y;
   },
+  /**
+   * @function
+   * @param {Event} e 事件回调函数参数
+   * @returns {void}
+   */
   handleTouchEnd(e) {
     let x = e.changedTouches[0].clientX;
     let y = e.changedTouches[0].clientY;
@@ -86,7 +115,13 @@ Page({
     }
   },
 
-  // 删除收藏事件
+  /**
+   * @function
+   * @async
+   * @description 删除收藏事件
+   * @param {Event} e 
+   * @returns {Promise<void>}
+   */
   async handleDeleteCollection(e) {
     wx.showLoading({
       title: '操作中...',
@@ -136,7 +171,15 @@ Page({
     });
   },
 
-  // 项目点击事件：未显示删除按钮跳转至详情页面，显示删除按钮隐藏删除按钮
+  /**
+   * @function
+   * @async
+   * 项目点击事件
+   * - 未显示删除按钮跳转至详情页面
+   * - 显示删除按钮隐藏删除按钮
+   * @param {Event} e 
+   * @returns {Promise<void>}
+   */
   async handleCollectionInfo (e) {
     const {index} = e.currentTarget.dataset;
     const {gift_data} = this.data;
