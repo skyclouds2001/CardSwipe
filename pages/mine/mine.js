@@ -43,7 +43,11 @@ Page({
     }
   },
 
-  // 点击登录响应
+  /**
+   * @function
+   * @description 点击登录响应
+   * @returns {void}
+   */
   handleLoad() {
     if(!this.hasUserInfo) {
       this.setData({
@@ -53,7 +57,13 @@ Page({
     }
   },
 
-  // 模态框响应
+  /**
+   * @function
+   * @async
+   * @description 模态框响应
+   * @param {Event} e 事件回调函数参数
+   * @returns {Promise<void>}
+   */
   async handleModal(e) {
     // 获取性别信息
     const {sex} = wx.getStorageSync('userinfo') ?? {};
@@ -92,6 +102,7 @@ Page({
       } catch (err) {
         console.log(err);
       }
+
     } else {  // 否则使用默认头像替代
 
       this.setData({
