@@ -4,11 +4,22 @@ import {request} from '../../lib/request.js';
 import {showToast, chooseMedia, showModal, uploadFile} from '../../utils/promise.js';
 
 Page({
+
   data: {
-    imgurl: '',  // 提交的图片链接
+    /**
+     * 提交的图片链接
+     * @type {string}
+     */
+    imgurl: '',
   },
 
-  // 提交礼物信息方法
+  /**
+   * @function
+   * @async
+   * @description 提交礼物信息方法
+   * @param {Event} e 事件回调函数参数
+   * @returns {Promise<void>}
+   */
   async submitGiftInfo(e) {
     const {value} = e.detail;
 
@@ -25,7 +36,7 @@ Page({
 
     // 提交礼物信息
     try{
-      const res = await request({
+      const { data: res } = await request({
         url: '/gift/gift/addGift',
         method: 'POST',
         data: {
@@ -41,9 +52,8 @@ Page({
         },
       });
 
-      const {data} = res;
-      if(data.success) {
-        await showToast({
+      if(res.success) {
+        showToast({
           title: '提交成功！',
           icon: 'success',
         });
@@ -51,9 +61,9 @@ Page({
           wx.switchTab({
             url: '../../pages/mine/mine',
           });
-        }, 1500);
+        }, 2000);
       } else {
-        await showToast({
+        showToast({
           title: '提交失败！',
           icon: 'error',
         });
@@ -63,7 +73,12 @@ Page({
     }
   },
 
-  // 上传图片方法
+  /**
+   * @function
+   * @async
+   * @description 上传图片
+   * @returns {Promise<void>}
+   */
   async handleUpdateImg() {
     try {
       // 选取图片
@@ -91,7 +106,7 @@ Page({
       wx.hideLoading();
       const info = JSON.parse(data);
       if(info.success) {
-        await showToast({
+        showToast({
           title: '图片上传成功',
           icon: 'success',
         });
@@ -99,7 +114,7 @@ Page({
           imgurl: info.data.url,
         });
       } else {
-        await showToast({
+        showToast({
           title: '图片上传失败\n请稍后再试',
           icon: 'error',
         });
